@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { StorageService } from '../storage.service';
-import { ILoginResponseData } from '../../interface';
+import { IUser } from '../../interface';
 import { StorageKeys } from '../storage-keys';
 
 @Injectable({
@@ -35,9 +35,7 @@ export class AuthGuard implements CanActivate {
         }
 
         // If user is logged in
-        let user: ILoginResponseData = this.storageService.get(
-            StorageKeys.User
-        );
+        let user: IUser = this.storageService.get(StorageKeys.User);
         let userScreensUrls = user.MenuItems.map((x) => x.RouterLink);
 
         // Access the requested path

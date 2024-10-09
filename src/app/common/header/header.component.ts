@@ -5,6 +5,9 @@ import { ToggleService } from '../sidebar/toggle.service';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { IUser } from '../../interface';
+import { StorageService } from '../../shared/storage.service';
+import { StorageKeys } from '../../shared/storage-keys';
 
 @Component({
     selector: 'app-header',
@@ -25,10 +28,26 @@ export class HeaderComponent {
 
     // isToggled
     isToggled = false;
+    user: IUser = {
+        Token: '',
+        UserCode: null,
+        IP: null,
+        PC: null,
+        URL: null,
+        ReferrarURL: null,
+        user_screens: null,
+        user_actions: [],
+        OGScreenList: [],
+        MenuItems: [],
+        USER_NAME: '',
+        USER_EMAIL: '',
+        PROFILE_PIC: '',
+    };
 
     constructor(
         private toggleService: ToggleService,
-        public themeService: CustomizerSettingsService
+        public themeService: CustomizerSettingsService,
+        private storage: StorageService
     ) {
         this.toggleService.isSidebarToggled$.subscribe((isSidebarToggled) => {
             this.isSidebarToggled = isSidebarToggled;
@@ -36,6 +55,10 @@ export class HeaderComponent {
         this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
+    }
+
+    ngOnInit(): void {
+        this.user = this.storage.get(StorageKeys.User);
     }
 
     // Burger Menu Toggle

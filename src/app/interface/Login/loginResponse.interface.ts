@@ -1,6 +1,6 @@
 import { ApiResponse } from '../ApiResponse/ApiResponse.interface';
 
-export interface ILoginResponseData {
+export interface IUser {
     Token: string;
     UserCode: string | null;
     IP: string | null;
@@ -11,9 +11,12 @@ export interface ILoginResponseData {
     user_actions: Action[];
     OGScreenList: ScreenList[];
     MenuItems: IMenuItem[];
+    USER_NAME: string;
+    USER_EMAIL: string;
+    PROFILE_PIC: string;
 }
 
-export interface ILoginResponse extends ApiResponse<ILoginResponseData> {}
+export interface ILoginResponse extends ApiResponse<IUser> {}
 
 export interface Action {
     ActionId: number;

@@ -232,7 +232,7 @@
             </li>
             <li>
                 <button mat-button [matMenuTriggerFor]="profileMenu" class="profile-menu-btn">
-                    <img src="assets/images/admin.png" alt="profile-image">
+                    <img [src]="user.PROFILE_PIC" alt="profile-image">
                     <span class="status d-inline-block rounded-circle position-absolute"></span>
                 </button>
                 <mat-menu class="profile-menu-dropdown" #profileMenu="matMenu" xPosition="before">
@@ -240,13 +240,13 @@
                         [class.dark-menu]="themeService.isDark() || themeService.isHeaderDark()"
                     >
                         <div class="menu-header d-flex align-items-center">
-                            <img src="assets/images/admin.png" alt="profile-image">
+                            <img [src]="user.PROFILE_PIC" alt="profile-image">
                             <div class="title">
                                 <a routerLink="/my-profile" class="d-inline-block fw-medium">
-                                    Mateo Luca
+                                    {{user.USER_NAME}}
                                 </a>
                                 <span class="designation d-block text-body">
-                                    Admin
+                                    {{user.USER_EMAIL}}
                                 </span>
                             </div>
                         </div>

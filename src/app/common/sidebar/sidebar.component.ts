@@ -6,7 +6,7 @@ import { ToggleService } from './toggle.service';
 import { CommonModule, NgClass } from '@angular/common';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { HttpClient } from '@angular/common/http';
-import { ILoginResponseData } from '../../interface';
+import { IUser } from '../../interface';
 import { IMenuItem } from '../../interface/Login/loginResponse.interface';
 import { StorageService } from '../../shared/storage.service';
 import { StorageKeys } from '../../shared/storage-keys';
@@ -47,7 +47,7 @@ export class SidebarComponent implements OnInit {
     appMenuItems: IMenuItem[] = [];
 
     ngOnInit(): void {
-        const UserData: ILoginResponseData = this.storage.get(StorageKeys.User);
+        const UserData: IUser = this.storage.get(StorageKeys.User);
 
         if (UserData) {
             const storedMenuItems = UserData.MenuItems;
