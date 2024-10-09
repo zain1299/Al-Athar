@@ -9,12 +9,17 @@ import { CustomizerSettingsService } from '../../customizer-settings/customizer-
 @Component({
     selector: 'app-header',
     standalone: true,
-    imports: [NgClass, MatMenuModule, MatButtonModule, RouterLink, RouterLinkActive],
+    imports: [
+        NgClass,
+        MatMenuModule,
+        MatButtonModule,
+        RouterLink,
+        RouterLinkActive,
+    ],
     templateUrl: './header.component.html',
-    styleUrl: './header.component.scss'
+    styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-
     // isSidebarToggled
     isSidebarToggled = false;
 
@@ -25,10 +30,10 @@ export class HeaderComponent {
         private toggleService: ToggleService,
         public themeService: CustomizerSettingsService
     ) {
-        this.toggleService.isSidebarToggled$.subscribe(isSidebarToggled => {
+        this.toggleService.isSidebarToggled$.subscribe((isSidebarToggled) => {
             this.isSidebarToggled = isSidebarToggled;
         });
-        this.themeService.isToggled$.subscribe(isToggled => {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -42,7 +47,11 @@ export class HeaderComponent {
     isSticky: boolean = false;
     @HostListener('window:scroll', ['$event'])
     checkScroll() {
-        const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        const scrollPosition =
+            window.scrollY ||
+            document.documentElement.scrollTop ||
+            document.body.scrollTop ||
+            0;
         if (scrollPosition >= 50) {
             this.isSticky = true;
         } else {
@@ -85,4 +94,7 @@ export class HeaderComponent {
         this.themeService.toggleRTLEnabledTheme();
     }
 
+    handleLogout() {
+        localStorage.clear();
+    }
 }

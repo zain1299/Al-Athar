@@ -1,6 +1,6 @@
-import { ApiResponse } from './ApiResponse/ApiResponse.interface';
+import { ApiResponse } from '../ApiResponse/ApiResponse.interface';
 
-export interface LoginResponseData {
+export interface ILoginResponseData {
     Token: string;
     UserCode: string | null;
     IP: string | null;
@@ -10,15 +10,26 @@ export interface LoginResponseData {
     user_screens: Screen[] | null;
     user_actions: Action[];
     OGScreenList: ScreenList[];
+    MenuItems: IMenuItem[];
 }
 
-export interface LoginResponse extends ApiResponse<LoginResponseData> {}
+export interface ILoginResponse extends ApiResponse<ILoginResponseData> {}
 
 export interface Action {
     ActionId: number;
     ActionName: string;
     ControlId: string;
     GroupName: string;
+}
+export interface IMenuItem {
+    Id: number;
+    Icon: string;
+    Title: string;
+    RouterLink: string;
+    IsExpandable: boolean;
+    Badge: string;
+    ParentId?: number | null;
+    subMenuItems?: IMenuItem[];
 }
 
 export interface Screen {

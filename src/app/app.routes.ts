@@ -187,11 +187,14 @@ import { FileUploaderComponent } from './forms/file-uploader/file-uploader.compo
 import { FaqPageComponent } from './pages/faq-page/faq-page.component';
 import { RatioComponent } from './ui-elements/ratio/ratio.component';
 import { UtilitiesComponent } from './ui-elements/utilities/utilities.component';
+import { LoginGuardGuard } from './shared/guards/login.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
     {
         path: 'authentication',
         component: AuthenticationComponent,
+        canActivate: [LoginGuardGuard],
         children: [
             { path: '', component: SignInComponent },
             { path: 'sign-up', component: SignUpComponent },
@@ -202,19 +205,48 @@ export const routes: Routes = [
             { path: 'logout', component: LogoutComponent },
         ],
     },
-    { path: '', component: EcommerceComponent },
-    { path: 'crm', component: CrmComponent },
-    { path: 'project-management', component: ProjectManagementComponent },
-    { path: 'lms', component: LmsComponent },
-    { path: 'help-desk', component: HelpDeskComponent },
-    { path: 'to-do-list', component: ToDoListComponent },
-    { path: 'calendar', component: CalendarComponent },
-    { path: 'contacts', component: ContactsComponent },
-    { path: 'chat', component: ChatComponent },
-    { path: 'kanban-board', component: KanbanBoardComponent },
+    {
+        path: 'dashboard',
+        component: EcommerceComponent,
+        canActivate: [AuthGuard],
+    },
+    { path: 'crm', component: CrmComponent, canActivate: [AuthGuard] },
+    {
+        path: 'project-management',
+        component: ProjectManagementComponent,
+        canActivate: [AuthGuard],
+    },
+    { path: 'lms', component: LmsComponent, canActivate: [AuthGuard] },
+    {
+        path: 'help-desk',
+        component: HelpDeskComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'to-do-list',
+        component: ToDoListComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'calendar',
+        component: CalendarComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'contacts',
+        component: ContactsComponent,
+        canActivate: [AuthGuard],
+    },
+    { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
+    {
+        path: 'kanban-board',
+        component: KanbanBoardComponent,
+        canActivate: [AuthGuard],
+    },
     {
         path: 'file-manager',
         component: FileManagerComponent,
+        canActivate: [AuthGuard],
         children: [
             { path: '', component: MyDriveComponent },
             { path: 'assets', component: AssetsComponent },
@@ -228,6 +260,7 @@ export const routes: Routes = [
     {
         path: 'email',
         component: EmailComponent,
+        canActivate: [AuthGuard],
         children: [
             { path: '', component: InboxComponent },
             { path: 'compose', component: ComposeComponent },
@@ -260,6 +293,7 @@ export const routes: Routes = [
             { path: 'edit-category', component: EEditCategoryComponent },
             { path: 'reviews', component: EReviewsComponent },
         ],
+        canActivate: [AuthGuard],
     },
     {
         path: 'crm-page',
@@ -275,6 +309,7 @@ export const routes: Routes = [
             { path: 'deals', component: CDealsComponent },
             { path: 'create-deal', component: CCreateDealComponent },
         ],
+        canActivate: [AuthGuard],
     },
     {
         path: 'project-management-page',
@@ -290,6 +325,7 @@ export const routes: Routes = [
             { path: 'create-user', component: PmCreateUserComponent },
             { path: 'edit-user', component: PmEditUserComponent },
         ],
+        canActivate: [AuthGuard],
     },
     {
         path: 'lms-page',
@@ -301,6 +337,7 @@ export const routes: Routes = [
             { path: 'edit-course', component: LEditCourseComponent },
             { path: 'instructors', component: LInstructorsComponent },
         ],
+        canActivate: [AuthGuard],
     },
     {
         path: 'help-desk-page',
@@ -311,6 +348,7 @@ export const routes: Routes = [
             { path: 'agents', component: HdAgentsComponent },
             { path: 'reports', component: HdReportsComponent },
         ],
+        canActivate: [AuthGuard],
     },
     {
         path: 'events',
@@ -321,6 +359,7 @@ export const routes: Routes = [
             { path: 'create-an-event', component: CreateAnEventComponent },
             { path: 'edit-an-event', component: EditAnEventComponent },
         ],
+        canActivate: [AuthGuard],
     },
     {
         path: 'invoices',
@@ -329,6 +368,7 @@ export const routes: Routes = [
             { path: '', component: InvoicesComponent },
             { path: 'invoice-details', component: InvoiceDetailsComponent },
         ],
+        canActivate: [AuthGuard],
     },
     {
         path: 'social',
@@ -345,13 +385,26 @@ export const routes: Routes = [
             },
             { path: 'settings', component: ProfileSettingsComponent },
         ],
+        canActivate: [AuthGuard],
     },
-    { path: 'starter', component: StarterComponent },
-    { path: 'faq', component: FaqPageComponent },
-    { path: 'pricing', component: PricingPageComponent },
-    { path: 'maps', component: MapsPageComponent },
-    { path: 'notifications', component: NotificationsPageComponent },
-    { path: 'members', component: MembersPageComponent },
+    { path: 'starter', component: StarterComponent, canActivate: [AuthGuard] },
+    { path: 'faq', component: FaqPageComponent, canActivate: [AuthGuard] },
+    {
+        path: 'pricing',
+        component: PricingPageComponent,
+        canActivate: [AuthGuard],
+    },
+    { path: 'maps', component: MapsPageComponent, canActivate: [AuthGuard] },
+    {
+        path: 'notifications',
+        component: NotificationsPageComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'members',
+        component: MembersPageComponent,
+        canActivate: [AuthGuard],
+    },
     {
         path: 'users',
         component: UsersPageComponent,
@@ -360,6 +413,7 @@ export const routes: Routes = [
             { path: 'users-list', component: UsersListComponent },
             { path: 'add-user', component: AddUserComponent },
         ],
+        canActivate: [AuthGuard],
     },
     {
         path: 'profile',
@@ -369,6 +423,7 @@ export const routes: Routes = [
             { path: 'teams', component: TeamsComponent },
             { path: 'projects', component: PProjectsComponent },
         ],
+        canActivate: [AuthGuard],
     },
     {
         path: 'icons',

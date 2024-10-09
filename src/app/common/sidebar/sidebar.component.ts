@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
@@ -6,103 +6,76 @@ import { ToggleService } from './toggle.service';
 import { CommonModule, NgClass } from '@angular/common';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { HttpClient } from '@angular/common/http';
+import { ILoginResponseData } from '../../interface';
+import { IMenuItem } from '../../interface/Login/loginResponse.interface';
+import { StorageService } from '../../shared/storage.service';
+import { StorageKeys } from '../../shared/storage-keys';
 
 @Component({
     selector: 'app-sidebar',
     standalone: true,
-    imports: [NgScrollbarModule, MatExpansionModule, RouterLinkActive, RouterModule, RouterLink, NgClass ,CommonModule],
+    imports: [
+        NgScrollbarModule,
+        MatExpansionModule,
+        RouterLinkActive,
+        RouterModule,
+        RouterLink,
+        NgClass,
+        CommonModule,
+    ],
     templateUrl: './sidebar.component.html',
-    styleUrl: './sidebar.component.scss'
+    styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent implements OnInit {
-
-    // isSidebarToggled
     isSidebarToggled = false;
 
-    // isToggled
     isToggled = false;
-    menuItems = [
-        {
-            icon: 'ballot',
-            title: 'To Do List',
-            routerLink: '/to-do-list',
-            isExpandable: false,
-            badge: null,
-            subMenuItems: null
-        },
-        {
-            icon: 'calendar_today',
-            title: 'Calendar',
-            routerLink: '/calendar',
-            isExpandable: false,
-            badge: null,
-            subMenuItems: null
-        },
-        {
-            icon: 'perm_contact_calendar',
-            title: 'Contacts',
-            routerLink: '/contacts',
-            isExpandable: false,
-            badge: null,
-            subMenuItems: null
-        },
-        {
-            icon: 'chat',
-            title: 'Chat',
-            routerLink: '/chat',
-            isExpandable: false,
-            badge: null,
-            subMenuItems: null
-        },
-        {
-            icon: 'email',
-            title: 'Email',
-            routerLink: null,
-            isExpandable: true,
-            badge: '3',
-            subMenuItems: [
-                { icon: null, title: 'Inbox', routerLink: '/email', isExpandable: false, badge: null, subMenuItems: null },
-                { icon: null, title: 'Compose', routerLink: '/email/compose', isExpandable: false, badge: null, subMenuItems: null },
-                { icon: null, title: 'Read', routerLink: '/email/read', isExpandable: false, badge: null, subMenuItems: null }
-            ]
-        },
-        {
-            icon: 'keyboard_command_key',
-            title: 'Kanban Board',
-            routerLink: '/kanban-board',
-            isExpandable: false,
-            badge: null,
-            subMenuItems: null
-        }
-    ];
 
     constructor(
         private toggleService: ToggleService,
-        public themeService: CustomizerSettingsService,private http: HttpClient
+        public themeService: CustomizerSettingsService,
+        private storage: StorageService
     ) {
-        this.toggleService.isSidebarToggled$.subscribe(isSidebarToggled => {
+        this.toggleService.isSidebarToggled$.subscribe((isSidebarToggled) => {
             this.isSidebarToggled = isSidebarToggled;
         });
-        this.themeService.isToggled$.subscribe(isToggled => {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
 
-    appMenuItems: any[] = [];
+    appMenuItems: IMenuItem[] = [];
 
-  
     ngOnInit(): void {
-        
-    
-        // Save menu items in localStorage
-        localStorage.setItem('appMenuItems', JSON.stringify(this.menuItems));
-    
-        // Load menu items from localStorage
-        
-        const storedMenuItems = localStorage.getItem('appMenuItems');
-        if (storedMenuItems) {
-            this.appMenuItems = JSON.parse(storedMenuItems);
+        const UserData: ILoginResponseData = this.storage.get(StorageKeys.User);
+
+        if (UserData) {
+            const storedMenuItems = UserData.MenuItems;
+            this.appMenuItems = this.buildMenuHierarchy(storedMenuItems);
         }
+    }
+
+    buildMenuHierarchy(menuItems: IMenuItem[]): IMenuItem[] {
+        const menuMap: { [key: number]: IMenuItem } = {};
+        const rootItems: IMenuItem[] = [];
+
+        menuItems.forEach((item) => {
+            menuMap[item.Id] = { ...item, subMenuItems: [] };
+        });
+
+        // Assign subMenuItems to their respective parents
+        menuItems.forEach((item) => {
+            if (item.ParentId) {
+                if (menuMap[item.ParentId]) {
+                    menuMap[item.ParentId].subMenuItems!.push(menuMap[item.Id]);
+                }
+            } else {
+                // If no ParentId, it's a root menu item
+                rootItems.push(menuMap[item.Id]);
+            }
+        });
+
+        return rootItems;
     }
 
     // Burger Menu Toggle
@@ -147,5 +120,4 @@ export class SidebarComponent implements OnInit {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }

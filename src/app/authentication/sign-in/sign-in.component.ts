@@ -14,8 +14,10 @@ import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { HttpService } from '../../shared/http.service';
-import { ILoginModel } from '../../interface';
-import { LoginResponse } from '../../interface/loginResponse.interface';
+import { ILoginModel, ILoginResponse } from '../../interface';
+import { ToastrService } from 'ngx-toastr';
+import { StorageService } from '../../shared/storage.service';
+import { StorageKeys } from '../../shared/storage-keys';
 
 @Component({
     selector: 'app-sign-in',
@@ -30,31 +32,30 @@ import { LoginResponse } from '../../interface/loginResponse.interface';
         NgIf,
     ],
     templateUrl: './sign-in.component.html',
-    styleUrls: ['./sign-in.component.scss'], // Use 'styleUrls' for array
+    styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent {
-    // isToggled
     isToggled = false;
 
     constructor(
         private fb: FormBuilder,
         private router: Router,
         public themeService: CustomizerSettingsService,
-        private httpService: HttpService
+        private httpService: HttpService,
+        private toast: ToastrService,
+        private storage: StorageService
     ) {
         this.authForm = this.fb.group({
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(8)]],
+            email: ['', [Validators.required]],
+            password: ['', [Validators.required]],
         });
         this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
 
-    // Password Hide
     hide = true;
 
-    // Form
     authForm: FormGroup;
 
     onSubmit() {
@@ -65,15 +66,14 @@ export class SignInComponent {
             };
 
             this.httpService.Login(loginData).subscribe({
-                next: (res: LoginResponse) => {
-                    // Check if the response is successful
+                next: (res: ILoginResponse) => {
                     if (res.Status == 200 && res?.Data) {
-                        console.log('Login successful', res);
-                        // Store token or any other required data
-                        localStorage.setItem('authToken', res?.Data?.Token);
-                        this.router.navigate(['/dashboard']); // Redirect after successful login
+                        this.toast.success('Successfully Loged In', 'Success');
+                        this.storage.set(StorageKeys.Token, res?.Data.Token);
+                        this.storage.set(StorageKeys.User, res?.Data);
+                        this.router.navigate(['/dashboard']);
                     } else {
-                        console.log('Login failed: ', res.Message);
+                        this.toast.error(res.Message);
                     }
                 },
                 error: (err) => {

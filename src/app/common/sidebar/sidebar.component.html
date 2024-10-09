@@ -9,7 +9,7 @@
     [class.rtl-enabled]="themeService.isRTLEnabled()"
 >
     <div class="logo bg-white">
-        <a routerLink="/" class="d-flex align-items-center">
+        <a routerLink="/dashboard" class="d-flex align-items-center">
             <img src="assets/images/logo-icon.svg" alt="logo-icon">
             <span class="fw-semibold">Daxa</span>
         </a>
@@ -31,28 +31,28 @@
      
                  <!-- Loop through appMenuItems -->
                  <ng-container *ngFor="let menuItem of appMenuItems">
-                    <ng-container *ngIf="!menuItem.isExpandable">
-                       <a [routerLink]="menuItem.routerLink" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                          <i class="material-symbols-outlined">{{ menuItem.icon }}</i>
-                          <span class="title">{{ menuItem.title }}</span>
-                          <span *ngIf="menuItem.badge" class="daxa-badge">{{ menuItem.badge }}</span>
+                    <ng-container *ngIf="!menuItem.IsExpandable">
+                       <a [routerLink]="menuItem.RouterLink" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                          <i class="material-symbols-outlined">{{ menuItem.Icon }}</i>
+                          <span class="title">{{ menuItem.Title }}</span>
+                          <span *ngIf="menuItem.Badge" class="daxa-badge">{{ menuItem.Badge }}</span>
                        </a>
                     </ng-container>
      
                     <!-- Expandable menu -->
-                    <ng-container *ngIf="menuItem.isExpandable">
+                    <ng-container *ngIf="menuItem.IsExpandable">
                        <mat-expansion-panel>
                           <mat-expansion-panel-header>
                              <mat-panel-title>
-                                <i class="material-symbols-outlined">{{ menuItem.icon }}</i>
-                                <span class="title">{{ menuItem.title }}</span>
-                                <span *ngIf="menuItem.badge" class="daxa-badge">{{ menuItem.badge }}</span>
+                                <i class="material-symbols-outlined">{{ menuItem.Icon }}</i>
+                                <span class="title">{{ menuItem.Title }}</span>
+                                <span *ngIf="menuItem.Badge" class="daxa-badge">{{ menuItem.Badge }}</span>
                              </mat-panel-title>
                           </mat-expansion-panel-header>
                           
                           <ul class="sidebar-sub-menu">
                              <li *ngFor="let subItem of menuItem.subMenuItems" class="sidemenu-item">
-                                <a [routerLink]="subItem.routerLink" class="sidemenu-link">{{ subItem.title }}</a>
+                                <a [routerLink]="subItem.RouterLink" class="sidemenu-link">{{ subItem.Title }}</a>
                              </li>
                           </ul>
                        </mat-expansion-panel>

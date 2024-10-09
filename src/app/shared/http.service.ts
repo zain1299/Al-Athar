@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
-import { ILoginModel } from '../interface';
+import { ILoginModel, ILoginResponse } from '../interface';
 import { Observable } from 'rxjs';
-import { LoginResponse } from '../interface/loginResponse.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -12,8 +11,8 @@ export class HttpService {
     constructor(private http: HttpClient) {}
     HostURL = environment.domain;
 
-    Login(body: ILoginModel): Observable<LoginResponse> {
-        return this.http.post<LoginResponse>(
+    Login(body: ILoginModel): Observable<ILoginResponse> {
+        return this.http.post<ILoginResponse>(
             this.HostURL + 'Login/MainLoginUser',
             body
         );
