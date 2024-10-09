@@ -1,21 +1,17 @@
 <!-- Breadcrumb -->
-<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
-    <h5 class="mb-0">
-        Profile
-    </h5>
+<div
+    class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between"
+>
+    <h5 class="mb-0">Profile</h5>
     <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
         <li class="breadcrumb-item position-relative">
-            <a routerLink="/" class="d-inline-block position-relative">
+            <a routerlink="/dashboard" class="d-inline-block position-relative">
                 <i class="ri-home-8-line"></i>
                 Dashboard
             </a>
         </li>
-        <li class="breadcrumb-item position-relative">
-            Social
-        </li>
-        <li class="breadcrumb-item position-relative">
-            Profile
-        </li>
+        <li class="breadcrumb-item position-relative">Social</li>
+        <li class="breadcrumb-item position-relative">Profile</li>
     </ol>
 </div>
 
@@ -29,42 +25,58 @@
         >
             <mat-card-content>
                 <div class="cover-image position-relative border-top-radius">
-                    <img src="assets/images/profile-cover.jpg" class="border-top-radius" alt="cover-image">
-                    <button type="button" mat-button class="edit-btn" [matMenuTriggerFor]="editCoverPhotoMenu">
+                    <img
+                        src="assets/images/profile-cover.jpg"
+                        class="border-top-radius"
+                        alt="cover-image"
+                    />
+                    <button
+                        type="button"
+                        mat-button
+                        class="edit-btn"
+                        [matMenuTriggerFor]="editCoverPhotoMenu"
+                    >
                         Edit Cover Photo
                     </button>
-                    <mat-menu #editCoverPhotoMenu="matMenu" class="card-header-menu" xPosition="after">
-                        <button mat-menu-item>
-                            Upload Photo
-                        </button>
-                        <button mat-menu-item>
-                            Reposition
-                        </button>
-                        <button mat-menu-item>
-                            Remove
-                        </button>
+                    <mat-menu
+                        #editCoverPhotoMenu="matMenu"
+                        class="card-header-menu"
+                        xPosition="after"
+                    >
+                        <button mat-menu-item>Upload Photo</button>
+                        <button mat-menu-item>Reposition</button>
+                        <button mat-menu-item>Remove</button>
                     </mat-menu>
                 </div>
                 <div class="profile-content">
-                    <div class="d-md-flex align-items-end justify-content-between">
+                    <div
+                        class="d-md-flex align-items-end justify-content-between"
+                    >
                         <div class="d-md-flex align-items-end">
                             <div class="image position-relative">
-                                <img src="assets/images/profile.jpg" class="rounded-circle" alt="profile-image">
-                                <button type="button" mat-button class="edit-btn" [matMenuTriggerFor]="editProfilePhotoMenu">
+                                <img
+                                    src="assets/images/profile.jpg"
+                                    class="rounded-circle"
+                                    alt="profile-image"
+                                />
+                                <button
+                                    type="button"
+                                    mat-button
+                                    class="edit-btn"
+                                    [matMenuTriggerFor]="editProfilePhotoMenu"
+                                >
                                     <i class="material-symbols-outlined">
                                         photo_camera
                                     </i>
                                 </button>
-                                <mat-menu #editProfilePhotoMenu="matMenu" class="card-header-menu" xPosition="after">
-                                    <button mat-menu-item>
-                                        See Photo
-                                    </button>
-                                    <button mat-menu-item>
-                                        Upload Photo
-                                    </button>
-                                    <button mat-menu-item>
-                                        Remove
-                                    </button>
+                                <mat-menu
+                                    #editProfilePhotoMenu="matMenu"
+                                    class="card-header-menu"
+                                    xPosition="after"
+                                >
+                                    <button mat-menu-item>See Photo</button>
+                                    <button mat-menu-item>Upload Photo</button>
+                                    <button mat-menu-item>Remove</button>
                                 </mat-menu>
                             </div>
                             <div class="title">
@@ -77,27 +89,38 @@
                             </div>
                         </div>
                         <div class="btn-box">
-                            <button mat-button>
-                                Message
-                            </button>
-                            <button mat-button>
-                                Follow
-                            </button>
+                            <button mat-button>Message</button>
+                            <button mat-button>Follow</button>
                         </div>
                     </div>
                     <ul class="nav-links text-center pl-0 mb-0 list-unstyled">
                         <li class="d-inline-block">
-                            <a routerLink="/social" class="d-block position-relative" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <a
+                                routerLink="/social"
+                                class="d-block position-relative"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                            >
                                 Timeline
                             </a>
                         </li>
                         <li class="d-inline-block">
-                            <a routerLink="/social/about" class="d-block position-relative" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <a
+                                routerLink="/social/about"
+                                class="d-block position-relative"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                            >
                                 About
                             </a>
                         </li>
                         <li class="d-inline-block">
-                            <a routerLink="/social/activity" class="d-block position-relative" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <a
+                                routerLink="/social/activity"
+                                class="d-block position-relative"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                            >
                                 Activity
                             </a>
                         </li>
@@ -114,21 +137,25 @@
                 >
                     <mat-card-header>
                         <mat-card-title>
-                            <h5 class="mt-0 mb-0">
-                                Friends
-                            </h5>
+                            <h5 class="mt-0 mb-0">Friends</h5>
                         </mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
                         <form class="search-box position-relative">
-                            <i class="material-symbols-outlined">
-                                search
-                            </i>
-                            <input type="text" class="input-search d-block w-100 border-none outline-0" placeholder="Search...">
+                            <i class="material-symbols-outlined"> search </i>
+                            <input
+                                type="text"
+                                class="input-search d-block w-100 border-none outline-0"
+                                placeholder="Search..."
+                            />
                         </form>
                         <div class="user d-flex align-items-center">
                             <div class="img position-relative">
-                                <img src="assets/images/users/user15.jpg" class="rounded-circle" alt="user-image">
+                                <img
+                                    src="assets/images/users/user15.jpg"
+                                    class="rounded-circle"
+                                    alt="user-image"
+                                />
                                 <span class="active-status"></span>
                             </div>
                             <div class="title">
@@ -142,7 +169,11 @@
                         </div>
                         <div class="user d-flex align-items-center">
                             <div class="img position-relative">
-                                <img src="assets/images/users/user16.jpg" class="rounded-circle" alt="user-image">
+                                <img
+                                    src="assets/images/users/user16.jpg"
+                                    class="rounded-circle"
+                                    alt="user-image"
+                                />
                                 <span class="active-status off"></span>
                             </div>
                             <div class="title">
@@ -156,7 +187,11 @@
                         </div>
                         <div class="user d-flex align-items-center">
                             <div class="img position-relative">
-                                <img src="assets/images/users/user17.jpg" class="rounded-circle" alt="user-image">
+                                <img
+                                    src="assets/images/users/user17.jpg"
+                                    class="rounded-circle"
+                                    alt="user-image"
+                                />
                                 <span class="active-status"></span>
                             </div>
                             <div class="title">
@@ -170,7 +205,11 @@
                         </div>
                         <div class="user d-flex align-items-center">
                             <div class="img position-relative">
-                                <img src="assets/images/users/user14.jpg" class="rounded-circle" alt="user-image">
+                                <img
+                                    src="assets/images/users/user14.jpg"
+                                    class="rounded-circle"
+                                    alt="user-image"
+                                />
                                 <span class="active-status"></span>
                             </div>
                             <div class="title">
@@ -184,7 +223,11 @@
                         </div>
                         <div class="user d-flex align-items-center">
                             <div class="img position-relative">
-                                <img src="assets/images/users/user13.jpg" class="rounded-circle" alt="user-image">
+                                <img
+                                    src="assets/images/users/user13.jpg"
+                                    class="rounded-circle"
+                                    alt="user-image"
+                                />
                                 <span class="active-status off"></span>
                             </div>
                             <div class="title">
@@ -198,7 +241,11 @@
                         </div>
                         <div class="user d-flex align-items-center">
                             <div class="img position-relative">
-                                <img src="assets/images/users/user12.jpg" class="rounded-circle" alt="user-image">
+                                <img
+                                    src="assets/images/users/user12.jpg"
+                                    class="rounded-circle"
+                                    alt="user-image"
+                                />
                                 <span class="active-status off"></span>
                             </div>
                             <div class="title">
@@ -212,7 +259,11 @@
                         </div>
                         <div class="user d-flex align-items-center">
                             <div class="img position-relative">
-                                <img src="assets/images/users/user11.jpg" class="rounded-circle" alt="user-image">
+                                <img
+                                    src="assets/images/users/user11.jpg"
+                                    class="rounded-circle"
+                                    alt="user-image"
+                                />
                                 <span class="active-status"></span>
                             </div>
                             <div class="title">
@@ -226,7 +277,11 @@
                         </div>
                         <div class="user d-flex align-items-center">
                             <div class="img position-relative">
-                                <img src="assets/images/users/user10.jpg" class="rounded-circle" alt="user-image">
+                                <img
+                                    src="assets/images/users/user10.jpg"
+                                    class="rounded-circle"
+                                    alt="user-image"
+                                />
                                 <span class="active-status off"></span>
                             </div>
                             <div class="title">
@@ -240,7 +295,11 @@
                         </div>
                         <div class="user d-flex align-items-center">
                             <div class="img position-relative">
-                                <img src="assets/images/users/user9.jpg" class="rounded-circle" alt="user-image">
+                                <img
+                                    src="assets/images/users/user9.jpg"
+                                    class="rounded-circle"
+                                    alt="user-image"
+                                />
                                 <span class="active-status off"></span>
                             </div>
                             <div class="title">
@@ -254,7 +313,11 @@
                         </div>
                         <div class="user d-flex align-items-center">
                             <div class="img position-relative">
-                                <img src="assets/images/users/user8.jpg" class="rounded-circle" alt="user-image">
+                                <img
+                                    src="assets/images/users/user8.jpg"
+                                    class="rounded-circle"
+                                    alt="user-image"
+                                />
                                 <span class="active-status off"></span>
                             </div>
                             <div class="title">
@@ -283,15 +346,17 @@
                 >
                     <mat-card-header>
                         <mat-card-title>
-                            <h5 class="mt-0 mb-0">
-                                Profile Intro
-                            </h5>
+                            <h5 class="mt-0 mb-0">Profile Intro</h5>
                         </mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
                         <div class="user d-flex align-items-center">
                             <div class="image">
-                                <img src="assets/images/profile.jpg" class="rounded-circle" alt="profile-image">
+                                <img
+                                    src="assets/images/profile.jpg"
+                                    class="rounded-circle"
+                                    alt="profile-image"
+                                />
                             </div>
                             <div class="title">
                                 <span class="d-block fw-medium">
@@ -306,22 +371,39 @@
                             About Me
                         </span>
                         <p>
-                            Molestie tincidunt ut consequat a urna tortor. Vitae velit ac nisl velit mauris placerat nisi placerat. Pellentesque viverra lorem malesuada nunc tristique sapien. Imperdiet sit hendrerit tincidunt bibendum donec adipiscing.
+                            Molestie tincidunt ut consequat a urna tortor. Vitae
+                            velit ac nisl velit mauris placerat nisi placerat.
+                            Pellentesque viverra lorem malesuada nunc tristique
+                            sapien. Imperdiet sit hendrerit tincidunt bibendum
+                            donec adipiscing.
                         </p>
-                        <h5>
-                            Social Profile
-                        </h5>
+                        <h5>Social Profile</h5>
                         <div class="socials-link">
-                            <a href="https://www.facebook.com/" target="_blank" class="facebook d-inline-block text-center position-relative rounded-circle">
+                            <a
+                                href="https://www.facebook.com/"
+                                target="_blank"
+                                class="facebook d-inline-block text-center position-relative rounded-circle"
+                            >
                                 <i class="ri-facebook-fill"></i>
                             </a>
-                            <a href="https://twitter.com/" target="_blank" class="twitter d-inline-block text-center position-relative rounded-circle">
+                            <a
+                                href="https://twitter.com/"
+                                target="_blank"
+                                class="twitter d-inline-block text-center position-relative rounded-circle"
+                            >
                                 <i class="ri-twitter-fill"></i>
                             </a>
-                            <a href="https://www.linkedin.com/" target="_blank" class="linkedin d-inline-block text-center position-relative rounded-circle">
+                            <a
+                                href="https://www.linkedin.com/"
+                                target="_blank"
+                                class="linkedin d-inline-block text-center position-relative rounded-circle"
+                            >
                                 <i class="ri-linkedin-fill"></i>
                             </a>
-                            <a href="mailto:micheal@gmail.com" class="mail d-inline-block text-center position-relative rounded-circle">
+                            <a
+                                href="mailto:micheal@gmail.com"
+                                class="mail d-inline-block text-center position-relative rounded-circle"
+                            >
                                 <i class="ri-mail-fill"></i>
                             </a>
                         </div>
@@ -335,16 +417,20 @@
                 >
                     <mat-card-header>
                         <mat-card-title>
-                            <h5 class="mt-0 mb-0">
-                                Followers
-                            </h5>
+                            <h5 class="mt-0 mb-0">Followers</h5>
                         </mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
-                        <div class="follower d-flex align-items-center justify-content-between">
+                        <div
+                            class="follower d-flex align-items-center justify-content-between"
+                        >
                             <div class="d-flex align-items-center">
                                 <div class="image">
-                                    <img src="assets/images/users/user1.jpg" class="rounded-circle" alt="user-image">
+                                    <img
+                                        src="assets/images/users/user1.jpg"
+                                        class="rounded-circle"
+                                        alt="user-image"
+                                    />
                                 </div>
                                 <div class="title">
                                     <span class="d-block fw-medium">
@@ -355,17 +441,20 @@
                                     </span>
                                 </div>
                             </div>
-                            <button
-                                mat-button
-                                class="text-body p-0 h-auto"
-                            >
+                            <button mat-button class="text-body p-0 h-auto">
                                 Add Friend
                             </button>
                         </div>
-                        <div class="follower d-flex align-items-center justify-content-between">
+                        <div
+                            class="follower d-flex align-items-center justify-content-between"
+                        >
                             <div class="d-flex align-items-center">
                                 <div class="image">
-                                    <img src="assets/images/users/user3.jpg" class="rounded-circle" alt="user-image">
+                                    <img
+                                        src="assets/images/users/user3.jpg"
+                                        class="rounded-circle"
+                                        alt="user-image"
+                                    />
                                 </div>
                                 <div class="title">
                                     <span class="d-block fw-medium">
@@ -376,17 +465,20 @@
                                     </span>
                                 </div>
                             </div>
-                            <button
-                                mat-button
-                                class="text-body p-0 h-auto"
-                            >
+                            <button mat-button class="text-body p-0 h-auto">
                                 Add Friend
                             </button>
                         </div>
-                        <div class="follower d-flex align-items-center justify-content-between">
+                        <div
+                            class="follower d-flex align-items-center justify-content-between"
+                        >
                             <div class="d-flex align-items-center">
                                 <div class="image">
-                                    <img src="assets/images/users/user5.jpg" class="rounded-circle" alt="user-image">
+                                    <img
+                                        src="assets/images/users/user5.jpg"
+                                        class="rounded-circle"
+                                        alt="user-image"
+                                    />
                                 </div>
                                 <div class="title">
                                     <span class="d-block fw-medium">
@@ -397,17 +489,20 @@
                                     </span>
                                 </div>
                             </div>
-                            <button
-                                mat-button
-                                class="text-body p-0 h-auto"
-                            >
+                            <button mat-button class="text-body p-0 h-auto">
                                 Add Friend
                             </button>
                         </div>
-                        <div class="follower d-flex align-items-center justify-content-between">
+                        <div
+                            class="follower d-flex align-items-center justify-content-between"
+                        >
                             <div class="d-flex align-items-center">
                                 <div class="image">
-                                    <img src="assets/images/users/user6.jpg" class="rounded-circle" alt="user-image">
+                                    <img
+                                        src="assets/images/users/user6.jpg"
+                                        class="rounded-circle"
+                                        alt="user-image"
+                                    />
                                 </div>
                                 <div class="title">
                                     <span class="d-block fw-medium">
@@ -418,17 +513,20 @@
                                     </span>
                                 </div>
                             </div>
-                            <button
-                                mat-button
-                                class="text-body p-0 h-auto"
-                            >
+                            <button mat-button class="text-body p-0 h-auto">
                                 Add Friend
                             </button>
                         </div>
-                        <div class="follower d-flex align-items-center justify-content-between">
+                        <div
+                            class="follower d-flex align-items-center justify-content-between"
+                        >
                             <div class="d-flex align-items-center">
                                 <div class="image">
-                                    <img src="assets/images/users/user7.jpg" class="rounded-circle" alt="user-image">
+                                    <img
+                                        src="assets/images/users/user7.jpg"
+                                        class="rounded-circle"
+                                        alt="user-image"
+                                    />
                                 </div>
                                 <div class="title">
                                     <span class="d-block fw-medium">
@@ -439,10 +537,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <button
-                                mat-button
-                                class="text-body p-0 h-auto"
-                            >
+                            <button mat-button class="text-body p-0 h-auto">
                                 Add Friend
                             </button>
                         </div>
@@ -456,16 +551,20 @@
                 >
                     <mat-card-header>
                         <mat-card-title>
-                            <h5 class="mt-0 mb-0">
-                                Following
-                            </h5>
+                            <h5 class="mt-0 mb-0">Following</h5>
                         </mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
-                        <div class="follower d-flex align-items-center justify-content-between">
+                        <div
+                            class="follower d-flex align-items-center justify-content-between"
+                        >
                             <div class="d-flex align-items-center">
                                 <div class="image">
-                                    <img src="assets/images/users/user8.jpg" class="rounded-circle" alt="user-image">
+                                    <img
+                                        src="assets/images/users/user8.jpg"
+                                        class="rounded-circle"
+                                        alt="user-image"
+                                    />
                                 </div>
                                 <div class="title">
                                     <span class="d-block fw-medium">
@@ -476,17 +575,20 @@
                                     </span>
                                 </div>
                             </div>
-                            <button
-                                mat-button
-                                class="text-body p-0 h-auto"
-                            >
+                            <button mat-button class="text-body p-0 h-auto">
                                 Add Friend
                             </button>
                         </div>
-                        <div class="follower d-flex align-items-center justify-content-between">
+                        <div
+                            class="follower d-flex align-items-center justify-content-between"
+                        >
                             <div class="d-flex align-items-center">
                                 <div class="image">
-                                    <img src="assets/images/users/user9.jpg" class="rounded-circle" alt="user-image">
+                                    <img
+                                        src="assets/images/users/user9.jpg"
+                                        class="rounded-circle"
+                                        alt="user-image"
+                                    />
                                 </div>
                                 <div class="title">
                                     <span class="d-block fw-medium">
@@ -497,17 +599,20 @@
                                     </span>
                                 </div>
                             </div>
-                            <button
-                                mat-button
-                                class="text-body p-0 h-auto"
-                            >
+                            <button mat-button class="text-body p-0 h-auto">
                                 Add Friend
                             </button>
                         </div>
-                        <div class="follower d-flex align-items-center justify-content-between">
+                        <div
+                            class="follower d-flex align-items-center justify-content-between"
+                        >
                             <div class="d-flex align-items-center">
                                 <div class="image">
-                                    <img src="assets/images/users/user10.jpg" class="rounded-circle" alt="user-image">
+                                    <img
+                                        src="assets/images/users/user10.jpg"
+                                        class="rounded-circle"
+                                        alt="user-image"
+                                    />
                                 </div>
                                 <div class="title">
                                     <span class="d-block fw-medium">
@@ -518,17 +623,20 @@
                                     </span>
                                 </div>
                             </div>
-                            <button
-                                mat-button
-                                class="text-body p-0 h-auto"
-                            >
+                            <button mat-button class="text-body p-0 h-auto">
                                 Add Friend
                             </button>
                         </div>
-                        <div class="follower d-flex align-items-center justify-content-between">
+                        <div
+                            class="follower d-flex align-items-center justify-content-between"
+                        >
                             <div class="d-flex align-items-center">
                                 <div class="image">
-                                    <img src="assets/images/users/user11.jpg" class="rounded-circle" alt="user-image">
+                                    <img
+                                        src="assets/images/users/user11.jpg"
+                                        class="rounded-circle"
+                                        alt="user-image"
+                                    />
                                 </div>
                                 <div class="title">
                                     <span class="d-block fw-medium">
@@ -539,17 +647,20 @@
                                     </span>
                                 </div>
                             </div>
-                            <button
-                                mat-button
-                                class="text-body p-0 h-auto"
-                            >
+                            <button mat-button class="text-body p-0 h-auto">
                                 Add Friend
                             </button>
                         </div>
-                        <div class="follower d-flex align-items-center justify-content-between">
+                        <div
+                            class="follower d-flex align-items-center justify-content-between"
+                        >
                             <div class="d-flex align-items-center">
                                 <div class="image">
-                                    <img src="assets/images/users/user12.jpg" class="rounded-circle" alt="user-image">
+                                    <img
+                                        src="assets/images/users/user12.jpg"
+                                        class="rounded-circle"
+                                        alt="user-image"
+                                    />
                                 </div>
                                 <div class="title">
                                     <span class="d-block fw-medium">
@@ -560,10 +671,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <button
-                                mat-button
-                                class="text-body p-0 h-auto"
-                            >
+                            <button mat-button class="text-body p-0 h-auto">
                                 Add Friend
                             </button>
                         </div>
@@ -577,56 +685,81 @@
                 >
                     <mat-card-header>
                         <mat-card-title>
-                            <h5 class="mt-0 mb-0">
-                                Photos
-                            </h5>
+                            <h5 class="mt-0 mb-0">Photos</h5>
                         </mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
                         <div class="row">
                             <div class="col-4">
                                 <a routerLink="/social" class="d-block">
-                                    <img src="assets/images/photos/photo1.jpg" alt="photo-image">
+                                    <img
+                                        src="assets/images/photos/photo1.jpg"
+                                        alt="photo-image"
+                                    />
                                 </a>
                             </div>
                             <div class="col-4">
                                 <a routerLink="/social" class="d-block">
-                                    <img src="assets/images/photos/photo2.jpg" alt="photo-image">
+                                    <img
+                                        src="assets/images/photos/photo2.jpg"
+                                        alt="photo-image"
+                                    />
                                 </a>
                             </div>
                             <div class="col-4">
                                 <a routerLink="/social" class="d-block">
-                                    <img src="assets/images/photos/photo3.jpg" alt="photo-image">
+                                    <img
+                                        src="assets/images/photos/photo3.jpg"
+                                        alt="photo-image"
+                                    />
                                 </a>
                             </div>
                             <div class="col-4">
                                 <a routerLink="/social" class="d-block">
-                                    <img src="assets/images/photos/photo4.jpg" alt="photo-image">
+                                    <img
+                                        src="assets/images/photos/photo4.jpg"
+                                        alt="photo-image"
+                                    />
                                 </a>
                             </div>
                             <div class="col-4">
                                 <a routerLink="/social" class="d-block">
-                                    <img src="assets/images/photos/photo5.jpg" alt="photo-image">
+                                    <img
+                                        src="assets/images/photos/photo5.jpg"
+                                        alt="photo-image"
+                                    />
                                 </a>
                             </div>
                             <div class="col-4">
                                 <a routerLink="/social" class="d-block">
-                                    <img src="assets/images/photos/photo6.jpg" alt="photo-image">
+                                    <img
+                                        src="assets/images/photos/photo6.jpg"
+                                        alt="photo-image"
+                                    />
                                 </a>
                             </div>
                             <div class="col-4">
                                 <a routerLink="/social" class="d-block">
-                                    <img src="assets/images/photos/photo7.jpg" alt="photo-image">
+                                    <img
+                                        src="assets/images/photos/photo7.jpg"
+                                        alt="photo-image"
+                                    />
                                 </a>
                             </div>
                             <div class="col-4">
                                 <a routerLink="/social" class="d-block">
-                                    <img src="assets/images/photos/photo8.jpg" alt="photo-image">
+                                    <img
+                                        src="assets/images/photos/photo8.jpg"
+                                        alt="photo-image"
+                                    />
                                 </a>
                             </div>
                             <div class="col-4">
                                 <a routerLink="/social" class="d-block">
-                                    <img src="assets/images/photos/photo9.jpg" alt="photo-image">
+                                    <img
+                                        src="assets/images/photos/photo9.jpg"
+                                        alt="photo-image"
+                                    />
                                 </a>
                             </div>
                         </div>

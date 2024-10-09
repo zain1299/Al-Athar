@@ -1,24 +1,18 @@
 <!-- Breadcrumb -->
-<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
-    <h5 class="mb-0">
-        Create Lead
-    </h5>
+<div
+    class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between"
+>
+    <h5 class="mb-0">Create Lead</h5>
     <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
         <li class="breadcrumb-item position-relative">
-            <a routerLink="/" class="d-inline-block position-relative">
+            <a routerlink="/dashboard" class="d-inline-block position-relative">
                 <i class="ri-home-8-line"></i>
                 Dashboard
             </a>
         </li>
-        <li class="breadcrumb-item position-relative">
-            E-Commerce
-        </li>
-        <li class="breadcrumb-item position-relative">
-            Leads
-        </li>
-        <li class="breadcrumb-item position-relative">
-            Create Lead
-        </li>
+        <li class="breadcrumb-item position-relative">E-Commerce</li>
+        <li class="breadcrumb-item position-relative">Leads</li>
+        <li class="breadcrumb-item position-relative">Create Lead</li>
     </ol>
 </div>
 
@@ -36,10 +30,8 @@
                             ID
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter id
-                            </mat-label>
-                            <input matInput placeholder="E.g. #ARP-1217">
+                            <mat-label> Enter id </mat-label>
+                            <input matInput placeholder="E.g. #ARP-1217" />
                         </mat-form-field>
                     </div>
                 </div>
@@ -49,10 +41,8 @@
                             Customer Name
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter customer name
-                            </mat-label>
-                            <input matInput placeholder="E.g. Marcia Baker">
+                            <mat-label> Enter customer name </mat-label>
+                            <input matInput placeholder="E.g. Marcia Baker" />
                         </mat-form-field>
                     </div>
                 </div>
@@ -62,10 +52,11 @@
                             Email Address
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter email address
-                            </mat-label>
-                            <input matInput placeholder="E.g. marcia@example.com">
+                            <mat-label> Enter email address </mat-label>
+                            <input
+                                matInput
+                                placeholder="E.g. marcia@example.com"
+                            />
                         </mat-form-field>
                     </div>
                 </div>
@@ -75,10 +66,11 @@
                             Phone Number
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter phone number
-                            </mat-label>
-                            <input matInput placeholder="E.g. +1 555-123-4567">
+                            <mat-label> Enter phone number </mat-label>
+                            <input
+                                matInput
+                                placeholder="E.g. +1 555-123-4567"
+                            />
                         </mat-form-field>
                     </div>
                 </div>
@@ -88,10 +80,8 @@
                             Create Date
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter create date
-                            </mat-label>
-                            <input matInput placeholder="E.g. Nov 10, 2023">
+                            <mat-label> Enter create date </mat-label>
+                            <input matInput placeholder="E.g. Nov 10, 2023" />
                         </mat-form-field>
                     </div>
                 </div>
@@ -101,10 +91,11 @@
                             Company
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter company
-                            </mat-label>
-                            <input matInput placeholder="E.g. ABC Corporation">
+                            <mat-label> Enter company </mat-label>
+                            <input
+                                matInput
+                                placeholder="E.g. ABC Corporation"
+                            />
                         </mat-form-field>
                     </div>
                 </div>
@@ -114,9 +105,7 @@
                             Lead Source
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Select lead source
-                            </mat-label>
+                            <mat-label> Select lead source </mat-label>
                             <mat-select>
                                 <mat-option value="option1">
                                     Website
@@ -143,22 +132,14 @@
                             Status
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Select status
-                            </mat-label>
+                            <mat-label> Select status </mat-label>
                             <mat-select>
-                                <mat-option value="option1">
-                                    New
-                                </mat-option>
-                                <mat-option value="option2">
-                                    Won
-                                </mat-option>
+                                <mat-option value="option1"> New </mat-option>
+                                <mat-option value="option2"> Won </mat-option>
                                 <mat-option value="option3">
                                     In Progress
                                 </mat-option>
-                                <mat-option value="option4">
-                                    Lost
-                                </mat-option>
+                                <mat-option value="option4"> Lost </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -168,17 +149,16 @@
                         <label class="main-label d-block lh-1 text-black">
                             Customer Image
                         </label>
-                        <file-upload class="file-uploader" [multiple]="multiple"></file-upload>
+                        <file-upload
+                            class="file-uploader"
+                            [multiple]="multiple"
+                        ></file-upload>
                     </div>
                 </div>
             </div>
             <div class="btn-box">
-                <button mat-button>
-                    Create Lead
-                </button>
-                <button mat-button>
-                    Cancel
-                </button>
+                <button mat-button>Create Lead</button>
+                <button mat-button>Cancel</button>
             </div>
         </form>
     </mat-card-content>

@@ -1,24 +1,18 @@
 <!-- Breadcrumb -->
-<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
-    <h5 class="mb-0">
-        Create Contact
-    </h5>
+<div
+    class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between"
+>
+    <h5 class="mb-0">Create Contact</h5>
     <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
         <li class="breadcrumb-item position-relative">
-            <a routerLink="/" class="d-inline-block position-relative">
+            <a routerlink="/dashboard" class="d-inline-block position-relative">
                 <i class="ri-home-8-line"></i>
                 Dashboard
             </a>
         </li>
-        <li class="breadcrumb-item position-relative">
-            E-Commerce
-        </li>
-        <li class="breadcrumb-item position-relative">
-            Contacts
-        </li>
-        <li class="breadcrumb-item position-relative">
-            Create Contact
-        </li>
+        <li class="breadcrumb-item position-relative">E-Commerce</li>
+        <li class="breadcrumb-item position-relative">Contacts</li>
+        <li class="breadcrumb-item position-relative">Create Contact</li>
     </ol>
 </div>
 
@@ -36,10 +30,8 @@
                             Contact ID
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter contact id
-                            </mat-label>
-                            <input matInput>
+                            <mat-label> Enter contact id </mat-label>
+                            <input matInput />
                         </mat-form-field>
                     </div>
                 </div>
@@ -49,10 +41,8 @@
                             Customer Name
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter customer name
-                            </mat-label>
-                            <input matInput>
+                            <mat-label> Enter customer name </mat-label>
+                            <input matInput />
                         </mat-form-field>
                     </div>
                 </div>
@@ -62,10 +52,8 @@
                             Email Address
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter email address
-                            </mat-label>
-                            <input matInput>
+                            <mat-label> Enter email address </mat-label>
+                            <input matInput />
                         </mat-form-field>
                     </div>
                 </div>
@@ -75,10 +63,8 @@
                             Phone Number
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter phone number
-                            </mat-label>
-                            <input matInput>
+                            <mat-label> Enter phone number </mat-label>
+                            <input matInput />
                         </mat-form-field>
                     </div>
                 </div>
@@ -88,10 +74,8 @@
                             Last Contacted Date
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter last contacted date
-                            </mat-label>
-                            <input matInput>
+                            <mat-label> Enter last contacted date </mat-label>
+                            <input matInput />
                         </mat-form-field>
                     </div>
                 </div>
@@ -101,10 +85,8 @@
                             Company Name
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter company name
-                            </mat-label>
-                            <input matInput>
+                            <mat-label> Enter company name </mat-label>
+                            <input matInput />
                         </mat-form-field>
                     </div>
                 </div>
@@ -114,10 +96,8 @@
                             Lead Score
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter lead score
-                            </mat-label>
-                            <input matInput>
+                            <mat-label> Enter lead score </mat-label>
+                            <input matInput />
                         </mat-form-field>
                     </div>
                 </div>
@@ -127,9 +107,7 @@
                             Contact Status
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Select contact status
-                            </mat-label>
+                            <mat-label> Select contact status </mat-label>
                             <mat-select>
                                 <mat-option value="option1">
                                     Active
@@ -146,17 +124,16 @@
                         <label class="main-label d-block lh-1 text-black">
                             Customer Image
                         </label>
-                        <file-upload class="file-uploader" [multiple]="multiple"></file-upload>
+                        <file-upload
+                            class="file-uploader"
+                            [multiple]="multiple"
+                        ></file-upload>
                     </div>
                 </div>
             </div>
             <div class="btn-box">
-                <button mat-button>
-                    Create Contact
-                </button>
-                <button mat-button>
-                    Cancel
-                </button>
+                <button mat-button>Create Contact</button>
+                <button mat-button>Cancel</button>
             </div>
         </form>
     </mat-card-content>

@@ -1,21 +1,17 @@
 <!-- Breadcrumb -->
-<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
-    <h5 class="mb-0">
-        Add User
-    </h5>
+<div
+    class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between"
+>
+    <h5 class="mb-0">Add User</h5>
     <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
         <li class="breadcrumb-item position-relative">
-            <a routerLink="/" class="d-inline-block position-relative">
+            <a routerlink="/dashboard" class="d-inline-block position-relative">
                 <i class="ri-home-8-line"></i>
                 Dashboard
             </a>
         </li>
-        <li class="breadcrumb-item position-relative">
-            Users
-        </li>
-        <li class="breadcrumb-item position-relative">
-            Add User
-        </li>
+        <li class="breadcrumb-item position-relative">Users</li>
+        <li class="breadcrumb-item position-relative">Add User</li>
     </ol>
 </div>
 
@@ -28,9 +24,7 @@
         >
             <mat-card-header>
                 <mat-card-title>
-                    <h5 class="mt-0 mb-0">
-                        Add User
-                    </h5>
+                    <h5 class="mt-0 mb-0">Add User</h5>
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content>
@@ -41,10 +35,8 @@
                                 User ID
                             </label>
                             <mat-form-field>
-                                <mat-label>
-                                    User ID
-                                </mat-label>
-                                <input matInput>
+                                <mat-label> User ID </mat-label>
+                                <input matInput />
                             </mat-form-field>
                         </div>
                     </div>
@@ -54,10 +46,8 @@
                                 User Name
                             </label>
                             <mat-form-field>
-                                <mat-label>
-                                    User name
-                                </mat-label>
-                                <input matInput>
+                                <mat-label> User name </mat-label>
+                                <input matInput />
                             </mat-form-field>
                         </div>
                     </div>
@@ -67,10 +57,8 @@
                                 Email Address
                             </label>
                             <mat-form-field>
-                                <mat-label>
-                                    Email address
-                                </mat-label>
-                                <input matInput>
+                                <mat-label> Email address </mat-label>
+                                <input matInput />
                             </mat-form-field>
                         </div>
                     </div>
@@ -80,12 +68,10 @@
                                 Location
                             </label>
                             <mat-form-field>
-                                <mat-label>
-                                    Select
-                                </mat-label>
+                                <mat-label> Select </mat-label>
                                 <mat-select>
                                     <mat-option value="option1">
-                                        Washington D.C	
+                                        Washington D.C
                                     </mat-option>
                                     <mat-option value="option2">
                                         Chicago
@@ -115,10 +101,8 @@
                                 Phone No
                             </label>
                             <mat-form-field>
-                                <mat-label>
-                                    Phone no
-                                </mat-label>
-                                <input matInput>
+                                <mat-label> Phone no </mat-label>
+                                <input matInput />
                             </mat-form-field>
                         </div>
                     </div>
@@ -128,10 +112,8 @@
                                 Projects
                             </label>
                             <mat-form-field>
-                                <mat-label>
-                                    Projects
-                                </mat-label>
-                                <input matInput>
+                                <mat-label> Projects </mat-label>
+                                <input matInput />
                             </mat-form-field>
                         </div>
                     </div>
@@ -141,10 +123,11 @@
                                 Add Some Info
                             </label>
                             <mat-form-field class="textarea">
-                                <mat-label>
-                                    Write your description
-                                </mat-label>
-                                <textarea matInput placeholder="E.g. It makes me feel..."></textarea>
+                                <mat-label> Write your description </mat-label>
+                                <textarea
+                                    matInput
+                                    placeholder="E.g. It makes me feel..."
+                                ></textarea>
                             </mat-form-field>
                         </div>
                     </div>
@@ -154,10 +137,11 @@
                                 Facebook
                             </label>
                             <mat-form-field>
-                                <mat-label>
-                                    Facebook
-                                </mat-label>
-                                <input matInput placeholder="facebook@example.com">
+                                <mat-label> Facebook </mat-label>
+                                <input
+                                    matInput
+                                    placeholder="facebook@example.com"
+                                />
                             </mat-form-field>
                         </div>
                     </div>
@@ -167,10 +151,11 @@
                                 Twitter
                             </label>
                             <mat-form-field>
-                                <mat-label>
-                                    Twitter
-                                </mat-label>
-                                <input matInput placeholder="twitter@example.com">
+                                <mat-label> Twitter </mat-label>
+                                <input
+                                    matInput
+                                    placeholder="twitter@example.com"
+                                />
                             </mat-form-field>
                         </div>
                     </div>
@@ -180,10 +165,11 @@
                                 Linkedin
                             </label>
                             <mat-form-field>
-                                <mat-label>
-                                    Linkedin
-                                </mat-label>
-                                <input matInput placeholder="linkedin@example.com">
+                                <mat-label> Linkedin </mat-label>
+                                <input
+                                    matInput
+                                    placeholder="linkedin@example.com"
+                                />
                             </mat-form-field>
                         </div>
                     </div>
@@ -193,10 +179,11 @@
                                 YouTube
                             </label>
                             <mat-form-field>
-                                <mat-label>
-                                    YouTube
-                                </mat-label>
-                                <input matInput placeholder="youtube@example.com">
+                                <mat-label> YouTube </mat-label>
+                                <input
+                                    matInput
+                                    placeholder="youtube@example.com"
+                                />
                             </mat-form-field>
                         </div>
                     </div>
@@ -205,17 +192,16 @@
                             <label class="main-label d-block lh-1 text-black">
                                 Customer Image
                             </label>
-                            <file-upload class="file-uploader" [multiple]="multiple"></file-upload>
+                            <file-upload
+                                class="file-uploader"
+                                [multiple]="multiple"
+                            ></file-upload>
                         </div>
                     </div>
                 </div>
                 <div class="btn-box">
-                    <button mat-button>
-                        Add User
-                    </button>
-                    <button mat-button>
-                        Cancel
-                    </button>
+                    <button mat-button>Add User</button>
+                    <button mat-button>Cancel</button>
                 </div>
             </mat-card-content>
         </mat-card>
@@ -227,9 +213,7 @@
         >
             <mat-card-header>
                 <mat-card-title>
-                    <h5 class="mt-0 mb-0">
-                        Privacy Policy
-                    </h5>
+                    <h5 class="mt-0 mb-0">Privacy Policy</h5>
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content>
@@ -248,22 +232,14 @@
                     Select Your Skills
                 </label>
                 <mat-form-field>
-                    <mat-label>
-                        Select
-                    </mat-label>
+                    <mat-label> Select </mat-label>
                     <mat-select>
-                        <mat-option value="option1">
-                            Leadership
-                        </mat-option>
+                        <mat-option value="option1"> Leadership </mat-option>
                         <mat-option value="option2">
                             Project Management
                         </mat-option>
-                        <mat-option value="option3">
-                            Data Analysis
-                        </mat-option>
-                        <mat-option value="option4">
-                            Teamwork
-                        </mat-option>
+                        <mat-option value="option3"> Data Analysis </mat-option>
+                        <mat-option value="option4"> Teamwork </mat-option>
                         <mat-option value="option5">
                             Web Development
                         </mat-option>

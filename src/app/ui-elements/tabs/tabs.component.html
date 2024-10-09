@@ -1,21 +1,17 @@
 <!-- Breadcrumb -->
-<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
-    <h5 class="mb-0">
-        Tabs
-    </h5>
+<div
+    class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between"
+>
+    <h5 class="mb-0">Tabs</h5>
     <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
         <li class="breadcrumb-item position-relative">
-            <a routerLink="/" class="d-inline-block position-relative">
+            <a routerlink="/dashboard" class="d-inline-block position-relative">
                 <i class="ri-home-8-line"></i>
                 Dashboard
             </a>
         </li>
-        <li class="breadcrumb-item position-relative">
-            UI Elements
-        </li>
-        <li class="breadcrumb-item position-relative">
-            Tabs
-        </li>
+        <li class="breadcrumb-item position-relative">UI Elements</li>
+        <li class="breadcrumb-item position-relative">Tabs</li>
     </ol>
 </div>
 
@@ -23,9 +19,7 @@
 <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
     <mat-card-header>
         <mat-card-title>
-            <h5 class="mt-0 mb-0">
-                Basic Tabs
-            </h5>
+            <h5 class="mt-0 mb-0">Basic Tabs</h5>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -41,9 +35,7 @@
 <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
     <mat-card-header>
         <mat-card-title>
-            <h5 class="mt-0 mb-0">
-                Tab Group with Aligned Labels
-            </h5>
+            <h5 class="mt-0 mb-0">Tab Group with Aligned Labels</h5>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -71,9 +63,7 @@
 <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
     <mat-card-header>
         <mat-card-title>
-            <h5 class="mt-0 mb-0">
-                Tab Group Animations
-            </h5>
+            <h5 class="mt-0 mb-0">Tab Group Animations</h5>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -83,7 +73,7 @@
             <mat-tab label="Second">Content 2</mat-tab>
             <mat-tab label="Third">Content 3</mat-tab>
         </mat-tab-group>
-        <br>
+        <br />
 
         <h5>Very slow animation</h5>
         <mat-tab-group animationDuration="2000ms">
@@ -112,9 +102,7 @@
 <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
     <mat-card-header>
         <mat-card-title>
-            <h5 class="mt-0 mb-0">
-                Using Tabs with a Custom Label Template
-            </h5>
+            <h5 class="mt-0 mb-0">Using Tabs with a Custom Label Template</h5>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -151,9 +139,7 @@
 <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
     <mat-card-header>
         <mat-card-title>
-            <h5 class="mt-0 mb-0">
-                Tab Group with the Headers on the Bottom
-            </h5>
+            <h5 class="mt-0 mb-0">Tab Group with the Headers on the Bottom</h5>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -169,9 +155,7 @@
 <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
     <mat-card-header>
         <mat-card-title>
-            <h5 class="mt-0 mb-0">
-                Tab Group with Ink Bar Fit to Content
-            </h5>
+            <h5 class="mt-0 mb-0">Tab Group with Ink Bar Fit to Content</h5>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -188,9 +172,7 @@
 <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
     <mat-card-header>
         <mat-card-title>
-            <h5 class="mt-0 mb-0">
-                Tab Group with Inverted Tabs
-            </h5>
+            <h5 class="mt-0 mb-0">Tab Group with Inverted Tabs</h5>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -207,7 +189,8 @@
     <mat-card-header>
         <mat-card-title>
             <h5 class="mt-0 mb-0">
-                Tab Group where the Tab Content is Loaded Lazily (when activated)
+                Tab Group where the Tab Content is Loaded Lazily (when
+                activated)
             </h5>
         </mat-card-title>
     </mat-card-header>
@@ -215,17 +198,17 @@
         <mat-tab-group>
             <mat-tab label="First">
                 <ng-template matTabContent>
-                    Content 1 - Loaded: {{getTimeLoaded(1) | date:'medium'}}
+                    Content 1 - Loaded: {{ getTimeLoaded(1) | date : "medium" }}
                 </ng-template>
             </mat-tab>
             <mat-tab label="Second">
                 <ng-template matTabContent>
-                    Content 2 - Loaded: {{getTimeLoaded(2) | date:'medium'}}
+                    Content 2 - Loaded: {{ getTimeLoaded(2) | date : "medium" }}
                 </ng-template>
             </mat-tab>
             <mat-tab label="Third">
                 <ng-template matTabContent>
-                    Content 3 - Loaded: {{getTimeLoaded(3) | date:'medium'}}
+                    Content 3 - Loaded: {{ getTimeLoaded(3) | date : "medium" }}
                 </ng-template>
             </mat-tab>
         </mat-tab-group>
@@ -236,15 +219,13 @@
 <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
     <mat-card-header>
         <mat-card-title>
-            <h5 class="mt-0 mb-0">
-                Tab Group with Paginated Tabs
-            </h5>
+            <h5 class="mt-0 mb-0">Tab Group with Paginated Tabs</h5>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <mat-tab-group>
             @for (tab of lotsOfTabs; track tab) {
-                <mat-tab [label]="tab">Content</mat-tab>
+            <mat-tab [label]="tab">Content</mat-tab>
             }
         </mat-tab-group>
     </mat-card-content>

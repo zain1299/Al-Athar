@@ -1,24 +1,18 @@
 <!-- Breadcrumb -->
-<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
-    <h5 class="mb-0">
-        Create User
-    </h5>
+<div
+    class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between"
+>
+    <h5 class="mb-0">Create User</h5>
     <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
         <li class="breadcrumb-item position-relative">
-            <a routerLink="/" class="d-inline-block position-relative">
+            <a routerlink="/dashboard" class="d-inline-block position-relative">
                 <i class="ri-home-8-line"></i>
                 Dashboard
             </a>
         </li>
-        <li class="breadcrumb-item position-relative">
-            Project Management
-        </li>
-        <li class="breadcrumb-item position-relative">
-            Users
-        </li>
-        <li class="breadcrumb-item position-relative">
-            Create User
-        </li>
+        <li class="breadcrumb-item position-relative">Project Management</li>
+        <li class="breadcrumb-item position-relative">Users</li>
+        <li class="breadcrumb-item position-relative">Create User</li>
     </ol>
 </div>
 
@@ -36,10 +30,8 @@
                             User ID
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter user id
-                            </mat-label>
-                            <input matInput>
+                            <mat-label> Enter user id </mat-label>
+                            <input matInput />
                         </mat-form-field>
                     </div>
                 </div>
@@ -49,10 +41,8 @@
                             Full Name
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter full name
-                            </mat-label>
-                            <input matInput>
+                            <mat-label> Enter full name </mat-label>
+                            <input matInput />
                         </mat-form-field>
                     </div>
                 </div>
@@ -62,10 +52,8 @@
                             Email Address
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter email address
-                            </mat-label>
-                            <input matInput>
+                            <mat-label> Enter email address </mat-label>
+                            <input matInput />
                         </mat-form-field>
                     </div>
                 </div>
@@ -75,9 +63,7 @@
                             Role
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Select role
-                            </mat-label>
+                            <mat-label> Select role </mat-label>
                             <mat-select>
                                 <mat-option value="option1">
                                     Project manager
@@ -89,14 +75,12 @@
                                     Business analyst
                                 </mat-option>
                                 <mat-option value="option4">
-                                    UI/UX designer	
+                                    UI/UX designer
                                 </mat-option>
                                 <mat-option value="option5">
                                     QA tester
                                 </mat-option>
-                                <mat-option value="option6">
-                                    Admin
-                                </mat-option>
+                                <mat-option value="option6"> Admin </mat-option>
                                 <mat-option value="option7">
                                     Editor
                                 </mat-option>
@@ -110,9 +94,7 @@
                             Status
                         </label>
                         <mat-form-field>
-                            <mat-label>
-                                Select status
-                            </mat-label>
+                            <mat-label> Select status </mat-label>
                             <mat-select>
                                 <mat-option value="option1">
                                     Active
@@ -130,8 +112,14 @@
                             Product Description
                         </label>
                         <div class="NgxEditor__Wrapper">
-                            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
-                            <ngx-editor [editor]="editor" [placeholder]="'Type here...'"></ngx-editor>
+                            <ngx-editor-menu
+                                [editor]="editor"
+                                [toolbar]="toolbar"
+                            ></ngx-editor-menu>
+                            <ngx-editor
+                                [editor]="editor"
+                                [placeholder]="'Type here...'"
+                            ></ngx-editor>
                         </div>
                     </div>
                 </div>
@@ -140,17 +128,16 @@
                         <label class="main-label d-block lh-1 text-black">
                             Image
                         </label>
-                        <file-upload class="file-uploader" [multiple]="multiple"></file-upload>
+                        <file-upload
+                            class="file-uploader"
+                            [multiple]="multiple"
+                        ></file-upload>
                     </div>
                 </div>
             </div>
             <div class="btn-box">
-                <button mat-button>
-                    Create User
-                </button>
-                <button mat-button>
-                    Cancel
-                </button>
+                <button mat-button>Create User</button>
+                <button mat-button>Cancel</button>
             </div>
         </form>
     </mat-card-content>
