@@ -294,6 +294,40 @@
     }
 }
 
+.view-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.readonly-display {
+    border: 1px solid #ccc; // Add a border to mimic input fields
+    border-radius: 4px; // Slightly rounded corners
+    padding: 8px 12px; // Padding for better spacing
+    background-color: #f9f9f9; // Light background for visibility
+    color: #333; // Text color for readability
+    margin-bottom: 20px; // Spacing between fields
+
+    // Optionally, you can add styles for responsiveness
+    @media (max-width: 768px) {
+        padding: 6px 10px; // Adjust padding for smaller screens
+    }
+}
 .row {
     display: flex;
     flex-wrap: wrap;

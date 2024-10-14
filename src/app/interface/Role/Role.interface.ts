@@ -2,7 +2,7 @@ import { ApiResponse } from '../ApiResponse/ApiResponse.interface';
 
 export interface IRole {
     RoleId: number | undefined;
-    RoleName: string;
+    RoleName: string | null;
     RoleNameEn: string;
     IsWilayatRole: boolean;
     CreatedBy: number;

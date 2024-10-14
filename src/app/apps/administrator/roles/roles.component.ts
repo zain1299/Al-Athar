@@ -58,6 +58,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class RolesComponent {
     isToggled = false;
     classApplied = false;
+    ViewclassApplied = false;
     dataSource = new MatTableDataSource<IRole>([]);
     form: FormGroup;
 
@@ -135,6 +136,14 @@ export class RolesComponent {
 
     toggleClass() {
         this.classApplied = !this.classApplied;
+    }
+    toggleClassView() {
+        this.ViewclassApplied = !this.ViewclassApplied;
+    }
+
+    ViewData(row: IRole): void {
+        this.selectedRow = row;
+        this.toggleClassView();
     }
 
     isAllSelected() {
