@@ -214,45 +214,45 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         component: EcommerceComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     { path: 'crm', component: CrmComponent, canActivate: [AuthGuard] },
     {
         path: 'project-management',
         component: ProjectManagementComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     { path: 'lms', component: LmsComponent, canActivate: [AuthGuard] },
     {
         path: 'help-desk',
         component: HelpDeskComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'to-do-list',
         component: ToDoListComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'calendar',
         component: CalendarComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'contacts',
         component: ContactsComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
     {
         path: 'kanban-board',
         component: KanbanBoardComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'file-manager',
         component: FileManagerComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
             { path: '', component: MyDriveComponent },
             { path: 'assets', component: AssetsComponent },
@@ -266,7 +266,7 @@ export const routes: Routes = [
     {
         path: 'email',
         component: EmailComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
             { path: '', component: InboxComponent },
             { path: 'compose', component: ComposeComponent },
@@ -299,7 +299,7 @@ export const routes: Routes = [
             { path: 'edit-category', component: EEditCategoryComponent },
             { path: 'reviews', component: EReviewsComponent },
         ],
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'crm-page',
@@ -315,7 +315,7 @@ export const routes: Routes = [
             { path: 'deals', component: CDealsComponent },
             { path: 'create-deal', component: CCreateDealComponent },
         ],
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'project-management-page',
@@ -331,7 +331,7 @@ export const routes: Routes = [
             { path: 'create-user', component: PmCreateUserComponent },
             { path: 'edit-user', component: PmEditUserComponent },
         ],
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'lms-page',
@@ -343,7 +343,7 @@ export const routes: Routes = [
             { path: 'edit-course', component: LEditCourseComponent },
             { path: 'instructors', component: LInstructorsComponent },
         ],
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'help-desk-page',
@@ -354,7 +354,7 @@ export const routes: Routes = [
             { path: 'agents', component: HdAgentsComponent },
             { path: 'reports', component: HdReportsComponent },
         ],
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'events',
@@ -365,7 +365,7 @@ export const routes: Routes = [
             { path: 'create-an-event', component: CreateAnEventComponent },
             { path: 'edit-an-event', component: EditAnEventComponent },
         ],
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'invoices',
@@ -374,7 +374,7 @@ export const routes: Routes = [
             { path: '', component: InvoicesComponent },
             { path: 'invoice-details', component: InvoiceDetailsComponent },
         ],
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'social',
@@ -391,25 +391,25 @@ export const routes: Routes = [
             },
             { path: 'settings', component: ProfileSettingsComponent },
         ],
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     { path: 'starter', component: StarterComponent, canActivate: [AuthGuard] },
     { path: 'faq', component: FaqPageComponent, canActivate: [AuthGuard] },
     {
         path: 'pricing',
         component: PricingPageComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     { path: 'maps', component: MapsPageComponent, canActivate: [AuthGuard] },
     {
         path: 'notifications',
         component: NotificationsPageComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'members',
         component: MembersPageComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'users',
@@ -419,7 +419,7 @@ export const routes: Routes = [
             { path: 'users-list', component: UsersListComponent },
             { path: 'add-user', component: AddUserComponent },
         ],
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'profile',
@@ -429,7 +429,7 @@ export const routes: Routes = [
             { path: 'teams', component: TeamsComponent },
             { path: 'projects', component: PProjectsComponent },
         ],
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
     },
     {
         path: 'icons',
