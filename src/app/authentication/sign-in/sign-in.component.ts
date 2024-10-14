@@ -71,7 +71,8 @@ export class SignInComponent {
                         this.toast.success('Successfully Loged In', 'Success');
                         this.storage.set(StorageKeys.Token, res?.Data.Token);
                         this.storage.set(StorageKeys.User, res?.Data);
-                        this.router.navigate(['/dashboard']);
+                        // this.router.navigate(['/dashboard']);
+                        location.href = '/dashboard';
                     } else {
                         this.toast.error(res.Message);
                     }
