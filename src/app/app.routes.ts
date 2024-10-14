@@ -189,6 +189,7 @@ import { RatioComponent } from './ui-elements/ratio/ratio.component';
 import { UtilitiesComponent } from './ui-elements/utilities/utilities.component';
 import { LoginGuardGuard } from './shared/guards/login.guard';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { RolesComponent } from './apps/administrator/roles/roles.component';
 
 export const routes: Routes = [
     {
@@ -204,6 +205,11 @@ export const routes: Routes = [
             { path: 'confirm-email', component: ConfirmEmailComponent },
             { path: 'logout', component: LogoutComponent },
         ],
+    },
+    {
+        path: 'administrator',
+        component: RolesComponent,
+        // canActivate: [AuthGuard],
     },
     {
         path: 'dashboard',

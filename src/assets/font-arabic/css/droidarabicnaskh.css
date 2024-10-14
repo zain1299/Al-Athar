@@ -1,0 +1,26 @@
+﻿/*
+ * Droid Arabic Naskh (Arabic) http://www.google.com/fonts/earlyaccess
+ */
+@font-face {
+    font-family: 'Droid Arabic Naskh';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/DroidNaskh/DroidNaskh-Regular.eot);
+    src: url(../fonts/DroidNaskh/DroidNaskh-Regular.eot?#iefix) format('embedded-opentype'), url(../fonts/DroidNaskh/DroidNaskh-Regular.woff2) format('woff2'), url(../fonts/DroidNaskh/DroidNaskh-Regular.woff) format('woff'), url(../fonts/DroidNaskh/DroidNaskh-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Droid Arabic Naskh';
+    font-style: normal;
+    font-weight: 700;
+    src: url(../fonts/DroidNaskh/DroidNaskh-Bold.eot);
+    src: url(../fonts/DroidNaskh/DroidNaskh-Bold.eot?#iefix) format('embedded-opentype'), url(../fonts/DroidNaskh/DroidNaskh-Bold.woff2) format('woff2'), url(../fonts/DroidNaskh/DroidNaskh-Bold.woff) format('woff'), url(../fonts/DroidNaskh/DroidNaskh-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: "Al-Jazeera-Arabic-Regular";
+    font-style: normal;
+    font-weight: 700;
+    src: url(../fonts/al-jazeera-arabic/Al-Jazeera-Arabic-Regular.eot);
+    src: url(../fonts/al-jazeera-arabic/Al-Jazeera-Arabic-Regular.eot?#iefix) format('embedded-opentype'), url(../fonts/al-jazeera-arabic/Al-Jazeera-Arabic-Regular.woff) format('woff'), url(../fonts/al-jazeera-arabic/Al-Jazeera-Arabic-Regular.ttf)
+}

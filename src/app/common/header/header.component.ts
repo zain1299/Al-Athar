@@ -30,7 +30,7 @@ export class HeaderComponent {
     isToggled = false;
     user: IUser = {
         Token: '',
-        UserCode: null,
+        USER_CODE: '',
         IP: null,
         PC: null,
         URL: null,

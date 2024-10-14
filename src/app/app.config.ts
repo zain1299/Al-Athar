@@ -4,8 +4,11 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from './shared/MatPaginatorIntl';
+import { AuthInterceptor } from './shared/guards/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -14,5 +17,14 @@ export const appConfig: ApplicationConfig = {
         provideAnimations(),
         provideHttpClient(),
         provideToastr(),
+        {
+            provide: MatPaginatorIntl,
+            useClass: CustomMatPaginatorIntl,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
     ],
 };

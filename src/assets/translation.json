@@ -1,0 +1,26 @@
+{
+    "buttons": {
+        "cancel": {
+            "en": "Cancel",
+            "ar": "إلغاء"
+        },
+        "save": {
+            "en": "Save",
+            "ar": "حفظ"
+        }
+    },
+    "Role": {
+        "headingLabel": {
+            "en": "Create New Role",
+            "ar": "إنشاء دور جديد"
+        },
+        "labelEn": {
+            "en": "Role Name (English)",
+            "ar": "اسم الدور (إنجليزي)"
+        },
+        "label": {
+            "en": "Role Name (Arabic)",
+            "ar": "اسم الدور (عربي)"
+        }
+    }
+}

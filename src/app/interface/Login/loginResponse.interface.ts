@@ -2,7 +2,7 @@ import { ApiResponse } from '../ApiResponse/ApiResponse.interface';
 
 export interface IUser {
     Token: string;
-    UserCode: string | null;
+    USER_CODE: string;
     IP: string | null;
     PC: string | null;
     URL: string | null;
