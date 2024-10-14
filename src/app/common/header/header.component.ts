@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { Component, HostListener } from '@angular/core';
 import { ToggleService } from '../sidebar/toggle.service';
@@ -18,6 +18,7 @@ import { StorageKeys } from '../../shared/storage-keys';
         MatButtonModule,
         RouterLink,
         RouterLinkActive,
+        NgIf,
     ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',

@@ -3,7 +3,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { ToggleService } from './toggle.service';
-import { CommonModule, NgClass } from '@angular/common';
+import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../../interface';
@@ -22,6 +22,7 @@ import { StorageKeys } from '../../shared/storage-keys';
         RouterLink,
         NgClass,
         CommonModule,
+        NgIf,
     ],
     templateUrl: './sidebar.component.html',
     styleUrl: './sidebar.component.scss',
@@ -30,6 +31,21 @@ export class SidebarComponent implements OnInit {
     isSidebarToggled = false;
 
     isToggled = false;
+    user: IUser = {
+        Token: '',
+        USER_CODE: '',
+        IP: null,
+        PC: null,
+        URL: null,
+        ReferrarURL: null,
+        user_screens: null,
+        user_actions: [],
+        OGScreenList: [],
+        MenuItems: [],
+        USER_NAME: '',
+        USER_EMAIL: '',
+        PROFILE_PIC: '',
+    };
 
     constructor(
         private toggleService: ToggleService,
@@ -48,6 +64,7 @@ export class SidebarComponent implements OnInit {
 
     ngOnInit(): void {
         const UserData: IUser = this.storage.get(StorageKeys.User);
+        this.user = UserData;
 
         if (UserData) {
             const storedMenuItems = UserData.MenuItems;
