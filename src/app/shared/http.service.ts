@@ -12,6 +12,11 @@ import {
 import { Observable } from 'rxjs';
 import { StorageService } from './storage.service';
 import { StorageKeys } from './storage-keys';
+import {
+    IOGMenuItem,
+    IOGMenuItemInsertResponse,
+    IOGMenuItemResponse,
+} from '../interface/Screens/screen.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -43,6 +48,11 @@ export class HttpService {
         );
     }
 
+    Logout() {
+        this.storage.remove(StorageKeys.User);
+        // Redirect to login or do any other cleanup
+    }
+
     // Roles
 
     RoleSelectList(): Observable<IRoleResponse> {
@@ -55,6 +65,25 @@ export class HttpService {
     RoleInsertUpdate(body: IRole): Observable<IRoleInsertResponse> {
         return this.http.post<IRoleInsertResponse>(
             this.HostURL + 'Roles/InsertUpdateRole',
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    // Screens
+
+    ScreenSelectList(): Observable<IOGMenuItemResponse> {
+        return this.http.post<IOGMenuItemResponse>(
+            this.HostURL + 'Screen/ScreenSelectList',
+            {},
+            { headers: this.getHeaders() }
+        );
+    }
+    InsertUpdateScreen(
+        body: IOGMenuItem
+    ): Observable<IOGMenuItemInsertResponse> {
+        return this.http.post<IOGMenuItemInsertResponse>(
+            this.HostURL + 'Screen/InsertUpdateScreen',
             body,
             { headers: this.getHeaders() }
         );

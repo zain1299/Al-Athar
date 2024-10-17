@@ -1,4 +1,3 @@
-// My Drive
 .mat-mdc-card {
     &.daxa-card {
         &.recent-card {
@@ -181,7 +180,7 @@
 
 // Create New Folder Popup
 ::ng-deep {
-    .create-new-folder-popup {
+    .create-new-popup {
         top: 0;
         left: 0;
         right: 0;
@@ -454,7 +453,7 @@
 
     // Create New Folder Popup
     ::ng-deep {
-        .create-new-folder-popup {
+        .create-new-popup {
             .popup-dialog {
                 max-width: 400px;
 

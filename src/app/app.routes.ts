@@ -190,6 +190,7 @@ import { UtilitiesComponent } from './ui-elements/utilities/utilities.component'
 import { LoginGuardGuard } from './shared/guards/login.guard';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { RolesComponent } from './apps/administrator/roles/roles.component';
+import { ScreensComponent } from './apps/administrator/screens/screens.component';
 
 export const routes: Routes = [
     {
@@ -208,8 +209,11 @@ export const routes: Routes = [
     },
     {
         path: 'administrator',
-        component: RolesComponent,
         // canActivate: [AuthGuard],
+        loadChildren: () =>
+            import('./apps/administrator/administrator.module').then(
+                (m) => m.AdministratorRoutingModule
+            ),
     },
     {
         path: 'dashboard',

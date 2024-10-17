@@ -181,7 +181,9 @@ export class RolesComponent {
                 CreatedIP: '',
                 CreatedPC: '',
                 CreatedUrl: '',
-                UpdatedBy: undefined,
+                UpdatedBy: this.form.get('RoleId')?.value
+                    ? +this.UserCode
+                    : undefined,
                 UpdatedIP: '',
                 UpdatedPC: '',
                 UpdatedUrl: '',
@@ -202,7 +204,6 @@ export class RolesComponent {
                     this.toast.error(JSON.parse(error));
                 },
             });
-            console.log('body', body);
         } else {
             // If the form is invalid, display errors
             this.form.markAllAsTouched(); // This will trigger validation errors
