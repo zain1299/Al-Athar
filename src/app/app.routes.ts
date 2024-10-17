@@ -335,7 +335,7 @@ export const routes: Routes = [
             { path: 'create-user', component: PmCreateUserComponent },
             { path: 'edit-user', component: PmEditUserComponent },
         ],
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
     },
     {
         path: 'lms-page',

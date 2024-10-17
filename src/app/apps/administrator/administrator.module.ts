@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RolesComponent } from './roles/roles.component';
-import { ScreensComponent } from './screens/screens.component';
 import { AuthGuard } from '../../shared/guards/auth.guard';
 
 const routes: Routes = [
@@ -18,6 +16,28 @@ const routes: Routes = [
         loadComponent: () =>
             import('./screens/screens.component').then(
                 (m) => m.ScreensComponent
+            ),
+    },
+    {
+        path: 'users',
+        // canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./users/users.component').then((m) => m.UsersComponent),
+    },
+    {
+        path: 'create-user',
+        // canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./create-user/create-user.component').then(
+                (m) => m.CreateUserComponent
+            ),
+    },
+    {
+        path: 'edit-user',
+        // canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./edit-user/edit-user.component').then(
+                (m) => m.EditUserComponent
             ),
     },
 ];
