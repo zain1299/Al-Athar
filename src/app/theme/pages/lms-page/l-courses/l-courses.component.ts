@@ -9,7 +9,7 @@ import { PaidCoursesComponent } from './paid-courses/paid-courses.component';
 import { FreeCoursesComponent } from './free-courses/free-courses.component';
 import { TopRatedCoursesComponent } from './top-rated-courses/top-rated-courses.component';
 import { BestSellerCoursesComponent } from './best-seller-courses/best-seller-courses.component';
-import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-l-courses',

@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
-import { CustomizerSettingsService } from '../../../../theme/customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../../customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-project-discussion',

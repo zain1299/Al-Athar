@@ -16,7 +16,7 @@ import { StatsComponent } from '../dashboard/crm/stats/stats.component';
 import { WorkingScheduleComponent } from '../dashboard/project-management/working-schedule/working-schedule.component';
 import { ProjectsAnalysisComponent } from '../dashboard/project-management/projects-analysis/projects-analysis.component';
 import { ChatProjectsUserComponent } from '../dashboard/project-management/chat-projects-user/chat-projects-user.component';
-import { ToDoListComponent } from '../../pages/project-management-page/pm-project-overview/to-do-list/to-do-list.component';
+import { ToDoListComponent } from '../../theme/pages/project-management-page/pm-project-overview/to-do-list/to-do-list.component';
 import { WelcomeComponent } from '../dashboard/lms/welcome/welcome.component';
 import { ActiveCoursesComponent } from '../dashboard/lms/active-courses/active-courses.component';
 import { EnrolledStudentsComponent } from '../dashboard/lms/enrolled-students/enrolled-students.component';

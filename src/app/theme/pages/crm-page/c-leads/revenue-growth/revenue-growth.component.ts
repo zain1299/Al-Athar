@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CustomizerSettingsService } from '../../../../theme/customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../..//customizer-settings/customizer-settings.service';
 
 import {
     ApexChart,

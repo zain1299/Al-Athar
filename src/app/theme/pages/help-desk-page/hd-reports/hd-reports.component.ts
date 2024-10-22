@@ -7,10 +7,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
-import { FirstResponseTimeComponent } from '../../../theme/dashboard/help-desk/first-response-time/first-response-time.component';
-import { AveResolutionTimeComponent } from '../../../theme/dashboard/help-desk/ave-resolution-time/ave-resolution-time.component';
+import { FirstResponseTimeComponent } from '../../../dashboard/help-desk/first-response-time/first-response-time.component';
+import { AveResolutionTimeComponent } from '../../../dashboard/help-desk/ave-resolution-time/ave-resolution-time.component';
 import { ComplaintsComponent } from './complaints/complaints.component';
-import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-hd-reports',

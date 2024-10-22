@@ -12,7 +12,7 @@ import { CourseContentComponent } from './course-content/course-content.componen
 import { CourseSalesComponent } from './course-sales/course-sales.component';
 import { CourseVideosComponent } from './course-videos/course-videos.component';
 import { CourseRatingsComponent } from './course-ratings/course-ratings.component';
-import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-l-course-details',

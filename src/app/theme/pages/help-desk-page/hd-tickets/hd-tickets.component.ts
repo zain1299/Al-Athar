@@ -8,11 +8,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
-import { TicketsOpenComponent } from '../../../theme/dashboard/help-desk/tickets-open/tickets-open.component';
-import { TicketsInProgressComponent } from '../../../theme/dashboard/help-desk/tickets-in-progress/tickets-in-progress.component';
-import { TicketsResolvedComponent } from '../../../theme/dashboard/help-desk/tickets-resolved/tickets-resolved.component';
-import { TicketsClosedComponent } from '../../../theme/dashboard/help-desk/tickets-closed/tickets-closed.component';
-import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
+import { TicketsOpenComponent } from '../../../dashboard/help-desk/tickets-open/tickets-open.component';
+import { TicketsInProgressComponent } from '../../../dashboard/help-desk/tickets-in-progress/tickets-in-progress.component';
+import { TicketsResolvedComponent } from '../../../dashboard/help-desk/tickets-resolved/tickets-resolved.component';
+import { TicketsClosedComponent } from '../../../dashboard/help-desk/tickets-closed/tickets-closed.component';
+import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-hd-tickets',
