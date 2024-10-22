@@ -70,7 +70,7 @@ export class AppComponent {
     // ngOnInit
     ngOnInit() {
         this.recallJsFuntions();
-        this.toggleRTLEnabledTheme();
+        this.setRTL();
     }
 
     // recallJsFuntions
@@ -130,5 +130,8 @@ export class AppComponent {
     // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
+    }
+    setRTL() {
+        this.themeService.setRTL();
     }
 }

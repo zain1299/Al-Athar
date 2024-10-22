@@ -158,6 +158,14 @@ export class CustomizerSettingsService {
             JSON.stringify(this.isRTLEnabledTheme)
         );
     }
+
+    setRTL() {
+        this.isRTLEnabledTheme = true;
+        localStorage.setItem(
+            'isRTLEnabledTheme',
+            JSON.stringify(this.isRTLEnabledTheme)
+        );
+    }
     isRTLEnabled() {
         return this.isRTLEnabledTheme;
     }
