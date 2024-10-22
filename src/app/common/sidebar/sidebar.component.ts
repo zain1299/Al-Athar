@@ -4,7 +4,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { ToggleService } from './toggle.service';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../theme/customizer-settings/customizer-settings.service';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../../interface';
 import { IMenuItem } from '../../interface/Login/loginResponse.interface';

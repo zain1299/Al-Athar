@@ -4,20 +4,32 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+    FormBuilder,
+    FormGroup,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../theme/customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-lock-screen',
     standalone: true,
-    imports: [RouterLink, MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, ReactiveFormsModule, NgIf],
+    imports: [
+        RouterLink,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        ReactiveFormsModule,
+        NgIf,
+    ],
     templateUrl: './lock-screen.component.html',
-    styleUrl: './lock-screen.component.scss'
+    styleUrl: './lock-screen.component.scss',
 })
 export class LockScreenComponent {
-
     // isToggled
     isToggled = false;
 
@@ -29,7 +41,7 @@ export class LockScreenComponent {
         this.authForm = this.fb.group({
             password: ['', [Validators.required, Validators.minLength(8)]],
         });
-        this.themeService.isToggled$.subscribe(isToggled => {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -61,5 +73,4 @@ export class LockScreenComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }

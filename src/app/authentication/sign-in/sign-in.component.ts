@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../theme/customizer-settings/customizer-settings.service';
 import { HttpService } from '../../shared/http.service';
 import { ILoginModel, ILoginResponse } from '../../interface';
 import { ToastrService } from 'ngx-toastr';
