@@ -11,7 +11,7 @@ import {
     LocationStrategy,
     PathLocationStrategy,
 } from '@angular/common';
-import { CustomizerSettingsComponent } from './customizer-settings/customizer-settings.component';
+import { CustomizerSettingsComponent } from './theme/customizer-settings/customizer-settings.component';
 import {
     RouterOutlet,
     Router,
@@ -19,7 +19,7 @@ import {
     NavigationEnd,
     RouterLink,
 } from '@angular/router';
-import { CustomizerSettingsService } from './customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from './theme/customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-root',

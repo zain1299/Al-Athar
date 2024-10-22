@@ -9,18 +9,38 @@ import { RouterLink } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../theme/customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-contacts',
     standalone: true,
-    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, MatTableModule, MatPaginatorModule, NgIf, MatCheckboxModule, MatTooltipModule],
+    imports: [
+        MatCardModule,
+        MatMenuModule,
+        MatButtonModule,
+        RouterLink,
+        MatTableModule,
+        MatPaginatorModule,
+        NgIf,
+        MatCheckboxModule,
+        MatTooltipModule,
+    ],
     templateUrl: './contacts.component.html',
-    styleUrl: './contacts.component.scss'
+    styleUrl: './contacts.component.scss',
 })
 export class ContactsComponent {
-
-    displayedColumns: string[] = ['select', 'contactID', 'customer', 'email', 'phone', 'lastContacted', 'company', 'leadScore', 'status', 'action'];
+    displayedColumns: string[] = [
+        'select',
+        'contactID',
+        'customer',
+        'email',
+        'phone',
+        'lastContacted',
+        'company',
+        'leadScore',
+        'status',
+        'action',
+    ];
     dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
     selection = new SelectionModel<PeriodicElement>(true, []);
 
@@ -51,7 +71,9 @@ export class ContactsComponent {
         if (!row) {
             return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         }
-        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.customer + 1}`;
+        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+            row.customer + 1
+        }`;
     }
 
     // Search Filter
@@ -63,10 +85,8 @@ export class ContactsComponent {
     // isToggled
     isToggled = false;
 
-    constructor(
-        public themeService: CustomizerSettingsService
-    ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
+    constructor(public themeService: CustomizerSettingsService) {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -75,7 +95,6 @@ export class ContactsComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -83,7 +102,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         contactID: '#ARP-1217',
         customer: {
             img: 'assets/images/users/user15.jpg',
-            name: 'Marcia Baker'
+            name: 'Marcia Baker',
         },
         email: 'marcia@example.com',
         phone: '+1 555-123-4567',
@@ -97,14 +116,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-1364',
         customer: {
             img: 'assets/images/users/user7.jpg',
-            name: 'Carolyn Barnes'
+            name: 'Carolyn Barnes',
         },
         email: 'barnes@example.com',
         phone: '+1 555-987-6543',
@@ -118,14 +137,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-2951',
         customer: {
             img: 'assets/images/users/user12.jpg',
-            name: 'Donna Miller'
+            name: 'Donna Miller',
         },
         email: 'donna@example.com',
         phone: '+1 555-456-7890',
@@ -139,14 +158,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-7342',
         customer: {
             img: 'assets/images/users/user5.jpg',
-            name: 'Barbara Cross'
+            name: 'Barbara Cross',
         },
         email: 'cross@example.com',
         phone: '+1 555-369-7878',
@@ -160,14 +179,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-4619',
         customer: {
             img: 'assets/images/users/user16.jpg',
-            name: 'Rebecca Block'
+            name: 'Rebecca Block',
         },
         email: 'block@example.com',
         phone: '+1 555-658-4488',
@@ -181,14 +200,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-7346',
         customer: {
             img: 'assets/images/users/user9.jpg',
-            name: 'Ramiro McCarty'
+            name: 'Ramiro McCarty',
         },
         email: 'ramiro@example.com',
         phone: '+1 555-558-9966',
@@ -202,14 +221,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-7612',
         customer: {
             img: 'assets/images/users/user1.jpg',
-            name: 'Robert Fairweather'
+            name: 'Robert Fairweather',
         },
         email: 'robert@example.com',
         phone: '+1 555-357-5888',
@@ -223,14 +242,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-7642',
         customer: {
             img: 'assets/images/users/user6.jpg',
-            name: 'Marcelino Haddock'
+            name: 'Marcelino Haddock',
         },
         email: 'haddock@example.com',
         phone: '+1 555-456-8877',
@@ -244,14 +263,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-4652',
         customer: {
             img: 'assets/images/users/user13.jpg',
-            name: 'Thomas Wilson'
+            name: 'Thomas Wilson',
         },
         email: 'wildon@example.com',
         phone: '+1 555-622-4488',
@@ -265,14 +284,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-7895',
         customer: {
             img: 'assets/images/users/user14.jpg',
-            name: 'Nathaniel Hulsey'
+            name: 'Nathaniel Hulsey',
         },
         email: 'hulsey@example.com',
         phone: '+1 555-225-4488',
@@ -286,14 +305,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-7895',
         customer: {
             img: 'assets/images/users/user14.jpg',
-            name: 'Nathaniel Hulsey'
+            name: 'Nathaniel Hulsey',
         },
         email: 'hulsey@example.com',
         phone: '+1 555-225-4488',
@@ -307,14 +326,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-4652',
         customer: {
             img: 'assets/images/users/user13.jpg',
-            name: 'Thomas Wilson'
+            name: 'Thomas Wilson',
         },
         email: 'wildon@example.com',
         phone: '+1 555-622-4488',
@@ -328,14 +347,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-7642',
         customer: {
             img: 'assets/images/users/user6.jpg',
-            name: 'Marcelino Haddock'
+            name: 'Marcelino Haddock',
         },
         email: 'haddock@example.com',
         phone: '+1 555-456-8877',
@@ -349,14 +368,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-7612',
         customer: {
             img: 'assets/images/users/user1.jpg',
-            name: 'Robert Fairweather'
+            name: 'Robert Fairweather',
         },
         email: 'robert@example.com',
         phone: '+1 555-357-5888',
@@ -370,14 +389,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-7346',
         customer: {
             img: 'assets/images/users/user9.jpg',
-            name: 'Ramiro McCarty'
+            name: 'Ramiro McCarty',
         },
         email: 'ramiro@example.com',
         phone: '+1 555-558-9966',
@@ -391,14 +410,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-4619',
         customer: {
             img: 'assets/images/users/user16.jpg',
-            name: 'Rebecca Block'
+            name: 'Rebecca Block',
         },
         email: 'block@example.com',
         phone: '+1 555-658-4488',
@@ -412,14 +431,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-7342',
         customer: {
             img: 'assets/images/users/user5.jpg',
-            name: 'Barbara Cross'
+            name: 'Barbara Cross',
         },
         email: 'cross@example.com',
         phone: '+1 555-369-7878',
@@ -433,14 +452,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-2951',
         customer: {
             img: 'assets/images/users/user12.jpg',
-            name: 'Donna Miller'
+            name: 'Donna Miller',
         },
         email: 'donna@example.com',
         phone: '+1 555-456-7890',
@@ -454,14 +473,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-1364',
         customer: {
             img: 'assets/images/users/user7.jpg',
-            name: 'Carolyn Barnes'
+            name: 'Carolyn Barnes',
         },
         email: 'barnes@example.com',
         phone: '+1 555-987-6543',
@@ -475,14 +494,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         contactID: '#ARP-1217',
         customer: {
             img: 'assets/images/users/user15.jpg',
-            name: 'Marcia Baker'
+            name: 'Marcia Baker',
         },
         email: 'marcia@example.com',
         phone: '+1 555-123-4567',
@@ -496,9 +515,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
-    }
+            delete: 'delete',
+        },
+    },
 ];
 
 export interface PeriodicElement {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';

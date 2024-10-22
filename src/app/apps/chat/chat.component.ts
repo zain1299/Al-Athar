@@ -6,24 +6,29 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterLink } from '@angular/router';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../theme/customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-chat',
     standalone: true,
-    imports: [RouterLink, MatCardModule, MatMenuModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatTabsModule],
+    imports: [
+        RouterLink,
+        MatCardModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatTabsModule,
+    ],
     templateUrl: './chat.component.html',
-    styleUrl: './chat.component.scss'
+    styleUrl: './chat.component.scss',
 })
 export class ChatComponent {
-
     // isToggled
     isToggled = false;
 
-    constructor(
-        public themeService: CustomizerSettingsService
-    ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
+    constructor(public themeService: CustomizerSettingsService) {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -37,5 +42,4 @@ export class ChatComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }

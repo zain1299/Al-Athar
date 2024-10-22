@@ -17,19 +17,32 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../theme/customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-kanban-board',
     standalone: true,
-    imports: [RouterLink, MatCardModule, MatButtonModule, MatMenuModule, CdkDropList, CdkDrag, CdkDropListGroup, NgIf, MatSelectModule, MatInputModule, MatDatepickerModule, MatFormFieldModule, MatNativeDateModule],
+    imports: [
+        RouterLink,
+        MatCardModule,
+        MatButtonModule,
+        MatMenuModule,
+        CdkDropList,
+        CdkDrag,
+        CdkDropListGroup,
+        NgIf,
+        MatSelectModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+    ],
     templateUrl: './kanban-board.component.html',
-    styleUrl: './kanban-board.component.scss'
+    styleUrl: './kanban-board.component.scss',
 })
 export class KanbanBoardComponent {
-
     // To Do
-    toDo : any = [
+    toDo: any = [
         {
             title: `Project monitoring`,
             description: `This column represents tasks that have been identified but are not yet scheduled for work.`,
@@ -38,7 +51,7 @@ export class KanbanBoardComponent {
             createdDate: `Created 20 Nov`,
             img1: `assets/images/users/user2.jpg`,
             img2: `assets/images/users/user4.jpg`,
-            img3: `assets/images/users/user5.jpg`
+            img3: `assets/images/users/user5.jpg`,
         },
         {
             title: `Social media campaign`,
@@ -48,7 +61,7 @@ export class KanbanBoardComponent {
             createdDate: `Created 19 Nov`,
             img1: `assets/images/users/user6.jpg`,
             img2: `assets/images/users/user7.jpg`,
-            img3: `assets/images/users/user8.jpg`
+            img3: `assets/images/users/user8.jpg`,
         },
         {
             title: `Project`,
@@ -57,7 +70,7 @@ export class KanbanBoardComponent {
             category: `Daxa`,
             createdDate: `Created 18 Nov`,
             img1: `assets/images/users/user9.jpg`,
-            img3: `assets/images/users/user10.jpg`
+            img3: `assets/images/users/user10.jpg`,
         },
         {
             title: `Project`,
@@ -65,12 +78,12 @@ export class KanbanBoardComponent {
             daysLeft: `2 days left`,
             category: `Development`,
             createdDate: `Created 17 Nov`,
-            img1: `assets/images/users/user11.jpg`
-        }
+            img1: `assets/images/users/user11.jpg`,
+        },
     ];
 
     // In Progress
-    inProgress : any = [
+    inProgress: any = [
         {
             title: `eCommerce development`,
             description: `This column represents tasks that have been identified but are not yet scheduled for work.`,
@@ -78,7 +91,7 @@ export class KanbanBoardComponent {
             category: `Marketing`,
             createdDate: `Created 20 Nov`,
             img1: `assets/images/users/user17.jpg`,
-            img2: `assets/images/users/user16.jpg`
+            img2: `assets/images/users/user16.jpg`,
         },
         {
             title: `WordPress development`,
@@ -86,7 +99,7 @@ export class KanbanBoardComponent {
             daysLeft: `2 days left`,
             category: `Design`,
             createdDate: `Created 19 Nov`,
-            img1: `assets/images/users/user15.jpg`
+            img1: `assets/images/users/user15.jpg`,
         },
         {
             title: `Web development`,
@@ -96,7 +109,7 @@ export class KanbanBoardComponent {
             createdDate: `Created 18 Nov`,
             img1: `assets/images/users/user14.jpg`,
             img2: `assets/images/users/user13.jpg`,
-            img3: `assets/images/users/user12.jpg`
+            img3: `assets/images/users/user12.jpg`,
         },
         {
             title: `Digital marketing`,
@@ -106,7 +119,7 @@ export class KanbanBoardComponent {
             createdDate: `Created 17 Nov`,
             img1: `assets/images/users/user15.jpg`,
             img2: `assets/images/users/user17.jpg`,
-            img3: `assets/images/users/user9.jpg`
+            img3: `assets/images/users/user9.jpg`,
         },
         {
             title: `Frontend design update`,
@@ -115,7 +128,7 @@ export class KanbanBoardComponent {
             category: `Design`,
             createdDate: `Created 16 Nov`,
             img1: `assets/images/users/user7.jpg`,
-            img2: `assets/images/users/user8.jpg`
+            img2: `assets/images/users/user8.jpg`,
         },
         {
             title: `Daxa dashboard design`,
@@ -124,7 +137,7 @@ export class KanbanBoardComponent {
             category: `Dashboard`,
             createdDate: `Created 15 Nov`,
             img1: `assets/images/users/user5.jpg`,
-            img2: `assets/images/users/user6.jpg`
+            img2: `assets/images/users/user6.jpg`,
         },
         {
             title: `Mobile app development`,
@@ -133,12 +146,12 @@ export class KanbanBoardComponent {
             category: `Mobile`,
             createdDate: `Created 14 Nov`,
             img1: `assets/images/users/user2.jpg`,
-            img2: `assets/images/users/user4.jpg`
-        }
+            img2: `assets/images/users/user4.jpg`,
+        },
     ];
 
     // To Review
-    toReview : any = [
+    toReview: any = [
         {
             title: `Project monitoring`,
             description: `This column represents tasks that have been identified but are not yet scheduled for work.`,
@@ -146,7 +159,7 @@ export class KanbanBoardComponent {
             category: `IT`,
             createdDate: `Created 10 Nov`,
             img1: `assets/images/users/user2.jpg`,
-            img2: `assets/images/users/user4.jpg`
+            img2: `assets/images/users/user4.jpg`,
         },
         {
             title: `Social media campaign`,
@@ -155,7 +168,7 @@ export class KanbanBoardComponent {
             category: `Social`,
             createdDate: `Created 11 Nov`,
             img1: `assets/images/users/user5.jpg`,
-            img2: `assets/images/users/user6.jpg`
+            img2: `assets/images/users/user6.jpg`,
         },
         {
             title: `Mobile app development`,
@@ -164,7 +177,7 @@ export class KanbanBoardComponent {
             category: `App`,
             createdDate: `Created 12 Nov`,
             img1: `assets/images/users/user7.jpg`,
-            img2: `assets/images/users/user8.jpg`
+            img2: `assets/images/users/user8.jpg`,
         },
         {
             title: `Website development`,
@@ -173,7 +186,7 @@ export class KanbanBoardComponent {
             category: `Website`,
             createdDate: `Created 13 Nov`,
             img1: `assets/images/users/user9.jpg`,
-            img2: `assets/images/users/user10.jpg`
+            img2: `assets/images/users/user10.jpg`,
         },
         {
             title: `Digital marketing`,
@@ -183,7 +196,7 @@ export class KanbanBoardComponent {
             createdDate: `Created 14 Nov`,
             img1: `assets/images/users/user11.jpg`,
             img2: `assets/images/users/user12.jpg`,
-            img3: `assets/images/users/user13.jpg`
+            img3: `assets/images/users/user13.jpg`,
         },
         {
             title: `WordPress development`,
@@ -192,12 +205,12 @@ export class KanbanBoardComponent {
             category: `WordPress`,
             createdDate: `Created 15 Nov`,
             img1: `assets/images/users/user14.jpg`,
-            img2: `assets/images/users/user15.jpg`
-        }
+            img2: `assets/images/users/user15.jpg`,
+        },
     ];
 
     // To Completed
-    toCompleted : any = [
+    toCompleted: any = [
         {
             title: `App project update`,
             description: `This column represents tasks that have been identified but are not yet scheduled for work.`,
@@ -206,7 +219,7 @@ export class KanbanBoardComponent {
             createdDate: `Created 25 Nov`,
             img1: `assets/images/users/user17.jpg`,
             img2: `assets/images/users/user16.jpg`,
-            img3: `assets/images/users/user15.jpg`
+            img3: `assets/images/users/user15.jpg`,
         },
         {
             title: `E-commerce site`,
@@ -216,7 +229,7 @@ export class KanbanBoardComponent {
             createdDate: `Created 24 Nov`,
             img1: `assets/images/users/user14.jpg`,
             img2: `assets/images/users/user13.jpg`,
-            img3: `assets/images/users/user12.jpg`
+            img3: `assets/images/users/user12.jpg`,
         },
         {
             title: `LMS & education site design`,
@@ -225,7 +238,7 @@ export class KanbanBoardComponent {
             category: `Education`,
             createdDate: `Created 23 Nov`,
             img1: `assets/images/users/user11.jpg`,
-            img2: `assets/images/users/user10.jpg`
+            img2: `assets/images/users/user10.jpg`,
         },
         {
             title: `Creative portfolio design`,
@@ -234,7 +247,7 @@ export class KanbanBoardComponent {
             category: `Portfolio`,
             createdDate: `Created 22 Nov`,
             img1: `assets/images/users/user9.jpg`,
-            img2: `assets/images/users/user8.jpg`
+            img2: `assets/images/users/user8.jpg`,
         },
         {
             title: `Vaxo admin dashboard`,
@@ -242,20 +255,24 @@ export class KanbanBoardComponent {
             daysLeft: `Done`,
             category: `Admin`,
             createdDate: `Created 21 Nov`,
-            img1: `assets/images/users/user7.jpg`
-        }
+            img1: `assets/images/users/user7.jpg`,
+        },
     ];
 
     // Drag and Drop
     drop(event: CdkDragDrop<string[]>) {
         if (event.previousContainer === event.container) {
-            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+            moveItemInArray(
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex
+            );
         } else {
             transferArrayItem(
                 event.previousContainer.data,
                 event.container.data,
                 event.previousIndex,
-                event.currentIndex,
+                event.currentIndex
             );
         }
     }
@@ -269,10 +286,8 @@ export class KanbanBoardComponent {
     // isToggled
     isToggled = false;
 
-    constructor(
-        public themeService: CustomizerSettingsService
-    ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
+    constructor(public themeService: CustomizerSettingsService) {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -286,5 +301,4 @@ export class KanbanBoardComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }

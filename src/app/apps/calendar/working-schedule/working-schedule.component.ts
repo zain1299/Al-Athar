@@ -8,17 +8,28 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
 
 @Component({
-	selector: 'app-working-schedule:not(p)',
-	standalone: true,
-    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule],
-	templateUrl: './working-schedule.component.html',
-	styleUrl: './working-schedule.component.scss'
+    selector: 'app-working-schedule:not(p)',
+    standalone: true,
+    imports: [
+        MatCardModule,
+        MatMenuModule,
+        MatButtonModule,
+        RouterLink,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+    ],
+    templateUrl: './working-schedule.component.html',
+    styleUrl: './working-schedule.component.scss',
 })
 export class WorkingScheduleComponent {
-
     // Mat Calendar
     selected: Date | null;
 
@@ -31,10 +42,8 @@ export class WorkingScheduleComponent {
     // isToggled
     isToggled = false;
 
-    constructor(
-        public themeService: CustomizerSettingsService
-    ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
+    constructor(public themeService: CustomizerSettingsService) {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -48,5 +57,4 @@ export class WorkingScheduleComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }

@@ -4,24 +4,27 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-projects',
     standalone: true,
-    imports: [RouterLink, MatCardModule, MatMenuModule, MatButtonModule, SidebarComponent],
+    imports: [
+        RouterLink,
+        MatCardModule,
+        MatMenuModule,
+        MatButtonModule,
+        SidebarComponent,
+    ],
     templateUrl: './projects.component.html',
-    styleUrl: './projects.component.scss'
+    styleUrl: './projects.component.scss',
 })
 export class ProjectsComponent {
-
     // isToggled
     isToggled = false;
 
-    constructor(
-        public themeService: CustomizerSettingsService
-    ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
+    constructor(public themeService: CustomizerSettingsService) {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -30,5 +33,4 @@ export class ProjectsComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }

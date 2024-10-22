@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
-import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
 import { HttpService } from '../../../shared/http.service';
 import { LabelService } from '../../../shared/LabelService';
 import { StorageService } from '../../../shared/storage.service';

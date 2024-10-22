@@ -13,18 +13,38 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-media',
     standalone: true,
-    imports: [MatCardModule, MatMenuModule, SidebarComponent, MatButtonModule, RouterLink, MatTableModule, MatCheckboxModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule],
+    imports: [
+        MatCardModule,
+        MatMenuModule,
+        SidebarComponent,
+        MatButtonModule,
+        RouterLink,
+        MatTableModule,
+        MatCheckboxModule,
+        MatTooltipModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+    ],
     templateUrl: './media.component.html',
-    styleUrl: './media.component.scss'
+    styleUrl: './media.component.scss',
 })
 export class MediaComponent {
-
-    displayedColumns: string[] = ['folderName', 'owner', 'listedDate', 'fileSize', 'fileItems', 'action'];
+    displayedColumns: string[] = [
+        'folderName',
+        'owner',
+        'listedDate',
+        'fileSize',
+        'fileItems',
+        'action',
+    ];
     dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
     selection = new SelectionModel<PeriodicElement>(true, []);
 
@@ -49,7 +69,9 @@ export class MediaComponent {
         if (!row) {
             return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         }
-        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.folderName + 1}`;
+        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+            row.folderName + 1
+        }`;
     }
 
     // Search Filter
@@ -67,10 +89,8 @@ export class MediaComponent {
     // isToggled
     isToggled = false;
 
-    constructor(
-        public themeService: CustomizerSettingsService
-    ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
+    constructor(public themeService: CustomizerSettingsService) {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -79,7 +99,6 @@ export class MediaComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -92,8 +111,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             download: 'sim_card_download',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         folderName: 'Personal photo',
@@ -104,8 +123,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             download: 'sim_card_download',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         folderName: 'Audio file',
@@ -116,8 +135,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             download: 'sim_card_download',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         folderName: 'English learning files',
@@ -128,8 +147,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             download: 'sim_card_download',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         folderName: 'Mix projects design files',
@@ -140,8 +159,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             download: 'sim_card_download',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         folderName: 'Dashboard design file',
@@ -152,8 +171,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             download: 'sim_card_download',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         folderName: 'Important documents',
@@ -164,8 +183,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             download: 'sim_card_download',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         folderName: 'Product design',
@@ -176,8 +195,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             download: 'sim_card_download',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         folderName: 'Dashboard design file',
@@ -188,8 +207,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             download: 'sim_card_download',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         folderName: 'Media files',
@@ -200,9 +219,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             download: 'sim_card_download',
             edit: 'edit',
-            delete: 'delete'
-        }
-    }
+            delete: 'delete',
+        },
+    },
 ];
 export interface PeriodicElement {
     folderName: string;

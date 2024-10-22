@@ -6,24 +6,30 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-sidebar',
     standalone: true,
-    imports: [RouterLink, MatCardModule, MatMenuModule, MatButtonModule, MatInputModule, MatFormFieldModule, RouterLinkActive, MatProgressBarModule],
+    imports: [
+        RouterLink,
+        MatCardModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        RouterLinkActive,
+        MatProgressBarModule,
+    ],
     templateUrl: './sidebar.component.html',
-    styleUrl: './sidebar.component.scss'
+    styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-
     // isToggled
     isToggled = false;
 
-    constructor(
-        public themeService: CustomizerSettingsService
-    ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
+    constructor(public themeService: CustomizerSettingsService) {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -37,5 +43,4 @@ export class SidebarComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }

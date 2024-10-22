@@ -4,7 +4,7 @@ import { Component, HostListener } from '@angular/core';
 import { ToggleService } from '../sidebar/toggle.service';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../theme/customizer-settings/customizer-settings.service';
 import { IUser } from '../../interface';
 import { StorageService } from '../../shared/storage.service';
 import { StorageKeys } from '../../shared/storage-keys';

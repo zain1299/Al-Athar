@@ -9,17 +9,28 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NgxEditorModule, Editor, Toolbar } from 'ngx-editor';
-import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-compose',
     standalone: true,
-    imports: [RouterLink, SidebarComponent, MatMenuModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, FormsModule, ReactiveFormsModule, NgxEditorModule],
+    imports: [
+        RouterLink,
+        SidebarComponent,
+        MatMenuModule,
+        MatButtonModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxEditorModule,
+    ],
     templateUrl: './compose.component.html',
-    styleUrl: './compose.component.scss'
+    styleUrl: './compose.component.scss',
 })
 export class ComposeComponent {
-
     // Text Editor
     editor: Editor;
     toolbar: Toolbar = [
@@ -44,15 +55,20 @@ export class ComposeComponent {
 
     // Select Emails
     emails = new FormControl('');
-    emailList: string[] = ['hello@james.com', 'hello@andy.com', 'hello@mateo.com', 'hello@luca.com', 'hello@sausage.com', 'hello@tomato.com'];
+    emailList: string[] = [
+        'hello@james.com',
+        'hello@andy.com',
+        'hello@mateo.com',
+        'hello@luca.com',
+        'hello@sausage.com',
+        'hello@tomato.com',
+    ];
 
     // isToggled
     isToggled = false;
 
-    constructor(
-        public themeService: CustomizerSettingsService
-    ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
+    constructor(public themeService: CustomizerSettingsService) {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -61,5 +77,4 @@ export class ComposeComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }

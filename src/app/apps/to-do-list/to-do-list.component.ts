@@ -13,18 +13,40 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../theme/customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-to-do-list',
     standalone: true,
-    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, MatTableModule, NgIf, MatCheckboxModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule],
+    imports: [
+        MatCardModule,
+        MatMenuModule,
+        MatButtonModule,
+        RouterLink,
+        MatTableModule,
+        NgIf,
+        MatCheckboxModule,
+        MatTooltipModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+    ],
     templateUrl: './to-do-list.component.html',
-    styleUrl: './to-do-list.component.scss'
+    styleUrl: './to-do-list.component.scss',
 })
 export class ToDoListComponent {
-
-    displayedColumns: string[] = ['select', 'taskID', 'taskName', 'assignedTo', 'dueDate', 'priority', 'status', 'action'];
+    displayedColumns: string[] = [
+        'select',
+        'taskID',
+        'taskName',
+        'assignedTo',
+        'dueDate',
+        'priority',
+        'status',
+        'action',
+    ];
     dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
     selection = new SelectionModel<PeriodicElement>(true, []);
 
@@ -49,7 +71,9 @@ export class ToDoListComponent {
         if (!row) {
             return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         }
-        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.taskID + 1}`;
+        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+            row.taskID + 1
+        }`;
     }
 
     // Search Filter
@@ -67,10 +91,8 @@ export class ToDoListComponent {
     // isToggled
     isToggled = false;
 
-    constructor(
-        public themeService: CustomizerSettingsService
-    ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
+    constructor(public themeService: CustomizerSettingsService) {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -79,7 +101,6 @@ export class ToDoListComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -98,8 +119,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         taskID: '#587',
@@ -116,8 +137,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         taskID: '#618',
@@ -134,8 +155,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         taskID: '#367',
@@ -152,8 +173,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         taskID: '#761',
@@ -170,8 +191,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         taskID: '#431',
@@ -188,8 +209,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         taskID: '#421',
@@ -206,8 +227,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         taskID: '#624',
@@ -224,8 +245,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
+            delete: 'delete',
+        },
     },
     {
         taskID: '#513',
@@ -242,9 +263,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
         action: {
             view: 'visibility',
             edit: 'edit',
-            delete: 'delete'
-        }
-    }
+            delete: 'delete',
+        },
+    },
 ];
 
 export interface PeriodicElement {

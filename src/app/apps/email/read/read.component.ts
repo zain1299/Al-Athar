@@ -4,24 +4,27 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
 
 @Component({
     selector: 'app-read',
     standalone: true,
-    imports: [RouterLink, SidebarComponent, MatCardModule, MatMenuModule, MatButtonModule],
+    imports: [
+        RouterLink,
+        SidebarComponent,
+        MatCardModule,
+        MatMenuModule,
+        MatButtonModule,
+    ],
     templateUrl: './read.component.html',
-    styleUrl: './read.component.scss'
+    styleUrl: './read.component.scss',
 })
 export class ReadComponent {
-
     // isToggled
     isToggled = false;
 
-    constructor(
-        public themeService: CustomizerSettingsService
-    ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
+    constructor(public themeService: CustomizerSettingsService) {
+        this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
@@ -35,5 +38,4 @@ export class ReadComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
 }
