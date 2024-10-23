@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { IUser } from '../../../interface';
 import { StorageKeys } from '../../../shared/storage-keys';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ConfirmDialogComponent } from '../../../common/confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector: 'app-screens',
@@ -193,5 +194,40 @@ export class ScreensComponent {
                 Id: this.selectedRow.Id,
             });
         }
+    }
+
+    onDelete(menu: IOGMenuItem): void {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            width: '300px',
+            data: {
+                title: 'Confirm Delete',
+                message: `Are you sure you want to delete this screen: ${menu.Title} ?`,
+            },
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                // Proceed with delete
+                this.deleteScreen(menu);
+            }
+        });
+    }
+
+    deleteScreen(menu: IOGMenuItem): void {
+        this.httpService.DelteteScreen(menu).subscribe({
+            next: (response) => {
+                if (response.Data) {
+                    this.toast.success('Screen Deleted Successfully!');
+                    
+                    this.ScreenSelectList();
+                } else {
+                    this.toast.error(response.Message);
+                }
+            },
+            error: (error) => {
+                console.error('Error occurred:', error);
+                this.toast.error(JSON.parse(error));
+            },
+        });
     }
 }

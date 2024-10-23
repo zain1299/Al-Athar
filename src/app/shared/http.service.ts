@@ -88,4 +88,14 @@ export class HttpService {
             { headers: this.getHeaders() }
         );
     }
+
+    DelteteScreen(
+        body: IOGMenuItem
+    ): Observable<IOGMenuItemInsertResponse> {
+        return this.http.post<IOGMenuItemInsertResponse>(
+            this.HostURL + 'Screen/DeleteScreenById',
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
 }
