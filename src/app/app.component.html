@@ -1,22 +1,37 @@
 <div
-    [ngClass]="{'blank-page': router.url === '/authentication' || router.url === '/authentication/sign-up' || router.url === '/authentication/forgot-password' || router.url === '/authentication/reset-password' || router.url === '/authentication/lock-screen' || router.url === '/authentication/logout' || router.url === '/authentication/confirm-email' || router.url === '/coming-soon'}"
+    [ngClass]="{
+        'blank-page':
+            router.url === '/authentication' ||
+            router.url === '/authentication/sign-up' ||
+            router.url === '/authentication/forgot-password' ||
+            router.url === '/authentication/reset-password' ||
+            router.url === '/authentication/lock-screen' ||
+            router.url === '/authentication/logout' ||
+            router.url === '/authentication/confirm-email' ||
+            router.url === '/coming-soon'
+    }"
     [class.dark-theme]="themeService.isDark()"
     [class.card-borderd-theme]="themeService.isCardBorder()"
     [class.card-border-radius]="themeService.isCardBorderRadius()"
     [class.rtl-enabled]="themeService.isRTLEnabled()"
 >
-
     <!-- Sidebar -->
     <app-sidebar></app-sidebar>
+
+    <!-- [ngClass]="{'active':  isSidebarToggled}"
+        [class.right-sidebar]="themeService.isRightSidebar()"
+        [class.hide-sidebar]="themeService.isHideSidebar()" -->
 
     <!-- Main Content -->
     <div
         class="main-content transition d-flex flex-column"
-        [ngClass]="{'active': isSidebarToggled}"
-        [class.right-sidebar]="themeService.isRightSidebar()"
-        [class.hide-sidebar]="themeService.isHideSidebar()"
+        [ngClass]="{
+            active:user?.USER_CODE ? isSidebarToggled : false,
+            'right-sidebar': themeService.isRightSidebar(),
+            'hide-sidebar': themeService.isHideSidebar()
+        }"
     >
-        <app-header></app-header>
+        <app-header *ngIf="user && user.USER_CODE"></app-header>
         <router-outlet></router-outlet>
         <div class="flex-grow-1"></div>
         <app-footer></app-footer>
@@ -24,5 +39,4 @@
 
     <!-- Customizer Settings -->
     <app-customizer-settings></app-customizer-settings>
-    
 </div>

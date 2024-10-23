@@ -9,6 +9,7 @@ import {
     CommonModule,
     Location,
     LocationStrategy,
+    NgIf,
     PathLocationStrategy,
 } from '@angular/common';
 import { CustomizerSettingsComponent } from './theme/customizer-settings/customizer-settings.component';
@@ -20,6 +21,9 @@ import {
     RouterLink,
 } from '@angular/router';
 import { CustomizerSettingsService } from './theme/customizer-settings/customizer-settings.service';
+import { IUser } from './interface';
+import { StorageService } from './shared/storage.service';
+import { StorageKeys } from './shared/storage-keys';
 
 @Component({
     selector: 'app-root',
@@ -32,6 +36,7 @@ import { CustomizerSettingsService } from './theme/customizer-settings/customize
         FooterComponent,
         RouterLink,
         CustomizerSettingsComponent,
+        NgIf
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
@@ -54,10 +59,27 @@ export class AppComponent {
     // isToggled
     isToggled = false;
 
+    user: IUser = {
+        Token: '',
+        USER_CODE: '',
+        IP: null,
+        PC: null,
+        URL: null,
+        ReferrarURL: null,
+        user_screens: null,
+        user_actions: [],
+        OGScreenList: [],
+        MenuItems: [],
+        USER_NAME: '',
+        USER_EMAIL: '',
+        PROFILE_PIC: '',
+    };
+
     constructor(
         public router: Router,
         private toggleService: ToggleService,
-        public themeService: CustomizerSettingsService
+        public themeService: CustomizerSettingsService,
+        private storage: StorageService
     ) {
         this.toggleService.isSidebarToggled$.subscribe((isSidebarToggled) => {
             this.isSidebarToggled = isSidebarToggled;
@@ -65,6 +87,8 @@ export class AppComponent {
         this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
+
+        this.user = this.storage.get(StorageKeys.User);
     }
 
     // ngOnInit
