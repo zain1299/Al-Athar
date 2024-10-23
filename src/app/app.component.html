@@ -26,7 +26,7 @@
     <div
         class="main-content transition d-flex flex-column"
         [ngClass]="{
-            active:user?.USER_CODE ? isSidebarToggled : false,
+            active:user && user.USER_CODE && user.USER_CODE ? isSidebarToggled : false,
             'right-sidebar': themeService.isRightSidebar(),
             'hide-sidebar': themeService.isHideSidebar()
         }"

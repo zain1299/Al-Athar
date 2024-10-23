@@ -115,7 +115,7 @@ export class RolesComponent {
             this.Labels = labels; // Set the labels here
         });
         const user: IUser = this.storage.get(StorageKeys.User);
-        this.UserCode = +user.USER_CODE as number;
+        this.UserCode = user?.USER_CODE ? +user?.USER_CODE  : 0  as number;
     }
 
     RoleSelectListData() {

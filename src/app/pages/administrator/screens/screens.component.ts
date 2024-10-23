@@ -48,7 +48,7 @@ export class ScreensComponent {
     ViewclassApplied = false;
     dataSource = new MatTableDataSource<IOGMenuItem>([]);
     form: FormGroup;
-    UserCode: number;
+    UserCode: number | null;
     selectedRow: IOGMenuItem;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -91,7 +91,7 @@ export class ScreensComponent {
     ngOnInit(): void {
         this.ScreenSelectList();
         const user: IUser = this.storage.get(StorageKeys.User);
-        this.UserCode = +user.USER_CODE as number;
+        this.UserCode = user?.USER_CODE ? +user?.USER_CODE  : null;
     }
 
     // Search Filter
@@ -147,12 +147,12 @@ export class ScreensComponent {
                 IsExpandable: this.form.get('isExpandable')?.value,
                 Badge: this.form.get('badge')?.value,
                 ParentId: +this.form.get('parentId')?.value,
-                CreatedBy: +this.UserCode,
+                CreatedBy: (this.UserCode ? +this.UserCode : 0),
                 CreatedIP: '',
                 CreatedPC: '',
                 CreatedUrl: '',
                 UpdatedBy: this.form.get('Id')?.value
-                    ? +this.UserCode
+                    ? (this.UserCode ? +this.UserCode : 0)
                     : undefined,
                 UpdatedIP: '',
                 UpdatedPC: '',
