@@ -222,6 +222,14 @@ export const routes: Routes = [
             ),
     },
     {
+        path: 'og-contract-types',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+            import(
+                './pages/og-contract-types/og-contract-types.component'
+            ).then((m) => m.OgContractTypesComponent),
+    },
+    {
         path: 'dashboard',
         component: EcommerceComponent,
         canActivate: [AuthGuard],

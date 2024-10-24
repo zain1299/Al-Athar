@@ -5,4 +5,5 @@ export interface ApiResponse<T> {
     Message: string;
     Value: any | null;
     Data: T | null;
+    Error: any;
 }

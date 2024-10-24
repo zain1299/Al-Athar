@@ -9,7 +9,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { IVendor } from '../../interface/Vendor/vendor.interface';
 import { HttpService } from '../../shared/http.service';
 import { StorageService } from '../../shared/storage.service';
 import { StorageKeys } from '../../shared/storage-keys';
@@ -21,9 +20,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ConfirmDialogComponent } from '../../common/confirm-dialog/confirm-dialog.component';
 import { IUser } from '../../interface';
+import { IOGContractTypes } from '../../interface/OGContractTypes/OGContractTypes.interface';
 
 @Component({
-    selector: 'app-vendor',
+    selector: 'app-og-contract-types',
     standalone: true,
     imports: [
         MatCardModule,
@@ -36,30 +36,21 @@ import { IUser } from '../../interface';
         ReactiveFormsModule,
         MatInputModule,
     ],
-    templateUrl: './vendor.component.html',
-    styleUrls: ['./vendor.component.scss'],
+    templateUrl: './og-contract-types.component.html',
+    styleUrl: './og-contract-types.component.scss',
 })
-export class VendorComponent {
+export class OgContractTypesComponent {
     isToggled = false;
     classApplied = false;
     ViewclassApplied = false;
-    dataSource = new MatTableDataSource<IVendor>([]);
+    dataSource = new MatTableDataSource<IOGContractTypes>([]);
     form: FormGroup;
     UserCode: number | null;
-    selectedRow: IVendor;
+    selectedRow: IOGContractTypes;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    displayedColumns: string[] = [
-        'Name',
-        'PhoneNumber',
-        'Email',
-        'NTN',
-        'AccountTitle',
-        'BankName',
-        'AccountNumberIBN',
-        'action',
-    ];
+    displayedColumns: string[] = ['Id', 'Name', 'action'];
 
     constructor(
         public themeService: CustomizerSettingsService,
@@ -75,18 +66,13 @@ export class VendorComponent {
 
         this.form = this.fb.group({
             Name: ['', Validators.required],
-            PhoneNumber: ['', Validators.required],
-            Email: ['', [Validators.required, Validators.email]],
-            NTN: [''],
-            AccountTitle: [''],
-            BankName: [''],
-            AccountNumberIBN: [''],
+
             Id: [undefined],
         });
     }
 
     ngOnInit(): void {
-        this.VendorList();
+        this.OgContractTypeList();
         const user: IUser = this.storage.get(StorageKeys.User);
         this.UserCode = user?.USER_CODE ? +user?.USER_CODE : null;
     }
@@ -102,12 +88,6 @@ export class VendorComponent {
         if (!this.classApplied) {
             this.form.reset({
                 Name: '',
-                PhoneNumber: '',
-                Email: '',
-                NTN: '',
-                AccountTitle: '',
-                BankName: '',
-                AccountNumberIBN: '',
                 Id: undefined,
             });
         }
@@ -117,15 +97,15 @@ export class VendorComponent {
         this.ViewclassApplied = !this.ViewclassApplied;
     }
 
-    ViewData(row: IVendor): void {
+    ViewData(row: IOGContractTypes): void {
         this.selectedRow = row;
         this.toggleClassView();
     }
 
-    VendorList() {
-        this.httpService.VendorList().subscribe({
+    OgContractTypeList() {
+        this.httpService.OgContractTypeList().subscribe({
             next: (response) => {
-                this.dataSource.data = response.Data as IVendor[];
+                this.dataSource.data = response.Data as IOGContractTypes[];
                 this.dataSource.paginator = this.paginator;
             },
             error: (error) => {
@@ -139,23 +119,17 @@ export class VendorComponent {
             const body = {
                 Id: this.form.get('Id')?.value ?? undefined,
                 Name: this.form.get('Name')?.value,
-                PhoneNumber: `${this.form.get('PhoneNumber')?.value}`,
-                Email: this.form.get('Email')?.value,
-                NTN: this.form.get('NTN')?.value,
-                AccountTitle: this.form.get('AccountTitle')?.value,
-                BankName: this.form.get('BankName')?.value,
-                AccountNumberIBN: this.form.get('AccountNumberIBN')?.value,
             };
 
             if (body?.Id > 0) {
                 const id = body?.Id;
                 delete body?.Id;
-                this.httpService.UpdateVendor(id, body).subscribe({
+                this.httpService.UpdateOgContractType(id, body).subscribe({
                     next: (response) => {
                         if (response.Status === 200) {
                             this.toast.success('Vendor updated successfully!');
                             this.toggleClass();
-                            this.VendorList();
+                            this.OgContractTypeList();
                         } else {
                             this.toast.error(response.Message);
                         }
@@ -178,12 +152,12 @@ export class VendorComponent {
                     },
                 });
             } else {
-                this.httpService.InsertVendor(body).subscribe({
+                this.httpService.InsertOgContractType(body).subscribe({
                     next: (response) => {
                         if (response.Status === 201) {
                             this.toast.success('Vendor created successfully!');
                             this.toggleClass();
-                            this.VendorList();
+                            this.OgContractTypeList();
                         } else {
                             this.toast.error(response.Message);
                         }
@@ -211,25 +185,19 @@ export class VendorComponent {
         }
     }
 
-    onEdit(row: IVendor): void {
+    onEdit(row: IOGContractTypes): void {
         this.selectedRow = row;
         this.toggleClass();
 
         if (this.selectedRow != null) {
             this.form.patchValue({
                 Name: this.selectedRow.Name,
-                PhoneNumber: this.selectedRow.PhoneNumber,
-                Email: this.selectedRow.Email,
-                NTN: this.selectedRow.NTN,
-                AccountTitle: this.selectedRow.AccountTitle,
-                BankName: this.selectedRow.BankName,
-                AccountNumberIBN: this.selectedRow.AccountNumberIBN,
                 Id: this.selectedRow.Id,
             });
         }
     }
 
-    onDelete(vendor: IVendor): void {
+    onDelete(vendor: IOGContractTypes): void {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             width: '300px',
             data: {
@@ -240,17 +208,17 @@ export class VendorComponent {
 
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
-                this.deleteVendor(vendor);
+                this.DeleteOgContractType(vendor);
             }
         });
     }
 
-    deleteVendor(vendor: IVendor): void {
-        this.httpService.DeleteVendor(vendor.Id).subscribe({
+    DeleteOgContractType(vendor: IOGContractTypes): void {
+        this.httpService.DeleteOgContractType(vendor.Id).subscribe({
             next: (response) => {
                 if (response.Status == 200) {
                     this.toast.success('Vendor deleted successfully!');
-                    this.VendorList();
+                    this.OgContractTypeList();
                 } else {
                     this.toast.error(response.Message);
                 }

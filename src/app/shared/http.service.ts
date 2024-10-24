@@ -17,6 +17,16 @@ import {
     IOGMenuItemInsertResponse,
     IOGMenuItemResponse,
 } from '../interface/Screens/screen.interface';
+import {
+    IVendor,
+    IVendorInsertResponse,
+    IVendorResponse,
+} from '../interface/Vendor/vendor.interface';
+import {
+    IOGContractTypes,
+    IOGContractTypesInsertResponse,
+    IOGContractTypesResponse,
+} from '../interface/OGContractTypes/OGContractTypes.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -24,7 +34,7 @@ import {
 export class HttpService {
     constructor(private http: HttpClient, private storage: StorageService) {}
     HostURL = environment.domain;
-    contractHostUrl = environment.contractHostURL   
+    contractHostUrl = environment.contractHostURL;
 
     // Method to get headers dynamically
     private getHeaders(): HttpHeaders {
@@ -90,9 +100,7 @@ export class HttpService {
         );
     }
 
-    DelteteScreen(
-        body: IOGMenuItem
-    ): Observable<IOGMenuItemInsertResponse> {
+    DelteteScreen(body: IOGMenuItem): Observable<IOGMenuItemInsertResponse> {
         return this.http.post<IOGMenuItemInsertResponse>(
             this.HostURL + 'Screen/DeleteScreenById',
             body,
@@ -100,13 +108,72 @@ export class HttpService {
         );
     }
 
-
     // Vendors
 
-    VendorList(): Observable<any> {
-        return this.http.get<any>(
+    VendorList(): Observable<IVendorResponse> {
+        return this.http.get<IVendorResponse>(
             this.contractHostUrl + 'vendor',
-            {},
+            {}
+        );
+    }
+
+    InsertVendor(body: IVendor): Observable<IVendorInsertResponse> {
+        return this.http.post<IVendorInsertResponse>(
+            this.contractHostUrl + 'vendor',
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    UpdateVendor(id: number, body: IVendor): Observable<IVendorInsertResponse> {
+        return this.http.patch<IVendorInsertResponse>(
+            `${this.contractHostUrl}vendor/${id}`,
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    DeleteVendor(id: number): Observable<IVendorInsertResponse> {
+        return this.http.delete<IVendorInsertResponse>(
+            `${this.contractHostUrl}vendor/${id}`,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    // OG Contract Types
+
+    OgContractTypeList(): Observable<IOGContractTypesResponse> {
+        return this.http.get<IOGContractTypesResponse>(
+            this.contractHostUrl + 'og-contract-types',
+            {}
+        );
+    }
+
+    InsertOgContractType(
+        body: IOGContractTypes
+    ): Observable<IOGContractTypesInsertResponse> {
+        return this.http.post<IOGContractTypesInsertResponse>(
+            this.contractHostUrl + 'og-contract-types',
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    UpdateOgContractType(
+        id: number,
+        body: IOGContractTypes
+    ): Observable<IOGContractTypesInsertResponse> {
+        return this.http.patch<IOGContractTypesInsertResponse>(
+            `${this.contractHostUrl}og-contract-types/${id}`,
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    DeleteOgContractType(id: number): Observable<any> {
+        return this.http.delete<any>(
+            `${this.contractHostUrl}og-contract-types/${id}`,
+            { headers: this.getHeaders() }
         );
     }
 }
