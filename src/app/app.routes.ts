@@ -214,6 +214,14 @@ export const routes: Routes = [
             ),
     },
     {
+        path: 'vendors',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./pages/vendor/vendor.component').then(
+                (m) => m.VendorComponent
+            ),
+    },
+    {
         path: 'dashboard',
         component: EcommerceComponent,
         canActivate: [AuthGuard],

@@ -41,7 +41,7 @@
                                 }}</i>
                                 <span class="title">{{ menuItem.Title }}</span>
                                 <span
-                                    *ngIf="menuItem.Badge"
+                                    *ngIf="+menuItem.Badge > 0 "
                                     class="daxa-badge"
                                     >{{ menuItem.Badge }}</span
                                 >

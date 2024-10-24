@@ -24,6 +24,7 @@ import {
 export class HttpService {
     constructor(private http: HttpClient, private storage: StorageService) {}
     HostURL = environment.domain;
+    contractHostUrl = environment.contractHostURL   
 
     // Method to get headers dynamically
     private getHeaders(): HttpHeaders {
@@ -96,6 +97,16 @@ export class HttpService {
             this.HostURL + 'Screen/DeleteScreenById',
             body,
             { headers: this.getHeaders() }
+        );
+    }
+
+
+    // Vendors
+
+    VendorList(): Observable<any> {
+        return this.http.get<any>(
+            this.contractHostUrl + 'vendor',
+            {},
         );
     }
 }
