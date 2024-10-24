@@ -27,6 +27,18 @@ import {
     IOGContractTypesInsertResponse,
     IOGContractTypesResponse,
 } from '../interface/OGContractTypes/OGContractTypes.interface';
+import {
+    IGroup,
+    IGroupInsertResponse,
+    IGroupResponse,
+} from '../interface/Group/OG-Group.interface';
+import {
+    IGroupUsers,
+    IGroupUsersInsertResponse,
+    IGroupUsersResponse,
+} from '../interface/Group/Group.interface';
+import { ApiResponse } from '../interface/ApiResponse/ApiResponse.interface';
+import { IUserList } from '../interface/Login/loginResponse.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -62,6 +74,15 @@ export class HttpService {
     Logout() {
         this.storage.remove(StorageKeys.User);
         // Redirect to login or do any other cleanup
+    }
+
+    // User
+    GetUserList(body: any): Observable<ApiResponse<IUserList[]>> {
+        return this.http.post<ApiResponse<IUserList[]>>(
+            this.HostURL + 'User/GetUserList',
+            body,
+            { headers: this.getHeaders() }
+        );
     }
 
     // Roles
@@ -174,6 +195,73 @@ export class HttpService {
         return this.http.delete<any>(
             `${this.contractHostUrl}og-contract-types/${id}`,
             { headers: this.getHeaders() }
+        );
+    }
+
+    // Groups
+    OgGroupsList(): Observable<IGroupResponse> {
+        return this.http.get<IGroupResponse>(
+            this.contractHostUrl + 'group',
+            {}
+        );
+    }
+
+    InsertOgGroups(body: IGroup): Observable<IGroupInsertResponse> {
+        return this.http.post<IGroupInsertResponse>(
+            this.contractHostUrl + 'group',
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    UpdateOgGroups(id: number, body: IGroup): Observable<IGroupInsertResponse> {
+        return this.http.patch<IGroupInsertResponse>(
+            `${this.contractHostUrl}group/${id}`,
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    DeleteOgGroups(id: number): Observable<any> {
+        return this.http.delete<any>(`${this.contractHostUrl}group/${id}`, {
+            headers: this.getHeaders(),
+        });
+    }
+
+    OgGroupUsersList(): Observable<IGroupUsersResponse> {
+        return this.http.get<IGroupUsersResponse>(
+            this.contractHostUrl + 'group-users',
+            {}
+        );
+    }
+
+    InsertOgGroupUsers(
+        body: IGroupUsers
+    ): Observable<IGroupUsersInsertResponse> {
+        return this.http.post<IGroupUsersInsertResponse>(
+            this.contractHostUrl + 'group-users',
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    UpdateOgGroupUsers(
+        id: number,
+        body: IGroupUsers
+    ): Observable<IGroupUsersInsertResponse> {
+        return this.http.patch<IGroupUsersInsertResponse>(
+            `${this.contractHostUrl}group-users/${id}`,
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    DeleteOgGroupUsers(id: number): Observable<any> {
+        return this.http.delete<any>(
+            `${this.contractHostUrl}group-users/${id}`,
+            {
+                headers: this.getHeaders(),
+            }
         );
     }
 }

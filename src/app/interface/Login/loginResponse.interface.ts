@@ -16,6 +16,19 @@ export interface IUser {
     PROFILE_PIC: string;
 }
 
+export interface IUserList {
+    UserCode: string;
+    RoleId: number;
+    FullNameAr: string;
+    FullNameEN: string;
+    EmailID: string;
+    PhoneNumber: string;
+    ProfilePicture: string;
+    ProfilePictureUrl: string;
+    CitizenID: string;
+    Status: string;
+}
+
 export interface ILoginResponse extends ApiResponse<IUser> {}
 
 export interface Action {

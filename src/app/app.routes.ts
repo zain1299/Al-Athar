@@ -222,6 +222,14 @@ export const routes: Routes = [
             ),
     },
     {
+        path: 'group',
+        // canActivate: [AuthGuard],
+        loadChildren: () =>
+            import('./pages/og-group/og-group.module').then(
+                (m) => m.OGGroupRoutingModule
+            ),
+    },
+    {
         path: 'og-contract-types',
         canActivate: [AuthGuard],
         loadComponent: () =>
