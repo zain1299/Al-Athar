@@ -4,12 +4,12 @@ import {
     FormBuilder,
     ReactiveFormsModule,
     Validators,
+    FormControl,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-
 import { NgIf, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -26,6 +26,8 @@ import { IGroupUsers } from '../../../interface/Group/Group.interface';
 import { IGroup } from '../../../interface/Group/OG-Group.interface';
 import { IUserList } from '../../../interface/Login/loginResponse.interface';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
     selector: 'app-groups-users',
@@ -41,6 +43,7 @@ import { MatSelectModule } from '@angular/material/select';
         ReactiveFormsModule,
         MatInputModule,
         MatSelectModule,
+        MatAutocompleteModule,
     ],
     templateUrl: './groups-users.component.html',
     styleUrls: ['./groups-users.component.scss'],
@@ -59,6 +62,9 @@ export class GroupsUsersComponent {
 
     allUsers: IUserList[] = [];
     allGroups: IGroup[] = [];
+
+    userControl = new FormControl(); // Control for the autocomplete
+    filteredUsers: Array<{ UserCode: string; FullNameAr: string }> = [];
 
     constructor(
         public themeService: CustomizerSettingsService,
@@ -86,27 +92,52 @@ export class GroupsUsersComponent {
         this.UserCode = user?.USER_CODE ? +user?.USER_CODE : null;
     }
 
-    loadUsers(searchTerm: string | number): void {
+    async loadUsers(searchTerm: string | number): Promise<void> {
         const body = {
             defaultcolumns: {
                 created_by: 1414,
             },
             searchTerm: searchTerm,
         };
-        this.httpService.GetUserList(body).subscribe((users) => {
+
+        try {
+            const users = await lastValueFrom(
+                this.httpService.GetUserList(body)
+            );
             this.allUsers = users.Data as IUserList[];
-        });
+            this.filteredUsers = this.allUsers;
+        } catch (error) {
+            console.error('Error loading users:', error);
+            throw error; // Handle any errors
+        }
+    }
+
+    // Handle user search input changes
+    onUserSearch(event: Event): void {
+        const searchTerm = (event.target as HTMLInputElement).value;
+        this.loadUsers(searchTerm);
+    }
+
+    // Method to handle user selection
+    onUserSelect(selectedUserCode: string): void {
+        // Find the selected user in the allUsers array
+        const selectedUser = this.allUsers.find(
+            (user) => user.UserCode === selectedUserCode
+        );
+
+        if (selectedUser) {
+            this.userControl.setValue(selectedUser.FullNameAr);
+            this.form.patchValue({
+                UserId: selectedUser.UserCode,
+                FullNameAr: selectedUser.FullNameAr,
+            });
+        }
     }
 
     loadGroups(): void {
         this.httpService.OgGroupsList().subscribe((groups) => {
             this.allGroups = groups.Data as IGroup[];
         });
-    }
-
-    onUserSearch(event: Event): void {
-        const searchTerm = (event.target as HTMLInputElement).value;
-        this.loadUsers(searchTerm);
     }
 
     applyFilter(event: Event) {
@@ -116,6 +147,7 @@ export class GroupsUsersComponent {
 
     toggleClass() {
         this.classApplied = !this.classApplied;
+        this.userControl.setValue(null);
 
         if (!this.classApplied) {
             this.form.reset({
@@ -226,7 +258,7 @@ export class GroupsUsersComponent {
         }
     }
 
-    onEdit(row: IGroupUsers): void {
+    async onEdit(row: IGroupUsers): Promise<void> {
         this.selectedRow = row;
         this.toggleClass();
 
@@ -236,8 +268,29 @@ export class GroupsUsersComponent {
                 UserId: this.selectedRow.UserId,
                 Id: this.selectedRow.Id,
             });
+
+            // Clear the userControl and allUsers before loading new users
+            this.userControl.setValue('');
+            this.allUsers = [];
+
+            try {
+                // Await the completion of loadUsers and proceed directly after it's done
+                await this.loadUsers(this.selectedRow.UserId);
+
+                // Once loadUsers is finished, set the user in the userControl
+                const selectedUser = this.allUsers.find(
+                    (user) =>
+                        user.UserCode === this.selectedRow.UserId.toString()
+                );
+
+                if (selectedUser) {
+                    // Set the value of the userControl to the selected user's name
+                    this.userControl.setValue(selectedUser.FullNameAr);
+                }
+            } catch (error) {
+                console.error('Error loading users:', error);
+            }
         }
-        this.loadUsers(this.selectedRow.UserId);
     }
 
     onDelete(group: IGroupUsers): void {
