@@ -80,6 +80,19 @@ body {
     }
 }
 
+.rtl-enabled .mat-mdc-form-field {
+    direction: rtl;
+}
+
+.rtl-enabled .mat-select {
+    direction: rtl !important;
+    // text-align: right; /* Optional: Adjust text alignment */
+}
+
+.rtl-enabled .mat-mdc-option {
+    direction: rtl; /* Ensure the options also align correctly */
+}
+
 /* Max width 767px */
 @media only screen and (max-width: 767px) {
     // Main Content

@@ -39,6 +39,11 @@ import {
 } from '../interface/Group/Group.interface';
 import { ApiResponse } from '../interface/ApiResponse/ApiResponse.interface';
 import { IUserList } from '../interface/Login/loginResponse.interface';
+import {
+    IContracts,
+    IContractsInsertResponse,
+    IContractsResponse,
+} from '../interface/Contract/contract.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -262,6 +267,41 @@ export class HttpService {
             {
                 headers: this.getHeaders(),
             }
+        );
+    }
+
+    // contract
+
+    contractsList(): Observable<IContractsResponse> {
+        return this.http.get<IContractsResponse>(
+            this.contractHostUrl + 'contracts',
+            {}
+        );
+    }
+
+    Insertcontracts(body: IContracts): Observable<IContractsInsertResponse> {
+        return this.http.post<IContractsInsertResponse>(
+            this.contractHostUrl + 'contracts',
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    Updatecontracts(
+        id: number,
+        body: IContracts
+    ): Observable<IContractsInsertResponse> {
+        return this.http.patch<IContractsInsertResponse>(
+            `${this.contractHostUrl}contracts/${id}`,
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    Deletecontracts(id: number): Observable<IContractsInsertResponse> {
+        return this.http.delete<IContractsInsertResponse>(
+            `${this.contractHostUrl}contracts/${id}`,
+            { headers: this.getHeaders() }
         );
     }
 }

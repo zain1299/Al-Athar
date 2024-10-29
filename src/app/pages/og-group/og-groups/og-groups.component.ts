@@ -121,7 +121,7 @@ export class OGGroupsComponent {
             const body = {
                 Id: this.form.get('Id')?.value ?? undefined,
                 Name: this.form.get('Name')?.value,
-                Description: this.form.get('Description')?.value,
+                Description: this.form.get('Description')?.value ?? '',
             };
 
             if (body?.Id > 0) {

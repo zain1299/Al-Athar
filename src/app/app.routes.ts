@@ -207,7 +207,6 @@ export const routes: Routes = [
     },
     {
         path: 'administrator',
-        // canActivate: [AuthGuard],
         loadChildren: () =>
             import('./pages/administrator/administrator.module').then(
                 (m) => m.AdministratorRoutingModule
@@ -223,7 +222,6 @@ export const routes: Routes = [
     },
     {
         path: 'group',
-        // canActivate: [AuthGuard],
         loadChildren: () =>
             import('./pages/og-group/og-group.module').then(
                 (m) => m.OGGroupRoutingModule
@@ -236,6 +234,14 @@ export const routes: Routes = [
             import(
                 './pages/og-contract-types/og-contract-types.component'
             ).then((m) => m.OgContractTypesComponent),
+    },
+    {
+        path: 'contract',
+        loadComponent: () =>
+            import('./pages/contract/contract.component').then(
+                (m) => m.ContractComponent
+            ),
+        canActivate: [AuthGuard],
     },
     {
         path: 'dashboard',
@@ -278,7 +284,7 @@ export const routes: Routes = [
     {
         path: 'file-manager',
         component: FileManagerComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         children: [
             { path: '', component: MyDriveComponent },
             { path: 'assets', component: AssetsComponent },
