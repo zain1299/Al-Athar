@@ -1,0 +1,276 @@
+.readonly-display {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 12px;
+    background-color: #f9f9f9;
+    color: #333;
+    margin-bottom: 20px;
+    min-width: 150px;
+
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        padding: 6px 10px;
+        min-width: 120px;
+    }
+}
+
+::ng-deep {
+    .create-new-popup {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        z-index: 999;
+        position: fixed;
+        transition: 0.3s;
+        visibility: hidden;
+        background-color: rgba(0, 0, 0, 0.5);
+        overflow: {
+            x: hidden;
+            y: auto;
+        }
+        .popup-dialog {
+            display: flex;
+            transition: 0.3s;
+            max-width: 950px;
+            align-items: center;
+            transform: translate(0, -20px);
+            min-height: calc(100% - 1.75rem * 2);
+            margin: {
+                left: auto;
+                right: auto;
+            }
+            .daxa-card {
+                width: 100%;
+
+                .mat-mdc-card-header {
+                    border-bottom: 1px solid #eeeeee;
+                    margin: {
+                        left: -20px;
+                        right: -20px;
+                    }
+                    padding: {
+                        left: 20px;
+                        right: 20px;
+                        bottom: 18px;
+                    }
+                    .mat-mdc-card-subtitle {
+                        .mat-mdc-button {
+                            padding: 0;
+                            height: auto;
+                            line-height: 1;
+                            min-width: auto;
+                            display: inline-block;
+                            font-size: 23px !important;
+                        }
+                    }
+                }
+                .mat-mdc-card-content {
+                    .main-label {
+                        margin-bottom: 12px;
+                        font-size: 15px;
+                    }
+                    .mat-mdc-form-field {
+                        margin-bottom: 20px;
+                    }
+                    .btn-box {
+                        text-align: right;
+
+                        .mat-mdc-button {
+                            border: 0;
+                            height: auto;
+                            min-width: auto;
+                            min-height: auto;
+                            padding: 14px 35px;
+                            font-weight: normal;
+                            color: var(--whiteColor);
+                            font-size: 15px !important;
+                            background-color: var(--daxaColor);
+
+                            &:first-child {
+                                margin-right: 10px;
+                                background-color: var(--dangerColor);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &.active {
+            opacity: 1;
+            visibility: visible;
+
+            .popup-dialog {
+                transform: none;
+            }
+        }
+        &.rtl-enabled {
+            .popup-dialog {
+                .daxa-card {
+                    .mat-mdc-card-content {
+                        .btn-box {
+                            text-align: left;
+
+                            .mat-mdc-button {
+                                &:first-child {
+                                    margin: {
+                                        right: 0;
+                                        left: 10px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.view-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Styles for the modal content */
+.modal-content {
+    max-height: 400px; /* Set the maximum height you want for the modal */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.mat-chip-list {
+    flex-wrap: wrap; /* Allows chips to wrap to the next line if they exceed the container width */
+}
+
+.mat-chip {
+    margin: 4px; /* Adjusts the spacing between chips */
+}
+
+/// Document Modal CSS
+
+/* Document list styling */
+.document-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Document item styling */
+.document-item {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc; // Optional: border for document item
+    border-radius: 4px; // Rounded corners
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center; // Center align items
+}
+
+/* PDF icon styling */
+.pdf-icon {
+    width: 30px; // Size for PDF icon
+    height: 30px;
+    background: url("../../../assets/images/icons/pdf.png") no-repeat center
+        center; // Adjusted path
+    background-size: contain;
+    margin-right: 10px; // Space between icon and text
+}
+
+/* Image thumbnail styling */
+.image-thumbnail {
+    width: 50px; // Thumbnail size
+    height: auto;
+    margin-right: 10px; // Space between thumbnail and text
+}
+
+.modal {
+    display: none; // Default hidden
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; // Allow scrolling if necessary
+    background-color: rgba(0, 0, 0, 0.7);
+
+    &.active {
+        display: flex; // Show modal when active
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.modal-content-document {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 1500px; /* Set a specific width */
+    max-width: 95%; /* Allow for some responsiveness */
+    max-height: 90%; /* Keep height responsive */
+    overflow: hidden; /* Prevent overflow */
+    position: relative; /* For absolute positioning of close button */
+    margin: 0 auto; /* Centers the modal */
+}
+
+@media (min-width: 768px) {
+    .modal-content-document {
+        width: 1000px; /* Set specific width for larger screens */
+    }
+}
+.pdf-viewer {
+    width: 100%; // Full width
+    height: calc(100vh - 100px); // Adjust height based on available space
+    border: none; // No border
+    overflow: auto; // Enable scrolling for the PDF
+}
+
+/* Active modal styling */
+.modal.active {
+    display: flex; // Flex for centering
+    align-items: center;
+    justify-content: center;
+}
+
+/* Close button styling */
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white; // Close button color
+    font-size: 24px; // Font size for close button
+    font-weight: bold; // Bold text
+    cursor: pointer; // Cursor changes to pointer
+}
+
+/* Large image styling */
+.large-image {
+    max-width: 100%; // Image cannot be larger than container
+    max-height: 80vh; // Maximum height
+}
+
+/* PDF viewer styling */
+.pdf-viewer {
+    width: 100%; // Full width for PDF viewer
+    height: 80vh; // Adjust height as necessary
+}

@@ -19,6 +19,8 @@ export interface IContracts {
         Id: number;
         Group: IGroup;
     }[];
+
+    Attachment?: any;
 }
 
 export interface IContractDetails {
@@ -27,6 +29,8 @@ export interface IContractDetails {
     contract?: IContracts;
     StartDate: Date;
     EndDate: Date;
+    CreatedDate: Date;
+    UpdatedDate: Date;
     IsActive: boolean;
 }
 

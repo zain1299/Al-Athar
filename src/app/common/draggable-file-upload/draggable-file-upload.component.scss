@@ -1,0 +1,43 @@
+.file-drop-area {
+    border: 2px dashed #ccc;
+    padding: 16px;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+    text-align: center;
+    cursor: pointer;
+    min-height: 100px;
+    position: relative;
+}
+
+.file-drop-area.dragging {
+    border-color: #007bff;
+}
+
+label {
+    display: block;
+    color: #666;
+}
+
+.file-list {
+    margin-top: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.file-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.file-list li {
+    margin: 4px 0;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.mat-form-field {
+    width: 100%;
+    margin-top: 8px;
+}

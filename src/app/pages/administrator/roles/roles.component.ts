@@ -83,7 +83,7 @@ export class RolesComponent {
             headingLabel: { en: '', ar: '' },
         },
     };
-    language: 'en' | 'ar' = 'ar';
+    language: 'en' | 'ar' = 'en';
     UserCode: number;
     selectedRow: IRole;
 
@@ -115,7 +115,7 @@ export class RolesComponent {
             this.Labels = labels; // Set the labels here
         });
         const user: IUser = this.storage.get(StorageKeys.User);
-        this.UserCode = user?.USER_CODE ? +user?.USER_CODE  : 0  as number;
+        this.UserCode = user?.USER_CODE ? +user?.USER_CODE : (0 as number);
     }
 
     RoleSelectListData() {

@@ -8,7 +8,7 @@ import { ILabels } from '../interface';
 })
 export class LabelService {
     private labels: ILabels;
-    private currentLanguage: 'en' | 'ar' = 'ar'; // Default language
+    private currentLanguage: 'en' | 'ar' = 'en'; // Default language
 
     constructor(private http: HttpClient) {}
 

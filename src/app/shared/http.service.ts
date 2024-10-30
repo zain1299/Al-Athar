@@ -304,4 +304,18 @@ export class HttpService {
             { headers: this.getHeaders() }
         );
     }
+
+    getContractDetails(id: number): Observable<ApiResponse<IContracts>> {
+        return this.http.get<ApiResponse<IContracts>>(
+            `${this.contractHostUrl}contracts/${id}`,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    // uploadDocuments
+    uploadDocuments(formData: FormData, contractId: number): Observable<any> {
+        formData.append('contractId', contractId.toString());
+
+        return this.http.post(`${this.contractHostUrl}attachments`, formData);
+    }
 }

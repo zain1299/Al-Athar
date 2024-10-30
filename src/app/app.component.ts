@@ -36,7 +36,7 @@ import { StorageKeys } from './shared/storage-keys';
         FooterComponent,
         RouterLink,
         CustomizerSettingsComponent,
-        NgIf
+        NgIf,
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
@@ -94,7 +94,6 @@ export class AppComponent {
     // ngOnInit
     ngOnInit() {
         this.recallJsFuntions();
-        this.setRTL();
     }
 
     // recallJsFuntions
@@ -154,8 +153,5 @@ export class AppComponent {
     // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
-    }
-    setRTL() {
-        this.themeService.setRTL();
     }
 }

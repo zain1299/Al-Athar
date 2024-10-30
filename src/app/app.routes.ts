@@ -244,6 +244,14 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
     },
     {
+        path: 'contracts/:id',
+        loadComponent: () =>
+            import('./pages/contract-details/contract-details.component').then(
+                (m) => m.ContractDetailsComponent
+            ),
+        // canActivate: [AuthGuard],
+    },
+    {
         path: 'dashboard',
         component: EcommerceComponent,
         canActivate: [AuthGuard],

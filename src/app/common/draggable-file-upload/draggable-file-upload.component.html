@@ -1,0 +1,34 @@
+<mat-label>Upload Document</mat-label>
+<div
+    class="file-drop-area"
+    [class.dragging]="isDragging"
+    (drop)="onDrop($event)"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (change)="onFileSelect($event)"
+>
+    <input type="file" multiple #fileInput style="display: none" />
+    <label (click)="fileInput.click()">
+        Drag and drop your files here or <span>click to upload</span>
+    </label>
+
+    <!-- Display the names of the selected files -->
+    <div *ngIf="innerValue.length > 0" class="file-list">
+        <p>Selected files</p>
+        <ul>
+            <li *ngFor="let file of innerValue; let i = index">
+                {{ file.name }}
+
+                <button
+                    type="button"
+                    mat-button
+                    matTooltip="Delete"
+                    matTooltipPosition="above"
+                    (click)="removeFile(i)"
+                >
+                    <i class="material-symbols-outlined">delete</i>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

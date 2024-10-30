@@ -1,0 +1,348 @@
+<div
+    class="contract-details-page"
+    [class.rtl-enabled]="themeService.isRTLEnabled()"
+    *ngIf="selectedRow"
+>
+    <mat-card
+        class="daxa-card mb-25 border-radius bg-white border-none d-block"
+    >
+        <mat-card-header>
+            <mat-card-title>
+                <h5 class="mt-0 mb-0">Contract Details</h5>
+            </mat-card-title>
+            <mat-card-subtitle>
+                <button mat-button (click)="closePage()" aria-label="Close">
+                    <i class="ri-close-fill"></i>
+                </button>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <!-- View History Button -->
+            <div class="btn-box mt-3">
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="toggleHistoryModal()"
+                >
+                    View Contract History
+                </button>
+            </div>
+
+            <!-- Contract Title -->
+            <div class="col-md-12">
+                <label class="main-label d-block lh-1 text-black"
+                    >Contract Title</label
+                >
+                <div class="readonly-display">
+                    <span>{{ selectedRow.ContractTitle }}</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Type -->
+                <div class="col-md-6">
+                    <label class="main-label d-block lh-1 text-black"
+                        >Contract Type</label
+                    >
+                    <div class="readonly-display">
+                        <span>{{ selectedRow.Type?.Name }}</span>
+                    </div>
+                </div>
+
+                <!-- Vendor -->
+                <div class="col-md-6">
+                    <label class="main-label d-block lh-1 text-black"
+                        >Vendor</label
+                    >
+                    <div class="readonly-display">
+                        <span>{{ selectedRow.Vendor?.Name }}</span>
+                    </div>
+                </div>
+
+                <!-- Start Date -->
+                <div class="col-md-6">
+                    <label class="main-label d-block lh-1 text-black"
+                        >Start Date</label
+                    >
+                    <div class="readonly-display">
+                        <span *ngIf="selectedRow.ContractDetails">
+                            {{
+                                (findActiveContractDetail(
+                                    selectedRow.ContractDetails
+                                ).StartDate | date : "MMM d, y") || "N/A"
+                            }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- End Date -->
+                <div class="col-md-6">
+                    <label class="main-label d-block lh-1 text-black"
+                        >End Date</label
+                    >
+                    <div class="readonly-display">
+                        <span *ngIf="selectedRow.ContractDetails">
+                            {{
+                                (findActiveContractDetail(
+                                    selectedRow.ContractDetails
+                                ).EndDate | date : "MMM d, y") || "N/A"
+                            }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="col-md-6">
+                    <label class="main-label d-block lh-1 text-black"
+                        >Status</label
+                    >
+                    <div class="readonly-display">
+                        <span *ngIf="selectedRow.ContractDetails">
+                            <span
+                                [ngClass]="{
+                                    'text-success': findActiveContractDetail(
+                                        selectedRow.ContractDetails
+                                    ).IsActive,
+                                    'text-danger': !findActiveContractDetail(
+                                        selectedRow.ContractDetails
+                                    ).IsActive
+                                }"
+                            >
+                                {{
+                                    findActiveContractDetail(
+                                        selectedRow.ContractDetails
+                                    ).IsActive
+                                        ? "Active"
+                                        : "Inactive"
+                                }}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- URL -->
+                <div class="col-md-6">
+                    <label class="main-label d-block lh-1 text-black"
+                        >URL</label
+                    >
+                    <div class="readonly-display">
+                        <span>{{ selectedRow.URL }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contract Groups -->
+            <div class="col-md-6 col-xxl-4">
+                <label class="main-label d-block lh-1 text-black"
+                    >Contract Groups</label
+                >
+                <div class="readonly-display">
+                    <mat-chip-set aria-label="Contract Groups">
+                        <ng-container
+                            *ngIf="selectedRow?.ContractGroup; else noGroups"
+                        >
+                            <mat-chip
+                                *ngFor="let group of selectedRow.ContractGroup"
+                                color="secondary"
+                            >
+                                {{ group?.Group?.Name ?? "N/A" }}
+                            </mat-chip>
+                        </ng-container>
+                        <ng-template #noGroups>
+                            <mat-chip color="warn">N/A</mat-chip>
+                        </ng-template>
+                    </mat-chip-set>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="col-md-12 mt-4">
+                <label class="main-label d-block lh-1 text-black"
+                    >Description</label
+                >
+                <div class="readonly-display">
+                    <span>{{ selectedRow.Description }}</span>
+                </div>
+            </div>
+
+            <!-- Documents Section -->
+            <div class="col-md-12 mt-4">
+                <label class="main-label d-block lh-1 text-black"
+                    >Documents</label
+                >
+                <div class="readonly-display">
+                    <div class="document-list">
+                        <ng-container
+                            *ngFor="let attachment of selectedRow.Attachment"
+                        >
+                            <div
+                                class="document-item"
+                                (click)="openDocument(attachment)"
+                            >
+                                <ng-container
+                                    *ngIf="
+                                        attachment.FileType ===
+                                            'application/pdf';
+                                        else imageTemplate
+                                    "
+                                >
+                                    <div class="pdf-icon"></div>
+                                    <span>{{
+                                        attachment.FilePath.split("/").pop()
+                                    }}</span>
+                                </ng-container>
+                                <ng-template #imageTemplate>
+                                    <img
+                                        src="{{
+                                            hostUrl + attachment.FilePath
+                                        }}"
+                                        alt="Document"
+                                        class="image-thumbnail"
+                                        loading="lazy"
+                                    />
+                                    <span>{{
+                                        attachment.FilePath.split("/").pop()
+                                    }}</span>
+                                </ng-template>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<!-- View Contract History Modal -->
+<div
+    class="create-new-popup"
+    [class.active]="HistoryClassApplied"
+    [class.rtl-enabled]="themeService.isRTLEnabled()"
+>
+    <div class="popup-dialog">
+        <mat-card
+            class="daxa-card mb-25 border-radius bg-white border-none d-block"
+        >
+            <mat-card-header>
+                <mat-card-title>
+                    <h5 class="mt-0 mb-0">Contract History</h5>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <button mat-button (click)="toggleHistoryModal()">
+                        <i class="ri-close-fill"></i>
+                    </button>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="modal-content">
+                <div *ngIf="selectedRow?.ContractDetails; else noHistory">
+                    <table
+                        mat-table
+                        mat-table
+                        [dataSource]="selectedRow.ContractDetails ?? []"
+                        class="mat-elevation-z8"
+                    >
+                        <!-- Created Date Column -->
+                        <ng-container matColumnDef="createdDate">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Created Date
+                            </th>
+                            <td mat-cell *matCellDef="let history">
+                                {{
+                                    history.CreatedDate
+                                        | date : "MMM d, y, h:mm a"
+                                }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Start Date Column -->
+                        <ng-container matColumnDef="startDate">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Start Date
+                            </th>
+                            <td mat-cell *matCellDef="let history">
+                                {{ history.StartDate | date : "MMM d, y" }}
+                            </td>
+                        </ng-container>
+
+                        <!-- End Date Column -->
+                        <ng-container matColumnDef="endDate">
+                            <th mat-header-cell *matHeaderCellDef>End Date</th>
+                            <td mat-cell *matCellDef="let history">
+                                {{ history.EndDate | date : "MMM d, y" }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Status Column -->
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef>Status</th>
+                            <td mat-cell *matCellDef="let history">
+                                <span
+                                    [ngClass]="{
+                                        'text-success': history.IsActive,
+                                        'text-danger': !history.IsActive
+                                    }"
+                                >
+                                    {{
+                                        history.IsActive ? "Active" : "Inactive"
+                                    }}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="[
+                                'createdDate',
+                                'startDate',
+                                'endDate',
+                                'status'
+                            ]"
+                        ></tr>
+                        <tr
+                            mat-row
+                            *matRowDef="
+                                let row;
+                                columns: [
+                                    'createdDate',
+                                    'startDate',
+                                    'endDate',
+                                    'status'
+                                ]
+                            "
+                        ></tr>
+                    </table>
+                </div>
+                <!-- No History Template -->
+                <ng-template #noHistory>
+                    <span>No history available.</span>
+                </ng-template>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button (click)="toggleHistoryModal()">Close</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+
+<!-- Modal for displaying document/image -->
+<div class="modal" [class.active]="isModalOpen" (click)="closeModal()">
+    <div class="modal-content-document" (click)="$event.stopPropagation()">
+        <span class="close-button" (click)="closeModal()">&times;</span>
+        <ng-container *ngIf="isImage; else pdfContent">
+            <img
+                [src]="modalContent"
+                class="large-image"
+                alt="Large Document"
+            />
+        </ng-container>
+        <ng-template #pdfContent>
+            <iframe
+                [src]="modalContent"
+                class="pdf-viewer"
+                frameborder="0"
+                width="100%"
+                height="80vh"
+            ></iframe>
+        </ng-template>
+    </div>
+</div>
