@@ -60,6 +60,11 @@ export class DraggableFileUploadComponent
     placeholder: string = '';
     disabled: boolean = false;
 
+    // Define allowed file types and maximum file size
+    allowedFileTypes = ['application/pdf', 'image/png', 'image/jpeg'];
+    maxFileSize = 5 * 1024 * 1024; // 5 MB in bytes
+    errors: string[] = []; // To hold validation errors
+
     onChange: (files: File[]) => void = () => {};
     onTouched: () => void = () => {};
 
@@ -97,8 +102,7 @@ export class DraggableFileUploadComponent
         const files = event.dataTransfer?.files;
         if (files && files.length > 0) {
             const newFiles = Array.from(files);
-            this.value = [...this.innerValue, ...newFiles];
-            this.filesDropped.emit(this.value);
+            this.validateFiles(newFiles); // Validate files on drop
         }
     }
 
@@ -106,7 +110,28 @@ export class DraggableFileUploadComponent
         const input = event.target as HTMLInputElement;
         if (input.files) {
             const newFiles = Array.from(input.files);
-            this.value = [...this.innerValue, ...newFiles];
+            this.validateFiles(newFiles); // Validate files on select
+        }
+    }
+
+    validateFiles(files: File[]) {
+        this.errors = []; // Clear previous errors
+        const validFiles: File[] = [];
+
+        for (const file of files) {
+            if (!this.allowedFileTypes.includes(file.type)) {
+                this.errors.push(`${file.name} is not an allowed file type.`);
+            } else if (file.size > this.maxFileSize) {
+                this.errors.push(
+                    `${file.name} exceeds the maximum size limit of 5 MB.`
+                );
+            } else {
+                validFiles.push(file); // Only add valid files
+            }
+        }
+
+        if (validFiles.length > 0) {
+            this.value = [...this.innerValue, ...validFiles]; // Update value only with valid files
             this.filesDropped.emit(this.value);
         }
     }
@@ -141,7 +166,7 @@ export class DraggableFileUploadComponent
     }
 
     get errorState(): boolean {
-        return false;
+        return this.errors.length > 0; // Update error state based on validation errors
     }
 
     get focused(): boolean {

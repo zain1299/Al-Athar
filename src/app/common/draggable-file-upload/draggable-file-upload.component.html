@@ -5,12 +5,22 @@
     (drop)="onDrop($event)"
     (dragover)="onDragOver($event)"
     (dragleave)="onDragLeave($event)"
-    (change)="onFileSelect($event)"
 >
-    <input type="file" multiple #fileInput style="display: none" />
+    <input
+        type="file"
+        multiple
+        #fileInput
+        (change)="onFileSelect($event)"
+        style="display: none"
+    />
     <label (click)="fileInput.click()">
         Drag and drop your files here or <span>click to upload</span>
     </label>
+
+    <!-- Display error messages -->
+    <div *ngIf="errors.length > 0" class="error-messages">
+        <p *ngFor="let error of errors" style="color: red">{{ error }}</p>
+    </div>
 
     <!-- Display the names of the selected files -->
     <div *ngIf="innerValue.length > 0" class="file-list">
@@ -18,7 +28,6 @@
         <ul>
             <li *ngFor="let file of innerValue; let i = index">
                 {{ file.name }}
-
                 <button
                     type="button"
                     mat-button
