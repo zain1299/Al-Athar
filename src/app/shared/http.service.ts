@@ -147,7 +147,7 @@ export class HttpService {
         return this.http.post<IVendorInsertResponse>(
             this.contractHostUrl + 'vendor',
             body,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
@@ -155,14 +155,14 @@ export class HttpService {
         return this.http.patch<IVendorInsertResponse>(
             `${this.contractHostUrl}vendor/${id}`,
             body,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
     DeleteVendor(id: number): Observable<IVendorInsertResponse> {
         return this.http.delete<IVendorInsertResponse>(
             `${this.contractHostUrl}vendor/${id}`,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
@@ -181,7 +181,7 @@ export class HttpService {
         return this.http.post<IOGContractTypesInsertResponse>(
             this.contractHostUrl + 'og-contract-types',
             body,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
@@ -192,14 +192,14 @@ export class HttpService {
         return this.http.patch<IOGContractTypesInsertResponse>(
             `${this.contractHostUrl}og-contract-types/${id}`,
             body,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
     DeleteOgContractType(id: number): Observable<any> {
         return this.http.delete<any>(
             `${this.contractHostUrl}og-contract-types/${id}`,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
@@ -215,7 +215,7 @@ export class HttpService {
         return this.http.post<IGroupInsertResponse>(
             this.contractHostUrl + 'group',
             body,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
@@ -223,7 +223,7 @@ export class HttpService {
         return this.http.patch<IGroupInsertResponse>(
             `${this.contractHostUrl}group/${id}`,
             body,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
@@ -246,7 +246,7 @@ export class HttpService {
         return this.http.post<IGroupUsersInsertResponse>(
             this.contractHostUrl + 'group-users',
             body,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
@@ -257,7 +257,7 @@ export class HttpService {
         return this.http.patch<IGroupUsersInsertResponse>(
             `${this.contractHostUrl}group-users/${id}`,
             body,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
@@ -283,7 +283,7 @@ export class HttpService {
         return this.http.post<IContractsInsertResponse>(
             this.contractHostUrl + 'contracts',
             body,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
@@ -294,21 +294,21 @@ export class HttpService {
         return this.http.patch<IContractsInsertResponse>(
             `${this.contractHostUrl}contracts/${id}`,
             body,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
     Deletecontracts(id: number): Observable<IContractsInsertResponse> {
         return this.http.delete<IContractsInsertResponse>(
             `${this.contractHostUrl}contracts/${id}`,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 
     getContractDetails(id: number): Observable<ApiResponse<IContracts>> {
         return this.http.get<ApiResponse<IContracts>>(
             `${this.contractHostUrl}contracts/${id}`,
-            { headers: this.getHeaders() }
+            {}
         );
     }
 

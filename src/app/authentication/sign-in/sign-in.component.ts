@@ -72,7 +72,7 @@ export class SignInComponent {
                         this.storage.set(StorageKeys.Token, res?.Data.Token);
                         this.storage.set(StorageKeys.User, res?.Data);
                         // this.router.navigate(['/dashboard']);
-                        location.href = '/dashboard';
+                        location.href = '/contract';
                     } else {
                         this.toast.error(res.Message);
                     }

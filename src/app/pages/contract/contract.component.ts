@@ -33,6 +33,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { IGroup } from '../../interface/Group/OG-Group.interface';
 import { DraggableFileUploadComponent } from '../../common/draggable-file-upload/draggable-file-upload.component';
 import { Router } from '@angular/router';
+import { convertToBase64 } from '../../shared/helpter';
 
 @Component({
     selector: 'app-contract',
@@ -149,7 +150,6 @@ export class ContractComponent {
         this.selectedRow = row;
 
         this.router.navigate(['/contracts', row.Id]);
-        // this.toggleClassView();
     }
 
     contractsList() {
@@ -208,90 +208,6 @@ export class ContractComponent {
             },
         });
     }
-
-    // onAddEdit(): void {
-    //     console.log('files', this.form.get('Document')?.value);
-    //     return;
-    //     if (this.form.valid) {
-    //         const startDate = new Date(this.form.get('StartDate')?.value);
-    //         const endDate = new Date(this.form.get('EndDate')?.value);
-    //         const body = {
-    //             Id: this.form.get('Id')?.value ?? undefined,
-    //             ContractTitle: this.form.get('ContractTitle')?.value,
-    //             TypeId: this.form.get('TypeId')?.value,
-    //             VendorId: this.form.get('VendorId')?.value,
-    //             StartDate: startDate?.toISOString(),
-    //             EndDate: endDate?.toISOString(),
-    //             Description: this.form.get('Description')?.value,
-    //             URL: this.form.get('URL')?.value,
-    //             GroupId: this.form.get('GroupId')?.value,
-    //         };
-
-    //         if (body?.Id > 0) {
-    //             const id = body?.Id;
-    //             delete body?.Id;
-    //             this.httpService.Updatecontracts(id, body).subscribe({
-    //                 next: (response) => {
-    //                     if (response.Status === 200) {
-    //                         this.toast.success(
-    //                             'Group User updated successfully!'
-    //                         );
-    //                         this.toggleClass();
-    //                         this.contractsList();
-    //                     } else {
-    //                         this.toast.error(response.Message);
-    //                     }
-    //                 },
-    //                 error: (error) => {
-    //                     console.error('Error occurred:', error);
-    //                     const errorMessage =
-    //                         error?.error?.message ?? error?.error?.Message;
-
-    //                     if (Array.isArray(errorMessage)) {
-    //                         errorMessage.forEach((msg: string) =>
-    //                             this.toast.error(msg)
-    //                         );
-    //                     } else {
-    //                         this.toast.error(
-    //                             errorMessage ||
-    //                                 'An error occurred while updating the group users'
-    //                         );
-    //                     }
-    //                 },
-    //             });
-    //         } else {
-    //             this.httpService.Insertcontracts(body).subscribe({
-    //                 next: (response) => {
-    //                     if (response.Status === 201) {
-    //                         this.toast.success('Group created successfully!');
-    //                         this.toggleClass();
-    //                         this.contractsList();
-    //                     } else {
-    //                         this.toast.error(response.Message);
-    //                     }
-    //                 },
-    //                 error: (error) => {
-    //                     console.error('Error occurred:', error);
-    //                     const errorMessage =
-    //                         error?.error?.message ?? error?.error?.Message;
-
-    //                     if (Array.isArray(errorMessage)) {
-    //                         errorMessage.forEach((msg: string) =>
-    //                             this.toast.error(msg)
-    //                         );
-    //                     } else {
-    //                         this.toast.error(
-    //                             errorMessage ||
-    //                                 'An error occurred while creating the group'
-    //                         );
-    //                     }
-    //                 },
-    //             });
-    //         }
-    //     } else {
-    //         this.form.markAllAsTouched();
-    //     }
-    // }
 
     onAddEdit(): void {
         const files = this.form.get('Document')?.value;
@@ -352,7 +268,7 @@ export class ContractComponent {
                     this.toggleClass();
                     this.contractsList();
                     debugger;
-                    this.uploadDocuments(response?.Data?.Id as number, files); // Call upload after creation
+                    this.uploadDocuments(response?.Data?.Id as number, files);
                 } else {
                     this.toast.error(response.Message);
                 }
@@ -361,23 +277,34 @@ export class ContractComponent {
         });
     }
 
-    private uploadDocuments(contractId: number, files: File[]): void {
+    private async uploadDocuments(
+        contractId: number,
+        files: File[]
+    ): Promise<void> {
         if (files && files.length > 0) {
-            const attachmentDtos = this.buildAttachmentDtos(files, contractId); // Build DTOs
+            const filePromises = files.map(async (file) => {
+                const base64String = await convertToBase64(file);
+                return base64String;
+            });
+
+            const base64Files = await Promise.all(filePromises);
+
+            const attachmentDtos = this.buildAttachmentDtos(
+                files,
+                base64Files,
+                contractId
+            );
 
             const formData = new FormData();
 
-            // Append files to FormData
             files.forEach((file) => {
                 formData.append('files', file);
             });
 
-            // Append the contractId as a regular string
             formData.append('contractId', contractId.toString());
 
-            // Instead of stringifying, append the DTOs as individual entries if needed
             attachmentDtos.forEach((dto) => {
-                formData.append('attachments[]', JSON.stringify(dto)); // Use array notation if required by your backend
+                formData.append('attachments[]', JSON.stringify(dto));
             });
 
             this.httpService.uploadDocuments(formData, contractId).subscribe({
@@ -398,14 +325,17 @@ export class ContractComponent {
         }
     }
 
-    // Update the method that builds the attachment DTOs
-    private buildAttachmentDtos(files: File[], contractId: number): any[] {
-        return files.map((file) => ({
-            ContractID: contractId, // Ensure this is a single contract ID
+    private buildAttachmentDtos(
+        files: File[],
+        base64Files: string[],
+        contractId: number
+    ): any[] {
+        return files.map((file, index) => ({
+            ContractID: contractId,
             Filename: file.name,
             FileType: file.type,
             FileSize: file.size,
-            FileContent: '', // Populate this if needed
+            Base64Content: base64Files[index] || '',
         }));
     }
 

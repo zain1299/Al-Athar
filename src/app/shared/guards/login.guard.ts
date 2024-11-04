@@ -24,7 +24,7 @@ export class LoginGuardGuard implements CanActivate {
         | boolean
         | UrlTree {
         if (this.storageService.isUserLogin) {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/contract']);
 
             return false; // Prevent unauthorized access
         }
