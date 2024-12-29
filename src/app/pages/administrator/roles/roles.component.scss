@@ -178,7 +178,7 @@
     }
 }
 
-// Create New Folder Popup
+/* Create New Folder Popup */
 ::ng-deep {
     .create-new-popup {
         top: 0;
@@ -269,6 +269,13 @@
             .popup-dialog {
                 transform: none;
             }
+
+            /* Add the following code here */
+            .popup-dialog {
+                width: 80%; /* Adjust the width here */
+                max-width: 1000px; /* Limit max width */
+                margin: auto; /* Center it horizontally */
+            }
         }
         &.rtl-enabled {
             .popup-dialog {
@@ -333,277 +340,52 @@
     margin-left: 0; // Set left margin to 0
     margin-right: 0; // Set right margin to 0
 }
-/* Max width 767px */
-@media only screen and (max-width: 767px) {
-    // My Drive
-    .mat-mdc-card {
-        &.daxa-card {
-            &.recent-card {
-                .mat-mdc-card-content {
-                    margin-top: 10px;
-                    .icon {
-                        margin: {
-                            top: -11px;
-                            left: -5px;
-                            right: 8px;
-                            bottom: -12px;
-                        }
-                        i {
-                            font-size: 70px;
-                        }
-                    }
-                    .info {
-                        margin-top: 15px;
-                    }
-                }
-            }
-            &.recent-card {
-                .mat-mdc-card-content {
-                    margin: {
-                        top: 10px;
-                        left: -15px;
-                        right: -15px;
-                    }
-                }
-                &.rtl-enabled {
-                    .mat-mdc-card-content {
-                        margin-top: 10px;
-                        .list-table {
-                            .mat-mdc-table {
-                                .mat-mdc-header-cell {
-                                    &:first-child {
-                                        padding: {
-                                            right: 15px;
-                                        }
-                                    }
-                                }
-                                .mat-mdc-cell {
-                                    &:first-child {
-                                        padding: {
-                                            right: 15px;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    ::ng-deep {
-        .mat-mdc-card {
-            &.daxa-card {
-                &.recent-card {
-                    .mat-mdc-card-header {
-                        .mat-mdc-card-header-text {
-                            .mat-mdc-card-subtitle {
-                                .mat-mdc-button {
-                                    &.card-header-menu-btn {
-                                        top: 15px;
-                                        right: 15px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
-    // RTL Enabled
-    .rtl-enabled {
-        .mat-mdc-card {
-            &.daxa-card {
-                &.recent-card {
-                    .mat-mdc-card-content {
-                        margin-top: 10px;
-                        .icon {
-                            margin: {
-                                right: -5px;
-                                left: 8px;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        ::ng-deep {
-            .mat-mdc-card {
-                &.daxa-card {
-                    &.recent-card {
-                        .mat-mdc-card-header {
-                            .mat-mdc-card-header-text {
-                                .mat-mdc-card-subtitle {
-                                    .mat-mdc-button {
-                                        &.card-header-menu-btn {
-                                            right: auto;
-                                            left: 15px;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // Create New Folder Popup
-    ::ng-deep {
-        .create-new-popup {
-            .popup-dialog {
-                max-width: 400px;
-
-                .daxa-card {
-                    .mat-mdc-card-header {
-                        margin: {
-                            left: -15px;
-                            right: -15px;
-                        }
-                        padding: {
-                            left: 15px;
-                            right: 15px;
-                            bottom: 15px;
-                        }
-                        .mat-mdc-card-subtitle {
-                            .mat-mdc-button {
-                                font-size: 20px !important;
-                            }
-                        }
-                    }
-                    .mat-mdc-card-content {
-                        margin-top: 10px;
-                        .main-label {
-                            font-size: 14px;
-                        }
-                        .mat-mdc-form-field {
-                            margin-bottom: 15px;
-                        }
-                        .btn-box {
-                            .mat-mdc-button {
-                                font-size: 14px !important;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+.chips-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-/* Min width 576px to Max width 767px */
-@media only screen and (min-width: 576px) and (max-width: 767px) {
-    // My Drive
-    .mat-mdc-card {
-        &.daxa-card {
-            &.recent-card {
-                .mat-mdc-card-content {
-                    margin: {
-                        top: 10px;
-                        left: -20px;
-                        right: -20px;
-                    }
-                }
-                &.rtl-enabled {
-                    .mat-mdc-card-content {
-                        margin-top: 10px;
-                        .list-table {
-                            .mat-mdc-table {
-                                .mat-mdc-header-cell {
-                                    &:first-child {
-                                        padding: {
-                                            right: 20px;
-                                        }
-                                    }
-                                }
-                                .mat-mdc-cell {
-                                    &:first-child {
-                                        padding: {
-                                            right: 20px;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    ::ng-deep {
-        .mat-mdc-card {
-            &.daxa-card {
-                &.recent-card {
-                    .mat-mdc-card-header {
-                        .mat-mdc-card-header-text {
-                            .mat-mdc-card-subtitle {
-                                .mat-mdc-button {
-                                    &.card-header-menu-btn {
-                                        top: 20px;
-                                        right: 20px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // RTL Enabled
-    .rtl-enabled {
-        ::ng-deep {
-            .mat-mdc-card {
-                &.daxa-card {
-                    &.recent-card {
-                        .mat-mdc-card-header {
-                            .mat-mdc-card-header-text {
-                                .mat-mdc-card-subtitle {
-                                    .mat-mdc-button {
-                                        &.card-header-menu-btn {
-                                            right: auto;
-                                            left: 20px;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+.menu-chip {
+    flex: 1 1 calc(25% - 8px); /* 4 in a row with gap */
+    max-width: calc(25% - 8px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* Min width 768px to Max width 991px */
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-    // My Drive
-    .mat-mdc-card {
-        &.daxa-card {
-            &.recent-card {
-                .mat-mdc-card-content {
-                    margin-top: 10px;
-                    .info {
-                        margin-top: 35px;
-                    }
-                }
-            }
-        }
-    }
+.screens-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
 }
 
-/* Min width 992px to Max width 1199px */
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
+.menu-item-chip {
+    flex: 1 1 calc(25% - 10px); /* Ensures 4 items per row */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
 }
 
-/* Min width 1200px to Max width 1399px */
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+.menu-title {
+    padding: 8px 4px;
+    font-size: 14px;
+    // background-color: #5f9dd6;
+    // color: white;
+    white-space: normal;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
 }
 
-/* Min width 1600px */
-@media only screen and (min-width: 1600px) {
+.action-codes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.action-chip {
+    margin: 4px;
 }

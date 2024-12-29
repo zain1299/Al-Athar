@@ -1,0 +1,95 @@
+<div class="row" [class.rtl-enabled]="themeService.isRTLEnabled()">
+    <mat-card class="daxa-card recent-card mb-25 border-radius bg-white border-none d-block">
+        <mat-card-header>
+            <mat-card-title>
+                <form class="search-box position-relative">
+                    <div class="col-md-12">
+                        <mat-form-field class="w-100">
+                            <mat-label>Search User</mat-label>
+                            <input type="text" matInput [formControl]="userControl" [matAutocomplete]="auto"
+                                placeholder="Search users" (input)="onUserSearch($event)" />
+                            <mat-autocomplete #auto="matAutocomplete"
+                                (optionSelected)="onUserSelect($event.option.value)">
+                                <mat-option *ngFor="let user of allUsers" [value]="user.UserCode">
+                                    {{ user.FullNameAr }}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </mat-card-title>
+            <mat-card-subtitle>
+                <!-- <a mat-button class="add-new-btn" (click)="toggleClass()">
+                    Add New Action +
+                </a> -->
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="container">
+                <div class="user-details" *ngIf="response && response.userDetail && response.userDetail.FullNameAr">
+                    <div class="user-header">
+                        <div class="user-image">
+                            <img [src]="response.userDetail.IMG || 'default-avatar.png'" alt="User Image" />
+                        </div>
+                        <div class="user-info">
+                            <h2>{{ response.userDetail.FullNameAr }}</h2>
+                        </div>
+                    </div>
+                    <h3>User Details</h3>
+                    <ul>
+                        <li><span>Employee Code:</span> <strong>{{ response.userDetail.EmployeeCode }}</strong></li>
+                        <li><span>User Code:</span> <strong>{{ response.userDetail.UserCode }}</strong></li>
+                        <li><span>AD Name:</span> <strong>{{ response.userDetail.ADName }}</strong></li>
+                        <li><span>Date Of Birth:</span> <strong>{{ response.userDetail.DOB }}</strong></li>
+                        <li><span>Email:</span> <strong>{{ response.userDetail.EmailID }}</strong></li>
+                        <li><span>Phone:</span> <strong>{{ response.userDetail.GSM }}</strong></li>
+                        <li><span>Citizen ID:</span> <strong>{{ response.userDetail.CitizenID }}</strong></li>
+                        <li><span>Card Expiry Date:</span> <strong>{{ response.userDetail.CardExpiryDate }}</strong>
+                        </li>
+                        <li><span>Card Type:</span> <strong>{{ response.userDetail.CardType }}</strong></li>
+                    </ul>
+                </div>
+
+                <div *ngIf="!response || !response.GroupedApplications" class="applications-details">
+                    <p>No data found. Please try searching for a different user.</p>
+                </div>
+
+                <div class="applications-details"
+                    *ngIf="response && response.GroupedApplications && response.GroupedApplications.Applications">
+                    <h2>Applications and Committees</h2>
+                    <table class="application-table">
+                        <thead>
+                            <tr>
+                                <th>Application Name</th>
+                                <th>Committees</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let app of response?.GroupedApplications?.Applications">
+                                <td>{{ app.ApplicationNameAr }}</td>
+                                <td>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Committee Name</th>
+                                                <th>Role ID</th>
+                                                <th>Role Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let committee of app.Committees">
+                                                <td>{{ committee.CommNameAra }}</td>
+                                                <td>{{ committee.RoleId }}</td>
+                                                <td>{{ committee.RoleName }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

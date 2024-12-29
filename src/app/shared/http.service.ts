@@ -7,7 +7,12 @@ import {
     IRole,
     IRoleInsertResponse,
     IRoleResponse,
+    IScreenAction,
+    IScreenActionInsertResponse,
+    IScreenActionResponse,
     IUser,
+    IUserRoleMappingResponse,
+    IUserRoleMappingResponseApi,
 } from '../interface';
 import { Observable } from 'rxjs';
 import { StorageService } from './storage.service';
@@ -106,7 +111,13 @@ export class HttpService {
             { headers: this.getHeaders() }
         );
     }
-
+    RoleDelete(body: IRole): Observable<IRoleInsertResponse> {
+        return this.http.post<IRoleInsertResponse>(
+            this.HostURL + 'Roles/DeleteRoleById',
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
     // Screens
 
     ScreenSelectList(): Observable<IOGMenuItemResponse> {
@@ -129,6 +140,44 @@ export class HttpService {
     DelteteScreen(body: IOGMenuItem): Observable<IOGMenuItemInsertResponse> {
         return this.http.post<IOGMenuItemInsertResponse>(
             this.HostURL + 'Screen/DeleteScreenById',
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    // Actions
+    ScreenActionSelectList(): Observable<IScreenActionResponse> {
+        return this.http.post<IScreenActionResponse>(
+            this.HostURL + 'Screen/OGActionSelectList',
+            {},
+            { headers: this.getHeaders() }
+        );
+    }
+    InsertUpdateScreenAction(
+        body: IScreenAction
+    ): Observable<IScreenActionInsertResponse> {
+        return this.http.post<IScreenActionInsertResponse>(
+            this.HostURL + 'Screen/InsertOrUpdateOGAction',
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    DelteteScreenAction(
+        body: IScreenAction
+    ): Observable<IScreenActionInsertResponse> {
+        return this.http.post<IScreenActionInsertResponse>(
+            this.HostURL + 'Screen/DeleteOGActionById',
+            body,
+            { headers: this.getHeaders() }
+        );
+    }
+
+    // User Role Mapping
+
+    GetUserRoleDetails(body: any): Observable<IUserRoleMappingResponseApi> {
+        return this.http.post<IUserRoleMappingResponseApi>(
+            this.HostURL + 'Roles/GetUserRoleDetails',
             body,
             { headers: this.getHeaders() }
         );

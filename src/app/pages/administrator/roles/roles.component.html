@@ -1,7 +1,5 @@
 <!-- Breadcrumb -->
-<div
-    class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between"
->
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
     <h5 class="mb-0">Roles List</h5>
     <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
         <li class="breadcrumb-item position-relative">
@@ -15,20 +13,13 @@
 </div>
 
 <div class="row" [class.rtl-enabled]="themeService.isRTLEnabled()">
-    <mat-card
-        class="daxa-card recent-card mb-25 border-radius bg-white border-none d-block"
-    >
+    <mat-card class="daxa-card recent-card mb-25 border-radius bg-white border-none d-block">
         <mat-card-header>
             <mat-card-title>
                 <form class="search-box position-relative">
                     <i class="material-symbols-outlined"> search </i>
-                    <input
-                        type="text"
-                        class="input-search d-block w-100 border-none outline-0"
-                        placeholder="Search product..."
-                        (keyup)="applyFilter($event)"
-                        #input
-                    />
+                    <input type="text" class="input-search d-block w-100 border-none outline-0"
+                        placeholder="Search product..." (keyup)="applyFilter($event)" #input />
                 </form>
             </mat-card-title>
             <mat-card-subtitle>
@@ -41,35 +32,7 @@
             <div class="list-table">
                 <div class="table-responsive">
                     <table mat-table [dataSource]="dataSource">
-                        <!-- Checkbox Column -->
-                        <ng-container matColumnDef="select">
-                            <th mat-header-cell *matHeaderCellDef>
-                                <mat-checkbox
-                                    (change)="$event ? toggleAllRows() : null"
-                                    [checked]="
-                                        selection.hasValue() && isAllSelected()
-                                    "
-                                    [indeterminate]="
-                                        selection.hasValue() && !isAllSelected()
-                                    "
-                                    [aria-label]="checkboxLabel()"
-                                >
-                                </mat-checkbox>
-                            </th>
-                            <td mat-cell *matCellDef="let row">
-                                <mat-checkbox
-                                    (click)="$event.stopPropagation()"
-                                    (change)="
-                                        $event ? selection.toggle(row) : null
-                                    "
-                                    [checked]="selection.isSelected(row)"
-                                    [aria-label]="checkboxLabel(row)"
-                                >
-                                </mat-checkbox>
-                            </td>
-                        </ng-container>
-
-                        <!-- Product ID Column -->
+                        <!-- RoleId ID Column -->
                         <ng-container matColumnDef="RoleId">
                             <th mat-header-cell *matHeaderCellDef>Role ID</th>
                             <td mat-cell *matCellDef="let element">
@@ -77,7 +40,7 @@
                             </td>
                         </ng-container>
 
-                        <!-- Product Column -->
+                        <!-- RoleName Column -->
                         <ng-container matColumnDef="RoleName">
                             <th mat-header-cell *matHeaderCellDef>RoleName</th>
                             <td mat-cell *matCellDef="let element">
@@ -85,7 +48,7 @@
                             </td>
                         </ng-container>
 
-                        <!-- Category Column -->
+                        <!-- RoleNameEn Column -->
                         <ng-container matColumnDef="RoleNameEn">
                             <th mat-header-cell *matHeaderCellDef>
                                 RoleNameEn
@@ -95,38 +58,44 @@
                             </td>
                         </ng-container>
 
+                        <!-- Menus Items Column -->
+                        <ng-container matColumnDef="MenusItems">
+                            <th mat-header-cell *matHeaderCellDef>Menus</th>
+                            <td mat-cell *matCellDef="let element">
+                                <div *ngIf="element.MenusItems && element.MenusItems.length > 0">
+                                    <div class="chips-grid">
+                                        <mat-chip class="menu-chip" *ngFor="let menu of element.MenusItems"
+                                            [color]="'primary'">
+                                            {{ menu.Title }}
+                                        </mat-chip>
+                                    </div>
+                                </div>
+                                <div *ngIf="!element.MenusItems || element.MenusItems.length === 0">
+                                    -
+                                </div>
+                            </td>
+                        </ng-container>
+
+
                         <!-- Action Column -->
                         <ng-container matColumnDef="action">
                             <th mat-header-cell *matHeaderCellDef>Action</th>
                             <td mat-cell *matCellDef="let element">
                                 <div class="action-info">
-                                    <a
-                                        mat-button
-                                        matTooltip="View Role"
-                                        matTooltipPosition="above"
-                                        (click)="ViewData(element)"
-                                    >
+                                    <a mat-button matTooltip="View Role" matTooltipPosition="above"
+                                        (click)="ViewData(element)">
                                         <i class="material-symbols-outlined">
                                             visibility
                                         </i>
                                     </a>
-                                    <a
-                                        mat-button
-                                        matTooltip="Edit Role"
-                                        matTooltipPosition="above"
-                                        (click)="onEdit(element)"
-                                    >
+                                    <a mat-button matTooltip="Edit Role" matTooltipPosition="above"
+                                        (click)="onEdit(element)">
                                         <i class="material-symbols-outlined">
                                             edit
                                         </i>
                                     </a>
-                                    <button
-                                        type="button"
-                                        mat-button
-                                        matTooltip="Delete"
-                                        matTooltipPosition="above"
-                                        (click)="onDelete(element)"
-                                    >
+                                    <button type="button" mat-button matTooltip="Delete" matTooltipPosition="above"
+                                        (click)="onDelete(element)">
                                         <i class="material-symbols-outlined">
                                             delete
                                         </i>
@@ -135,14 +104,8 @@
                             </td>
                         </ng-container>
 
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="displayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: displayedColumns"
-                        ></tr>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
                         <!-- Row shown when there is no matching data. -->
                         <tr class="mat-row" *matNoDataRow>
@@ -152,25 +115,16 @@
                         </tr>
                     </table>
                 </div>
-                <mat-paginator
-                    [pageSizeOptions]="[10, 20, 30]"
-                    showFirstLastButtons
-                ></mat-paginator>
+                <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
             </div>
         </mat-card-content>
     </mat-card>
 </div>
 
 <!-- Popup -->
-<div
-    class="create-new-popup"
-    [class.active]="classApplied"
-    [class.rtl-enabled]="themeService.isRTLEnabled()"
->
+<div class="create-new-popup" [class.active]="classApplied" [class.rtl-enabled]="themeService.isRTLEnabled()">
     <div class="popup-dialog">
-        <mat-card
-            class="daxa-card mb-25 border-radius bg-white border-none d-block"
-        >
+        <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
             <mat-card-header>
                 <mat-card-title>
                     <h5 class="mt-0 mb-0">
@@ -194,20 +148,13 @@
                         <mat-form-field>
                             <mat-label>{{
                                 Labels.Role.labelEn[language]
-                            }}</mat-label>
-                            <input
-                                matInput
-                                formControlName="roleLabelEn"
-                                placeholder="Enter English Role Name"
-                            />
+                                }}</mat-label>
+                            <input matInput formControlName="roleLabelEn" placeholder="Enter English Role Name" />
                         </mat-form-field>
-                        <div
-                            class="error text-danger"
-                            *ngIf="
+                        <div class="error text-danger" *ngIf="
                                 form.get('roleLabelEn')?.hasError('required') &&
                                 form.get('roleLabelEn')?.touched
-                            "
-                        >
+                            ">
                             {{ Labels.Role.labelEn[language] }} is required
                         </div>
                     </div>
@@ -220,27 +167,60 @@
                         <mat-form-field>
                             <mat-label>{{
                                 Labels.Role.label[language]
-                            }}</mat-label>
-                            <input
-                                matInput
-                                formControlName="roleLabelAr"
-                                placeholder="Enter Arabic Role Name"
-                            />
+                                }}</mat-label>
+                            <input matInput formControlName="roleLabelAr" placeholder="Enter Arabic Role Name" />
                         </mat-form-field>
-                        <div
-                            class="error text-danger"
-                            *ngIf="
+                        <div class="error text-danger" *ngIf="
                                 form.get('roleLabelAr')?.hasError('required') &&
                                 form.get('roleLabelAr')?.touched
-                            "
-                        >
+                            ">
                             {{ Labels.Role.label[language] }} is required
+                        </div>
+                    </div>
+
+
+                    <!-- Screen Selection Multi-Select Dropdown -->
+                    <div class="col-md-12">
+                        <label class="main-label d-block lh-1 text-black">
+                            Screens Screens
+                        </label>
+                        <mat-form-field>
+                            <mat-label>Select Screens</mat-label>
+                            <mat-select formControlName="selectedScreens" multiple>
+                                <mat-option *ngFor="let screen of screensList" [value]="screen.Id">
+                                    {{ screen.Title }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="error text-danger"
+                            *ngIf="form.get('selectedScreens')?.hasError('required') && form.get('selectedScreens')?.touched">
+                            Please select at least one screen.
+                        </div>
+                    </div>
+
+
+                    <!-- Actions Selection Multi-Select Dropdown -->
+                    <div class="col-md-12">
+                        <label class="main-label d-block lh-1 text-black">
+                            Actions
+                        </label>
+                        <mat-form-field>
+                            <mat-label>Select Screens</mat-label>
+                            <mat-select formControlName="selectedActions" multiple>
+                                <mat-option *ngFor="let action of actionList" [value]="action.ActionCode">
+                                    {{ action.ActionName }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="error text-danger"
+                            *ngIf="form.get('selectedActions')?.hasError('required') && form.get('selectedActions')?.touched">
+                            Please select at least one action.
                         </div>
                     </div>
 
                     <!-- Save and Cancel Buttons -->
                     <div class="btn-box">
-                        <button mat-button>
+                        <button mat-button type="button" (click)="toggleClass()">
                             {{ Labels.buttons.cancel[language] }}
                         </button>
                         <button mat-button type="submit">
@@ -253,15 +233,9 @@
     </div>
 </div>
 
-<div
-    class="create-new-popup"
-    [class.active]="ViewclassApplied"
-    [class.rtl-enabled]="themeService.isRTLEnabled()"
->
+<div class="create-new-popup" [class.active]="ViewclassApplied" [class.rtl-enabled]="themeService.isRTLEnabled()">
     <div class="popup-dialog">
-        <mat-card
-            class="daxa-card mb-25 border-radius bg-white border-none d-block"
-        >
+        <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
             <mat-card-header>
                 <mat-card-title>
                     <h5 class="mt-0 mb-0">
@@ -296,6 +270,46 @@
                         <span *ngIf="selectedRow && selectedRow.RoleNameEn">
                             {{ selectedRow.RoleNameEn }}
                         </span>
+                    </div>
+                </div>
+                <!-- <div class="col-md-12">
+                    <label class="main-label d-block lh-1 text-black">
+                        Screens Permissions
+                    </label>
+                    <div class="screens-grid">
+                        <div *ngFor="let menuItem of selectedRow?.MenusItems" class="menu-item-chip">
+                            <mat-chip class="menu-chip" *ngIf="menuItem.Title">
+                                {{ menuItem.Title }}
+                            </mat-chip>
+                        </div>
+                    </div>
+                </div> -->
+
+
+                <div class="col-md-12">
+                    <label class="main-label d-block lh-1 text-black">
+                        Screens Permissions
+                    </label>
+                    <div class="action-codes-grid">
+                        <mat-chip-set>
+                            <mat-chip *ngFor="let menuItem of selectedRow?.MenusItems" class="menu-item-chip">
+                                {{ menuItem.Title}}
+                            </mat-chip>
+                        </mat-chip-set>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <label class="main-label d-block lh-1 text-black">
+                        Action Codes
+                    </label>
+                    <div class="action-codes-grid">
+                        <mat-chip-set>
+                            <mat-chip *ngFor="let actionCode of selectedRow?.ActionCodesListing">
+                                {{ actionCode.ControlID }}
+                            </mat-chip>
+                        </mat-chip-set>
                     </div>
                 </div>
 

@@ -33,7 +33,6 @@ import { ConfirmDialogComponent } from '../../../common/confirm-dialog/confirm-d
         MatTableModule,
         MatButtonModule,
         NgIf,
-        NgFor,
         MatFormFieldModule,
         ReactiveFormsModule,
         MatInputModule,
@@ -91,7 +90,7 @@ export class ScreensComponent {
     ngOnInit(): void {
         this.ScreenSelectList();
         const user: IUser = this.storage.get(StorageKeys.User);
-        this.UserCode = user?.USER_CODE ? +user?.USER_CODE  : null;
+        this.UserCode = user?.USER_CODE ? +user?.USER_CODE : null;
     }
 
     // Search Filter
@@ -147,12 +146,14 @@ export class ScreensComponent {
                 IsExpandable: this.form.get('isExpandable')?.value,
                 Badge: this.form.get('badge')?.value,
                 ParentId: +this.form.get('parentId')?.value,
-                CreatedBy: (this.UserCode ? +this.UserCode : 0),
+                CreatedBy: this.UserCode ? +this.UserCode : 0,
                 CreatedIP: '',
                 CreatedPC: '',
                 CreatedUrl: '',
                 UpdatedBy: this.form.get('Id')?.value
-                    ? (this.UserCode ? +this.UserCode : 0)
+                    ? this.UserCode
+                        ? +this.UserCode
+                        : 0
                     : undefined,
                 UpdatedIP: '',
                 UpdatedPC: '',
@@ -218,7 +219,7 @@ export class ScreensComponent {
             next: (response) => {
                 if (response.Data) {
                     this.toast.success('Screen Deleted Successfully!');
-                    
+
                     this.ScreenSelectList();
                 } else {
                     this.toast.error(response.Message);

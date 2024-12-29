@@ -8,10 +8,16 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { HttpService } from '../../../shared/http.service';
-import { ButtonLabels, ILabels, IRole, IUser } from '../../../interface';
+import {
+    ButtonLabels,
+    ILabels,
+    IRole,
+    IScreenAction,
+    IUser,
+} from '../../../interface';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +36,8 @@ import { StorageKeys } from '../../../shared/storage-keys';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialogComponent } from '../../../common/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
+import { IOGMenuItem } from '../../../interface/Screens/screen.interface';
 
 @Component({
     selector: 'app-roles',
@@ -38,19 +46,19 @@ import { MatDialog } from '@angular/material/dialog';
         MatCardModule,
         MatMenuModule,
         MatButtonModule,
-        RouterLink,
         MatTableModule,
         MatPaginatorModule,
         NgIf,
+        NgFor,
         MatCheckboxModule,
         MatTooltipModule,
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
-        SidebarComponent,
         MatDatepickerModule,
         MatNativeDateModule,
         ReactiveFormsModule,
+        MatChipsModule,
     ],
     templateUrl: './roles.component.html',
     styleUrls: ['./roles.component.scss'],
@@ -61,13 +69,15 @@ export class RolesComponent {
     ViewclassApplied = false;
     dataSource = new MatTableDataSource<IRole>([]);
     form: FormGroup;
+    screensList: IOGMenuItem[];
+    actionList: IScreenAction[];
 
     // Updated displayedColumns to remove RoleId
     displayedColumns: string[] = [
-        'select',
         'RoleId',
         'RoleName',
         'RoleNameEn',
+        'MenusItems',
         'action',
     ];
     selection = new SelectionModel<IRole>(true, []);
@@ -104,11 +114,14 @@ export class RolesComponent {
             roleLabelEn: ['', Validators.required],
             roleLabelAr: ['', Validators.required],
             RoleId: [0],
+            selectedScreens: [[], Validators.required],
+            selectedActions: [[]],
         });
     }
 
     ngOnInit(): void {
-        this.RoleSelectListData();
+        this.ScreenActionSelectList();
+        this.ScreenSelectList();
 
         this.labelService.loadLabels().subscribe((labels) => {
             this.labelService.setLabels(labels);
@@ -121,6 +134,30 @@ export class RolesComponent {
     RoleSelectListData() {
         this.httpService.RoleSelectList().subscribe({
             next: (response) => {
+                response.Data?.forEach((x) => {
+                    if (x.ActionCodes) {
+                        const actionCodesArray = x.ActionCodes.split(',');
+
+                        // Filter and map actionCodesArray to match with actionList
+                        x.ActionCodesListing = actionCodesArray
+                            .filter((code) =>
+                                this.actionList?.some(
+                                    (action) => action.ActionCode === +code
+                                )
+                            )
+                            .map(
+                                (code) =>
+                                    this.actionList?.find(
+                                        (action) => action.ActionCode === +code
+                                    ) as IScreenAction
+                            );
+                    } else {
+                        x.ActionCodesListing = [];
+                    }
+                });
+
+                console.log('response.Data', response.Data);
+
                 this.dataSource.data = response.Data as IRole[];
             },
             error: (error) => {
@@ -128,6 +165,7 @@ export class RolesComponent {
             },
         });
     }
+
     // Search Filter
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
@@ -136,6 +174,16 @@ export class RolesComponent {
 
     toggleClass() {
         this.classApplied = !this.classApplied;
+
+        if (!this.classApplied) {
+            this.form.reset({
+                roleLabelEn: '',
+                roleLabelAr: '',
+                selectedScreens: [],
+                selectedActions: [],
+                RoleId: 0,
+            });
+        }
     }
     toggleClassView() {
         this.ViewclassApplied = !this.ViewclassApplied;
@@ -172,11 +220,26 @@ export class RolesComponent {
     onAddEdit(): void {
         if (this.form.valid) {
             // Perform the add action (e.g., sending data to API)
+
+            const selectedScreensArray =
+                this.form.get('selectedScreens')?.value;
+            const selectedScreensString = selectedScreensArray
+                ? selectedScreensArray.join(',')
+                : '';
+
+            const selectedActionsArray =
+                this.form.get('selectedActions')?.value;
+            const selectedActionsString = selectedActionsArray
+                ? selectedActionsArray.join(',')
+                : '';
+
             const body: IRole = {
                 RoleId: this.form.get('RoleId')?.value ?? 0,
                 RoleName: this.form.get('roleLabelAr')?.value,
                 RoleNameEn: this.form.get('roleLabelEn')?.value,
                 IsWilayatRole: false,
+                ScreenIds: selectedScreensString,
+                ActionCodes: selectedActionsString,
                 CreatedBy: +this.UserCode,
                 CreatedIP: '',
                 CreatedPC: '',
@@ -215,10 +278,19 @@ export class RolesComponent {
         this.toggleClass();
 
         if (this.selectedRow != null) {
+            const selectedScreenIds = this.selectedRow?.MenusItems?.map(
+                (menuItem) => menuItem.Id
+            );
+
+            const selectedActionsId = this.selectedRow?.ActionCodesListing?.map(
+                (x) => x.ActionCode
+            );
             this.form.patchValue({
                 roleLabelAr: this.selectedRow.RoleName,
                 roleLabelEn: this.selectedRow.RoleNameEn,
                 RoleId: this.selectedRow.RoleId,
+                selectedScreens: selectedScreenIds,
+                selectedActions: selectedActionsId,
             });
         }
     }
@@ -241,7 +313,42 @@ export class RolesComponent {
     }
 
     deleteRole(role: IRole): void {
-        // Perform delete action here
-        console.log('Role deleted:', role);
+        this.httpService.RoleDelete(role).subscribe({
+            next: (response) => {
+                if (response.Status == 200) {
+                    this.toast.success('Role deleted successfully!');
+                    this.RoleSelectListData();
+                } else {
+                    this.toast.error(response.Message);
+                }
+            },
+            error: (error) => {
+                console.error('Error occurred:', error);
+                this.toast.error(JSON.parse(error));
+            },
+        });
+    }
+
+    ScreenSelectList() {
+        this.httpService.ScreenSelectList().subscribe({
+            next: (response) => {
+                this.screensList = response.Data as IOGMenuItem[];
+            },
+            error: (error) => {
+                console.error('Error occurred:', error);
+            },
+        });
+    }
+
+    ScreenActionSelectList() {
+        this.httpService.ScreenActionSelectList().subscribe({
+            next: (response) => {
+                this.actionList = response.Data as IScreenAction[];
+                this.RoleSelectListData();
+            },
+            error: (error) => {
+                console.error('Error occurred:', error);
+            },
+        });
     }
 }

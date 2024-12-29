@@ -19,6 +19,22 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'actions',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./screen-actions/screen-actions.component').then(
+                (m) => m.ScreenActionsComponent
+            ),
+    },
+    {
+        path: 'user-role-mapping',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./user-role-mapping/user-role-mapping.component').then(
+                (m) => m.UserRoleMappingComponent
+            ),
+    },
+    {
         path: 'users',
         // canActivate: [AuthGuard],
         loadComponent: () =>
