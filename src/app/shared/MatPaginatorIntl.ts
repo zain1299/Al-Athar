@@ -1,24 +1,23 @@
+import { Injectable } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 
+@Injectable()
 export class CustomMatPaginatorIntl extends MatPaginatorIntl {
-    // override itemsPerPageLabel = 'العناصر لكل صفحة :';
     override itemsPerPageLabel = 'Item Per page:';
     override nextPageLabel = 'Next';
     override previousPageLabel = 'Previous';
     override firstPageLabel = 'First';
     override lastPageLabel = 'Last';
 
-    // Optionally, you can customize the range label as well
-    override getRangeLabel = function (
+    override getRangeLabel = (
         page: number,
         pageSize: number,
         length: number
-    ): string {
+    ): string => {
         if (length === 0 || pageSize === 0) {
             return `0 of ${length}`;
         }
         const startIndex = page * pageSize;
-        // If the start index exceeds the list length, do not try and fix the end index to the length
         const endIndex =
             startIndex < length
                 ? Math.min(startIndex + pageSize, length)
