@@ -11,6 +11,7 @@ import { provideToastr } from 'ngx-toastr';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from './shared/MatPaginatorIntl';
 import { AuthInterceptor } from './shared/guards/auth.interceptor';
+import { AuthHeaderInterceptor } from './shared/guards/authHeaderInterceptor';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -25,6 +26,11 @@ export const appConfig: ApplicationConfig = {
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthHeaderInterceptor,
             multi: true,
         },
     ],

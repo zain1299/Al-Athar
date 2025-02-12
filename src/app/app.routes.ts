@@ -189,6 +189,7 @@ import { RatioComponent } from './theme/ui-elements/ratio/ratio.component';
 import { UtilitiesComponent } from './theme/ui-elements/utilities/utilities.component';
 import { LoginGuardGuard } from './shared/guards/login.guard';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {
@@ -253,7 +254,7 @@ export const routes: Routes = [
     },
     {
         path: 'dashboard',
-        component: EcommerceComponent,
+        component: DashboardComponent,
         canActivate: [AuthGuard],
     },
     { path: 'crm', component: CrmComponent, canActivate: [AuthGuard] },
