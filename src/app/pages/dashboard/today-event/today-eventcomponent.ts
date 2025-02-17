@@ -14,6 +14,7 @@ import {
     IAppointmentsAndMeeting,
     IAppointmentsAndMeetingBody,
 } from '../../../interface/Dashboard/AppointmentsAndMeetings.interface';
+import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
     selector: 'app-today-event',
@@ -29,6 +30,8 @@ import {
         MatSelectModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        NgFor,
+        CommonModule,
     ],
     templateUrl: './today-event.component.html',
     styleUrl: './today-event.component.scss',
@@ -87,5 +90,22 @@ export class TodayEventComponent {
 
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
+    }
+
+    // Mapping of EventType to colors
+    eventTypeColors: { [key: string]: string } = {
+        Appointment: '#4caf50',
+        Meeting: '#2196f3',
+        PublicAppointment: '#ff9800',
+        VideoCall: '#e91e63',
+    };
+
+    getEventTypeColor(eventType: string): string {
+        return this.eventTypeColors[eventType] || '#6b7280';
+    }
+
+    // Default color for status when StatusColor is not available from backend
+    getStatusColor(statusColor: string | null): string {
+        return statusColor || '#6b7280'; // Returns default gray if statusColor is null/undefined
     }
 }

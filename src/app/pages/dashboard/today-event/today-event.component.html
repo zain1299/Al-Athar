@@ -1,56 +1,40 @@
-<!-- Working Schedule -->
-<mat-card class="daxa-card working-schedule-card mb-25 border-radius bg-white border-none d-block"
-    [class.component-dark-theme]="themeService.isDark()" [class.rtl-enabled]="themeService.isRTLEnabled()">
+<mat-card class="working-schedule-card">
     <mat-card-header>
         <mat-card-title>
-            <h5 class="mt-0 mb-0">
-                Working Schedule
-            </h5>
+            <h5>Working Schedule</h5>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <mat-calendar [(selected)]="selected" (selectedChange)="onDateChange($event)"></mat-calendar>
         <div class="events-content">
-            <h5>
-                EVENTS
-            </h5>
-            <ul class="mt-0 pl-0 list-unstyled mb-0">
-                <li class="position-relative">
-                    <p>
-                        Project Daxa milestone 1 due next week. Team, make sure all are on track.
-                    </p>
-                    <span class="d-block text-daxa">
-                        November 21 <span class="text-body">(10:00 - 11:00 AM)</span>
-                    </span>
-                </li>
-                <li class="position-relative">
-                    <p>
-                        David Doe is assigned to lead the development phase starting on 02Dec. Please coordinate with
-                        other team members.
-                    </p>
-                    <span class="d-block text-daxa">
-                        December 06 <span class="text-body">(02:00 PM)</span>
-                    </span>
-                </li>
-                <li class="position-relative">
-                    <p>
-                        Client meeting scheduled for 13Dec. Prepare project update presentation and gather any
-                        client-specific requirements.
-                    </p>
-                    <span class="d-block text-daxa">
-                        December 13 <span class="text-body">(03:00 PM)</span>
-                    </span>
-                </li>
-                <li class="position-relative">
-                    <p>
-                        Team training session scheduled for 20Dec to introduce new tools. Ensure all team members
-                        attend.
-                    </p>
-                    <span class="d-block text-daxa">
-                        December 20 <span class="text-body">(12:00 AM)</span>
-                    </span>
-                </li>
-            </ul>
+            <h5>EVENTS</h5>
+            <div class="events-list-container">
+                <ul>
+                    <li *ngFor="let event of todayEvents?.dailyEvents">
+                        <div class="event-header">
+                            <span class="event-dot"
+                                [style.background-color]="getEventTypeColor(event.EventType)"></span>
+                            <p class="event-title">{{ event.Title }}</p>
+                        </div>
+
+                        <div class="event-datetime">
+                            {{ event.Date | date: 'EEEE, dd MMM' }}
+                            <span>({{ event.StartTime }} - {{ event.EndTime }})</span>
+                        </div>
+
+                        <div class="event-badges">
+                            <span class="event-badge status-badge"
+                                [style.background-color]="getStatusColor(event.StatusColor)">
+                                <strong>Status:</strong> {{ event.StatusName }}
+                            </span>
+                            <span class="event-badge type-badge"
+                                [style.background-color]="getEventTypeColor(event.EventType)">
+                                <strong>Type:</strong> {{ event.EventType }}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </mat-card-content>
 </mat-card>

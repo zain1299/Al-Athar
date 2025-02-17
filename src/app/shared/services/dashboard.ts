@@ -16,7 +16,7 @@ export class DashboardService {
 
     AppointmentsAndMeetings(body: IAppointmentsAndMeetingBody) {
         return this.http.post<IAppointmentsAndMeetingResponse>(
-            this.HostURL + 'Master/AppointmentsAndMeetingsV2',
+            this.HostURL + 'Master/GetDailyEvents',
             body
         );
     }
