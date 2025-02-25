@@ -57,15 +57,6 @@ import { HdTicketDetailsComponent } from './theme/pages/help-desk-page/hd-ticket
 import { HdAgentsComponent } from './theme/pages/help-desk-page/hd-agents/hd-agents.component';
 import { HdReportsComponent } from './theme/pages/help-desk-page/hd-reports/hd-reports.component';
 import { EOrderTrackingComponent } from './theme/pages/ecommerce-page/e-order-tracking/e-order-tracking.component';
-import { CalendarComponent } from './pages/calendar/calendar.component';
-import { ContactsComponent } from './pages/contacts/contacts.component';
-import { ToDoListComponent } from './pages/to-do-list/to-do-list.component';
-import { ChatComponent } from './pages/chat/chat.component';
-import { FileManagerComponent } from './pages/file-manager/file-manager.component';
-import { EmailComponent } from './pages/email/email.component';
-import { InboxComponent } from './pages/email/inbox/inbox.component';
-import { ComposeComponent } from './pages/email/compose/compose.component';
-import { ReadComponent } from './pages/email/read/read.component';
 import { EventsPageComponent } from './theme/pages/events-page/events-page.component';
 import { EventsListComponent } from './theme/pages/events-page/events-list/events-list.component';
 import { EventDetailsComponent } from './theme/pages/events-page/event-details/event-details.component';
@@ -75,16 +66,8 @@ import { InvoicesPageComponent } from './theme/pages/invoices-page/invoices-page
 import { InvoicesComponent } from './theme/pages/invoices-page/invoices/invoices.component';
 import { InvoiceDetailsComponent } from './theme/pages/invoices-page/invoice-details/invoice-details.component';
 import { CContactsComponent } from './theme/pages/crm-page/c-contacts/c-contacts.component';
-import { MyDriveComponent } from './pages/file-manager/my-drive/my-drive.component';
-import { AssetsComponent } from './pages/file-manager/assets/assets.component';
-import { ProjectsComponent } from './pages/file-manager/projects/projects.component';
-import { PersonalComponent } from './pages/file-manager/personal/personal.component';
-import { ApplicationsComponent } from './pages/file-manager/applications/applications.component';
-import { DocumentsComponent } from './pages/file-manager/documents/documents.component';
-import { MediaComponent } from './pages/file-manager/media/media.component';
 import { StarterComponent } from './theme/starter/starter.component';
 import { PricingPageComponent } from './theme/pages/pricing-page/pricing-page.component';
-import { KanbanBoardComponent } from './pages/kanban-board/kanban-board.component';
 import { SocialPageComponent } from './theme/pages/social-page/social-page.component';
 import { ProfileComponent } from './theme/pages/social-page/profile/profile.component';
 import { TimelineComponent } from './theme/pages/social-page/profile/timeline/timeline.component';
@@ -269,51 +252,7 @@ export const routes: Routes = [
         component: HelpDeskComponent,
         canActivate: [AuthGuard],
     },
-    {
-        path: 'to-do-list',
-        component: ToDoListComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: 'calendar',
-        component: CalendarComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: 'contacts',
-        component: ContactsComponent,
-        canActivate: [AuthGuard],
-    },
-    { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
-    {
-        path: 'kanban-board',
-        component: KanbanBoardComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: 'file-manager',
-        component: FileManagerComponent,
-        // canActivate: [AuthGuard],
-        children: [
-            { path: '', component: MyDriveComponent },
-            { path: 'assets', component: AssetsComponent },
-            { path: 'projects', component: ProjectsComponent },
-            { path: 'personal', component: PersonalComponent },
-            { path: 'applications', component: ApplicationsComponent },
-            { path: 'documents', component: DocumentsComponent },
-            { path: 'media', component: MediaComponent },
-        ],
-    },
-    {
-        path: 'email',
-        component: EmailComponent,
-        canActivate: [AuthGuard],
-        children: [
-            { path: '', component: InboxComponent },
-            { path: 'compose', component: ComposeComponent },
-            { path: 'read', component: ReadComponent },
-        ],
-    },
+
     {
         path: 'ecommerce-page',
         component: EcommercePageComponent,

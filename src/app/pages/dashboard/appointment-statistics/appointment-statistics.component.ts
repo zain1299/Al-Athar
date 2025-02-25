@@ -8,11 +8,12 @@ import { Router } from '@angular/router';
 import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
 import { NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-appointment-statistics',
     standalone: true,
-    imports: [NgApexchartsModule, NgIf, MatCardModule],
+    imports: [NgApexchartsModule, NgIf, MatCardModule, MatIconModule],
     templateUrl: './appointment-statistics.component.html',
     styleUrl: './appointment-statistics.component.scss',
 })

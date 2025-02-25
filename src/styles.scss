@@ -106,6 +106,15 @@ button {
     margin-bottom: 25px !important;
 }
 
+.mat-mdc-option {
+    .mdc-list-item__primary-text {
+        text-align: right !important;
+        margin-right: 0 !important;
+        margin-left: auto !important;
+        direction: rtl !important;
+    }
+}
+
 // Utilities CSS
 @import "./utilities";
 

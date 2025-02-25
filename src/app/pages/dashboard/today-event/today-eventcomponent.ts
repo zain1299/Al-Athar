@@ -62,6 +62,9 @@ export class TodayEventComponent {
     ngOnInit(): void {
         const user: IUser = this.storage.get(StorageKeys.User);
         this.UserCode = user?.USER_CODE ? +user?.USER_CODE : null;
+
+        this.selected = new Date();
+        this.onDateChange(new Date());
     }
 
     toggleClass() {

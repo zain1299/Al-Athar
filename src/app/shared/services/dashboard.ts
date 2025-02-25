@@ -27,4 +27,23 @@ export class DashboardService {
             body
         );
     }
+
+    SecretaryList(body: any) {
+        return this.http.post<any>(
+            this.HostURL + 'Appointment/SecretaryList',
+            body
+        );
+    }
+    InsertUpdateUserAccountManager(body: any) {
+        return this.http.post<any>(
+            this.HostURL + 'Appointment/InsertUpdateUserAccountManager',
+            body
+        );
+    }
+    DeleteUserAccountManager(body: any) {
+        return this.http.post<any>(
+            this.HostURL + 'Appointment/DeleteUserAccountManager',
+            body
+        );
+    }
 }

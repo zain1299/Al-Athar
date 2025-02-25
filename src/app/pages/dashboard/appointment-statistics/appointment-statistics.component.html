@@ -1,20 +1,77 @@
 <div class="statistics-container">
     <div class="row">
-        <div class="col-md-3" style="margin-top: 30px;">
-            <mat-card class="working-schedule-card">
-                <mat-card-header>
-                    <mat-card-title>
-                        <h2>إحصائيات المواعيد</h2>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <div>⏳ إجمالي ساعات المواعيد: {{ totalAppointmentHours }}</div>
-                    <div>👥 مواعيد مع الموظفين: {{ appointmentsWithEmployees }}</div>
-                    <div>🏠 مواعيد مع المواطنين: {{ appointmentsWithCitizens }}</div>
 
+
+        <!-- Total Appointment Hours Card -->
+        <div class="col-md-3" style="margin-top: 30px;">
+            <mat-card class="daxa-card mb-3 border-radius bg-white border-none shadow-sm">
+                <mat-card-content>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="title">
+                            <h5 class="mb-1 text-secondary">إجمالي ساعات المواعيد</h5>
+                            <div class="number fw-bold fs-4 text-dark">
+                                {{ totalAppointmentHours }}
+                            </div>
+                        </div>
+                        <div class="icon bg-warning rounded-circle d-flex align-items-center justify-content-center text-white shadow-lg"
+                            style="width: 50px; height: 50px;">
+                            <i class="material-symbols-outlined fs-4">schedule</i>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="daxa-card mb-3 border-radius bg-white border-none shadow-sm" style="margin-top: 20px;">
+                <mat-card-content>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="title">
+                            <h5 class="mb-1 text-secondary">مواعيد مع الموظفين</h5>
+                            <div class="number fw-bold fs-4 text-dark">
+                                {{ appointmentsWithEmployees }}
+                            </div>
+                        </div>
+                        <div class="icon bg-primary rounded-circle d-flex align-items-center justify-content-center text-white shadow-lg"
+                            style="width: 50px; height: 50px;">
+                            <i class="material-symbols-outlined fs-4">group</i>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="daxa-card mb-3 border-radius bg-white border-none shadow-sm" style="margin-top: 20px;">
+                <mat-card-content>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="title">
+                            <h5 class="mb-1 text-secondary">مواعيد مع المواطنين</h5>
+                            <div class="number fw-bold fs-4 text-dark">
+                                {{ appointmentsWithCitizens }}
+                            </div>
+                        </div>
+                        <div class="icon bg-success rounded-circle d-flex align-items-center justify-content-center text-white shadow-lg"
+                            style="width: 50px; height: 50px;">
+                            <i class="material-symbols-outlined fs-4">home</i>
+                        </div>
+                    </div>
                 </mat-card-content>
             </mat-card>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+        <!-- <div>⏳ إجمالي ساعات المواعيد: {{ totalAppointmentHours }}</div>
+                    <div>👥 مواعيد مع الموظفين: {{ appointmentsWithEmployees }}</div>
+                    <div>🏠 مواعيد مع المواطنين: {{ appointmentsWithCitizens }}</div> -->
+
+
+
 
         <div class="col-md-3" style="margin-top: 30px;">
             <mat-card class="working-schedule-card">

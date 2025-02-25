@@ -37,16 +37,10 @@
                             &:last-child {
                                 text-align: right;
                             }
-                            &:first-child {
-                                padding-right: 0;
-                            }
                         }
                         .mat-mdc-cell {
                             &:last-child {
                                 text-align: right;
-                            }
-                            &:first-child {
-                                padding-right: 0;
                             }
                         }
                         .folder-name {
@@ -334,11 +328,12 @@
         padding: 6px 10px; // Adjust padding for smaller screens
     }
 }
+
 .row {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 0; // Set left margin to 0
-    margin-right: 0; // Set right margin to 0
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .chips-grid {
