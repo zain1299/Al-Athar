@@ -20,4 +20,11 @@ export class DashboardService {
             body
         );
     }
+
+    GetAppointmentStatistics(body: IAppointmentsAndMeetingBody) {
+        return this.http.post<any>(
+            this.HostURL + 'Master/GetAppointmentStatistics',
+            body
+        );
+    }
 }

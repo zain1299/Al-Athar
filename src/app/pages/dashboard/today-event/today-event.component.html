@@ -10,27 +10,58 @@
             <h5>EVENTS</h5>
             <div class="events-list-container">
                 <ul>
-                    <li *ngFor="let event of todayEvents?.dailyEvents">
+                    <li *ngFor="let event of todayEvents?.dailyEvents" class="event-item">
                         <div class="event-header">
                             <span class="event-dot"
                                 [style.background-color]="getEventTypeColor(event.EventType)"></span>
                             <p class="event-title">{{ event.Title }}</p>
                         </div>
 
-                        <div class="event-datetime">
-                            {{ event.Date | date: 'EEEE, dd MMM' }}
-                            <span>({{ event.StartTime }} - {{ event.EndTime }})</span>
-                        </div>
 
-                        <div class="event-badges">
-                            <span class="event-badge status-badge"
-                                [style.background-color]="getStatusColor(event.StatusColor)">
-                                <strong>Status:</strong> {{ event.StatusName }}
-                            </span>
-                            <span class="event-badge type-badge"
-                                [style.background-color]="getEventTypeColor(event.EventType)">
-                                <strong>Type:</strong> {{ event.EventType }}
-                            </span>
+                        <div class="event-details">
+                            <div class="row">
+                                <div class="event-datetime">
+                                    {{ event.Date | date: 'EEEE, dd MMM' }} <span>({{ event.StartTime }} - {{
+                                        event.EndTime
+                                        }})</span>
+                                </div>
+
+                                <div class="event-organizer">
+                                    <span class="organizer-label">{{ getEventOrganizerLabel(event.EventTypeId)
+                                        }}:</span>
+                                    <span class="organizer-name">
+                                        <ng-container *ngIf="event.EventTypeId === 1">
+                                            {{ event?.CreatedById == UserCode ? event?.AppointmentUser :
+                                            event?.CreatedBy }}
+                                        </ng-container>
+                                        <ng-container *ngIf="event.EventTypeId === 3 || event.EventTypeId === 4">
+                                            {{ event?.CreatedBy }}
+                                        </ng-container>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="event-badges">
+                                <span class="event-badge status-badge"
+                                    [style.background-color]="getStatusColor(event.StatusColor)">
+                                    <strong>Status:</strong> {{ event.StatusName }}
+                                </span>
+                                <span class="event-badge type-badge"
+                                    [style.background-color]="getEventTypeColor(event.EventType)">
+                                    <strong>Type:</strong> {{ event.EventTypeAr }}
+                                </span>
+                            </div>
+
+                            <div class="event-actions">
+                                <button mat-button *ngIf="event.EventTypeId === 4" color="primary"
+                                    (click)="joinVideoCall(event)">
+                                    <mat-icon>videocam</mat-icon> Join
+                                </button>
+                                <button mat-button *ngIf="event.EventTypeId !== 4" color="accent"
+                                    (click)="viewEventDetails(event)">
+                                    <mat-icon>visibility</mat-icon> View
+                                </button>
+                            </div>
                         </div>
                     </li>
                 </ul>

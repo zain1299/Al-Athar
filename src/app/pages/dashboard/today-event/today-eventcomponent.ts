@@ -15,6 +15,10 @@ import {
     IAppointmentsAndMeetingBody,
 } from '../../../interface/Dashboard/AppointmentsAndMeetings.interface';
 import { CommonModule, NgFor } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { IUser } from '../../../interface';
+import { StorageKeys } from '../../../shared/storage-keys';
+import { StorageService } from '../../../shared/storage.service';
 
 @Component({
     selector: 'app-today-event',
@@ -32,41 +36,51 @@ import { CommonModule, NgFor } from '@angular/common';
         MatNativeDateModule,
         NgFor,
         CommonModule,
+        MatIcon,
     ],
     templateUrl: './today-event.component.html',
     styleUrl: './today-event.component.scss',
 })
 export class TodayEventComponent {
     selected: Date | null;
-
     classApplied = false;
-    toggleClass() {
-        this.classApplied = !this.classApplied;
-    }
+    UserCode: number | null;
     todayEvents: IAppointmentsAndMeeting;
-
     isToggled = false;
 
     constructor(
         public themeService: CustomizerSettingsService,
         private httpService: DashboardService,
-        private router: Router
+        private router: Router,
+        private storage: StorageService
     ) {
         this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
         });
     }
 
-    onDateChange(date: Date): void {
-        const startDate = new Date(date);
-        startDate.setHours(0, 0, 0, 0);
+    ngOnInit(): void {
+        const user: IUser = this.storage.get(StorageKeys.User);
+        this.UserCode = user?.USER_CODE ? +user?.USER_CODE : null;
+    }
 
-        const endDate = new Date(date);
-        endDate.setHours(23, 59, 59, 999);
+    toggleClass() {
+        this.classApplied = !this.classApplied;
+    }
+
+    onDateChange(date: Date): void {
+        const options: Intl.DateTimeFormatOptions = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        };
+        const formattedDate = new Intl.DateTimeFormat('en-CA', options).format(
+            date
+        );
 
         const requestBody: IAppointmentsAndMeetingBody = {
-            StartDate: startDate,
-            EndDate: endDate,
+            StartDate: formattedDate,
+            EndDate: formattedDate,
             defaultcolumns: {
                 created_by: 1414,
             },
@@ -75,7 +89,6 @@ export class TodayEventComponent {
         this.httpService.AppointmentsAndMeetings(requestBody).subscribe({
             next: (response) => {
                 this.todayEvents = response.Data as IAppointmentsAndMeeting;
-
                 console.log('todayEvents', this.todayEvents);
             },
             error: (error) => {
@@ -92,7 +105,6 @@ export class TodayEventComponent {
         this.themeService.toggleRTLEnabledTheme();
     }
 
-    // Mapping of EventType to colors
     eventTypeColors: { [key: string]: string } = {
         Appointment: '#4caf50',
         Meeting: '#2196f3',
@@ -104,8 +116,30 @@ export class TodayEventComponent {
         return this.eventTypeColors[eventType] || '#6b7280';
     }
 
-    // Default color for status when StatusColor is not available from backend
     getStatusColor(statusColor: string | null): string {
-        return statusColor || '#6b7280'; // Returns default gray if statusColor is null/undefined
+        return statusColor || '#6b7280';
+    }
+
+    joinVideoCall(event: any): void {
+        console.log('Joining video call for event:', event);
+    }
+
+    viewEventDetails(event: any): void {
+        console.log('Viewing details for event:', event);
+    }
+
+    getEventOrganizerLabel(eventTypeId: number): string {
+        switch (eventTypeId) {
+            case 1:
+                return 'Consultant / Attendee'; // Appointment
+            case 3:
+                return 'Meeting Host'; // Meeting
+            case 2:
+                return 'Public Session Leader'; // Public Appointment
+            case 4:
+                return 'Video Call Host'; // Video Call
+            default:
+                return 'Organizer';
+        }
     }
 }

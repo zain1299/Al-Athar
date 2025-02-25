@@ -7,6 +7,7 @@ export interface IAppointmentsAndMeeting {
 
 export interface IDailyEvent {
     EventType: string;
+    EventTypeAr: string;
     EventTypeId: number;
     Id: number;
     Title: string;
@@ -19,9 +20,9 @@ export interface IDailyEvent {
     AppointmentTypeId?: number;
     AppointmentUser: string;
     AppointmentUserId?: number;
-    AppointmentCreatedBy: string;
-    AppointmentCreatedById: number;
-    AppointmentCreatedByProfilePic: string;
+    CreatedBy: string;
+    CreatedById: number;
+    CreatedByProfilePic: string;
     StartTime: string;
     EndTime: string;
 }
