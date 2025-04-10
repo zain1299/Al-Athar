@@ -6,14 +6,31 @@ import { StorageKeys } from '../../../shared/storage-keys';
 import { IUser } from '../../../interface';
 import { Router } from '@angular/router';
 import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
-import { NgIf } from '@angular/common';
+import { NgIf, CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import {
+    MatDatepicker,
+    MatDatepickerInputEvent,
+    MatDatepickerModule,
+} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
     selector: 'app-appointment-statistics',
     standalone: true,
-    imports: [NgApexchartsModule, NgIf, MatCardModule, MatIconModule],
+    imports: [
+        NgApexchartsModule,
+        NgIf,
+        MatCardModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatLabel,
+        MatFormField,
+        CommonModule,
+    ],
     templateUrl: './appointment-statistics.component.html',
     styleUrl: './appointment-statistics.component.scss',
 })
@@ -27,6 +44,8 @@ export class AppointmentStatisticsComponent {
     totalAppointmentHours: number = 0;
     appointmentsWithEmployees: number = 0;
     appointmentsWithCitizens: number = 0;
+
+    selectedMonth: Date = new Date();
 
     constructor(
         public themeService: CustomizerSettingsService,
@@ -47,6 +66,27 @@ export class AppointmentStatisticsComponent {
         );
     }
 
+    onMonthChange(event: MatDatepickerInputEvent<Date>) {
+        const selectedDate: any = event.value;
+        const startDate = new Date(
+            selectedDate.getFullYear(),
+            selectedDate.getMonth(),
+            1
+        );
+        const endDate = new Date(
+            selectedDate.getFullYear(),
+            selectedDate.getMonth() + 1,
+            0
+        );
+        this.getAppointmentStatistics(startDate, endDate);
+    }
+
+    onMonthSelected(event: Date, datepicker: MatDatepicker<Date>) {
+        const startDate = new Date(event.getFullYear(), event.getMonth(), 1);
+        const endDate = new Date(event.getFullYear(), event.getMonth() + 1, 0);
+        this.getAppointmentStatistics(startDate, endDate);
+        datepicker.close(); // Close picker after selection
+    }
     getAppointmentStatistics(startDate: Date, endDate: Date): void {
         const options: Intl.DateTimeFormatOptions = {
             year: 'numeric',
