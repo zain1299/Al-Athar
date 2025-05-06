@@ -16,6 +16,8 @@ import {
 } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
     selector: 'app-appointment-statistics',
@@ -30,6 +32,8 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
         MatLabel,
         MatFormField,
         CommonModule,
+        MatInputModule,
+        MatFormFieldModule
     ],
     templateUrl: './appointment-statistics.component.html',
     styleUrl: './appointment-statistics.component.scss',

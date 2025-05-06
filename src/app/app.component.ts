@@ -94,6 +94,7 @@ export class AppComponent {
     // ngOnInit
     ngOnInit() {
         this.recallJsFuntions();
+        this.setRTL();
     }
 
     // recallJsFuntions
@@ -153,5 +154,9 @@ export class AppComponent {
     // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
+    }
+
+    setRTL() {
+        this.themeService.setRTL();
     }
 }
