@@ -41,9 +41,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class AppointmentStatisticsComponent {
     isToggled = false;
     user: IUser;
-    dailyChartOptions: ApexOptions;
-    weeklyChartOptions: ApexOptions;
-    monthlyChartOptions: ApexOptions;
+    dailyChartOptions: any;
+    weeklyChartOptions: any;
+    monthlyChartOptions: any;
 
     totalAppointmentHours: number = 0;
     appointmentsWithEmployees: number = 0;
@@ -197,4 +197,6 @@ export class AppointmentStatisticsComponent {
             dataLabels: { enabled: true },
         };
     }
+    readonly startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+
 }

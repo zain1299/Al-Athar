@@ -23,9 +23,17 @@
                 </form>
             </mat-card-title>
             <mat-card-subtitle>
-                <a mat-button class="add-new-btn" (click)="toggleClass()">
+                <!-- <a mat-button class="add-new-btn" (click)="toggleClass()">
                     {{ Labels.Role.headingLabel[language] + " +" }}
-                </a>
+                </a> -->
+
+                <button (click)="toggleClass()"  mat-flat-button=""
+                class="mdc-button mat-mdc-button-base daxa mdc-button--unelevated mat-mdc-unelevated-button mat-unthemed"
+                mat-ripple-loader-class-name="mat-mdc-button-ripple"><span
+                    class="mat-mdc-button-persistent-ripple mdc-button__ripple"></span><span
+                    class="mdc-button__label">{{ Labels.Role.headingLabel[language] + " +" }}</span><span class="mat-focus-indicator"></span><span
+                    class="mat-mdc-button-touch-target"  ></span><span
+                    class="mat-ripple mat-mdc-button-ripple"></span></button>
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
