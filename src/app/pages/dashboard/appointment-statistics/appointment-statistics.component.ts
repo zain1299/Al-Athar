@@ -18,6 +18,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+// import { NgModel } from '@angular/forms';
 
 @Component({
     selector: 'app-appointment-statistics',
@@ -33,7 +35,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         MatFormField,
         CommonModule,
         MatInputModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        FormsModule
+        // NgModel
     ],
     templateUrl: './appointment-statistics.component.html',
     styleUrl: './appointment-statistics.component.scss',
@@ -51,6 +55,9 @@ export class AppointmentStatisticsComponent {
 
     selectedMonth: Date = new Date();
 
+    // readonly startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+
+
     constructor(
         public themeService: CustomizerSettingsService,
         private httpService: DashboardService,
@@ -64,10 +71,24 @@ export class AppointmentStatisticsComponent {
 
     ngOnInit(): void {
         this.user = this.storage.get(StorageKeys.User);
-        this.getAppointmentStatistics(
-            new Date('2025-02-01'),
-            new Date('2025-02-29')
-        );
+        // this.getAppointmentStatistics(
+        //     new Date('2025-02-01'),
+        //     new Date('2025-02-29')
+        // );
+
+          // 🟢 Set start date = first day of current month
+    const startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+
+    // 🟢 Set end date = today's date
+    const endDate = new Date();
+
+
+    this.selectedStartMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+
+    // 🟢 Set end date = today's date
+    this.selectedEndMonth = new Date();
+
+    this.getAppointmentStatistics(this.selectedStartMonth, this.selectedEndMonth);
     }
 
     onMonthChange(event: MatDatepickerInputEvent<Date>) {
@@ -85,12 +106,13 @@ export class AppointmentStatisticsComponent {
         this.getAppointmentStatistics(startDate, endDate);
     }
 
-    onMonthSelected(event: Date, datepicker: MatDatepicker<Date>) {
-        const startDate = new Date(event.getFullYear(), event.getMonth(), 1);
-        const endDate = new Date(event.getFullYear(), event.getMonth() + 1, 0);
-        this.getAppointmentStatistics(startDate, endDate);
-        datepicker.close(); // Close picker after selection
-    }
+    // onMonthSelected(event: Date, datepicker: MatDatepicker<Date>) {
+    //     const startDate = new Date(event.getFullYear(), event.getMonth(), 1);
+    //     const endDate = new Date(event.getFullYear(), event.getMonth() + 1, 0);
+    //     this.getAppointmentStatistics(startDate, endDate);
+    //     datepicker.close(); // Close picker after selection
+    // }
+    
     getAppointmentStatistics(startDate: Date, endDate: Date): void {
         const options: Intl.DateTimeFormatOptions = {
             year: 'numeric',
@@ -180,6 +202,21 @@ export class AppointmentStatisticsComponent {
             xaxis: { categories: weeklyData.map((w) => `أسبوع ${w.Week}`) },
             colors: ['#007bff'],
             dataLabels: { enabled: true },
+            events: {
+                mounted: (chartContext:any, config:any) => {
+                  const chartEl = chartContext.el;
+                  if (chartEl) {
+                    chartEl.querySelectorAll('*').forEach((el: any) => {
+                      el.addEventListener = (type: string, listener: any, options: any) => {
+                        if (options && typeof options === 'object' && options.passive === true) {
+                          options.passive = false;
+                        }
+                        EventTarget.prototype.addEventListener.call(el, type, listener, options);
+                      };
+                    });
+                  }
+                }
+              }
         };
     }
 
@@ -197,6 +234,8 @@ export class AppointmentStatisticsComponent {
             dataLabels: { enabled: true },
         };
     }
-    readonly startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+   
+    selectedStartMonth = new Date();
+    selectedEndMonth = new Date();
 
 }

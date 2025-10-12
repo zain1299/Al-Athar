@@ -14,100 +14,127 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
-import { IApplication, IApplicationData } from '../../../interface/Application/application.interface';
+import {
+    IApplication,
+    IApplicationData,
+} from '../../../interface/Application/application.interface';
 import { IUser } from '../../../interface';
 import { StorageKeys } from '../../../shared/storage-keys';
-
+import { DynamicButtonComponent } from '../../../shared/components/dynamic-button/dynamic-button.component';
+import { DynamicFormPopupComponent } from '../../../shared/components/dynamic-form-popup/dynamic-form-popup.component';
+import { Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-application',
-  standalone: true,
-  imports: [
-    NgIf,
-    MatCardModule,
-    MatTableModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatCheckboxModule,
-    MatTooltipModule,
-    MatPaginator
-  ],
-  templateUrl: './application.component.html',
-  styleUrl: './application.component.scss'
+    selector: 'app-application',
+    standalone: true,
+    imports: [
+        NgIf,
+        MatCardModule,
+        MatTableModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatCheckboxModule,
+        MatTooltipModule,
+        MatPaginator,
+        DynamicButtonComponent,
+        DynamicFormPopupComponent,
+    ],
+    templateUrl: './application.component.html',
+    styleUrl: './application.component.scss',
 })
 export class ApplicationComponent {
-  isToggled = false;
-  UserCode: number;
+    isToggled = false;
+    UserCode: number;
 
-  dataSource = new MatTableDataSource<IApplication>([]);
+    popupVisible: boolean = false;
 
-  displayedColumns: string[] = [
-    'ApplicationId',
-    'ApplicationNameAr',
-    'ApplicationNameEn',
-    'action',
-  ];
+    dataSource = new MatTableDataSource<IApplication>([]);
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+    displayedColumns: string[] = [
+        'ApplicationId',
+        'ApplicationNameAr',
+        'ApplicationNameEn',
+        'action',
+    ];
 
-  constructor(
-    public themeService: CustomizerSettingsService,
-    private httpService: HttpService,
-    private storage: StorageService,
-    private router: Router
-  ) {
-    this.themeService.isToggled$.subscribe((isToggled) => {
-      this.isToggled = isToggled;
-    });
-  }
+    fields = [
+        {
+            name: 'name',
+            label: 'Name',
+            type: 'text',
+            validators: [Validators.required],
+        },
+        {
+            name: 'description',
+            label: 'Description',
+            type: 'textarea',
+            // validators: [Validators.required],
+        }
+    ];
 
-  ngOnInit(): void {
-    const user: IUser = this.storage.get(StorageKeys.User);
-    this.UserCode = user?.USER_CODE ? +user?.USER_CODE : (0 as number);
+    editData = {
+        name: 'Test App',
+        description: 'This is test',
+        email: 'test@app.com'
+      };
 
-    this.getApplicationList();
-  }
+      
 
-  // Search Filter
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  getApplicationList(): void {
+    constructor(
+        public themeService: CustomizerSettingsService,
+        private httpService: HttpService,
+        private storage: StorageService,
+        private router: Router
+    ) {
+        this.themeService.isToggled$.subscribe((isToggled) => {
+            this.isToggled = isToggled;
+        });
+    }
 
-    const body = {
-      defaultcolumns: {
-        created_by: this.UserCode,
-      }
-    };
+    ngOnInit(): void {
+        const user: IUser = this.storage.get(StorageKeys.User);
+        this.UserCode = user?.USER_CODE ? +user?.USER_CODE : (0 as number);
 
-    this.httpService.GetApplicationList(body).subscribe({
-      next: (response) => {
-        var responseData = response.Data as IApplicationData;
-        this.dataSource.data = responseData.ApplicationListData;
-        this.dataSource.paginator = this.paginator;
-      },
-      error: (error) => {
-        console.error('Error occurred:', error);
-      },
-    });
-  }
+        this.getApplicationList();
+    }
 
-  ViewData(row: IApplication): void {
-    //   this.selectedRow = row;
-    //   this.toggleClassView();
-  }
+    // Search Filter
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
 
-  onAddEdit(): void {
+    getApplicationList(): void {
+        const body = {
+            defaultcolumns: {
+                created_by: this.UserCode,
+            },
+        };
 
-  }
+        this.httpService.GetApplicationList(body).subscribe({
+            next: (response) => {
+                var responseData = response.Data as IApplicationData;
+                this.dataSource.data = responseData.ApplicationListData;
+                this.dataSource.paginator = this.paginator;
+            },
+            error: (error) => {
+                console.error('Error occurred:', error);
+            },
+        });
+    }
 
-  onEdit(row: IApplication): void {
+    ViewData(row: IApplication): void {
+        //   this.selectedRow = row;
+        //   this.toggleClassView();
+    }
 
-  }
+    onAddEdit(event: any): void {
+        console.log('event', event);
+    }
 
-  onDelete(row: IApplication): void {
+    onEdit(row: IApplication): void {}
 
-  }
+    onDelete(row: IApplication): void {}
 }

@@ -35,6 +35,7 @@
                     class="mat-mdc-button-touch-target"  ></span><span
                     class="mat-ripple mat-mdc-button-ripple"></span></button>
             </mat-card-subtitle>
+        
         </mat-card-header>
         <mat-card-content>
             <div class="list-table">
@@ -331,3 +332,12 @@
         </mat-card>
     </div>
 </div>
+
+<app-dynamic-form-popup
+    [title]="'Add/Edit Application'"
+    [isActive]="popupVisible"
+    [fields]="fields"
+    (close)="popupVisible = false"
+    (submitForm)="submit($event)"
+   
+></app-dynamic-form-popup>
