@@ -202,20 +202,5 @@ export class ApplicationComponent {
     }
 
 
-    // deleteApplication(role: IRole): void {
-    //     this.httpService.RoleDelete(role).subscribe({
-    //         next: (response) => {
-    //             if (response.Status == 200) {
-    //                 this.toast.success('Application deleted successfully!');
-    //                 this.getApplicationList();
-    //             } else {
-    //                 this.toast.error(response.Message);
-    //             }
-    //         },
-    //         error: (error) => {
-    //             console.error('Error occurred:', error);
-    //             this.toast.error(JSON.parse(error));
-    //         },
-    //     });
-    // }
+    // clear
 }
