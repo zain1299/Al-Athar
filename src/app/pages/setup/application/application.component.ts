@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { NgIf, CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { StorageService } from '../../../shared/storage.service';
 
@@ -24,6 +24,10 @@ import { DynamicButtonComponent } from '../../../shared/components/dynamic-butto
 import { DynamicFormPopupComponent } from '../../../shared/components/dynamic-form-popup/dynamic-form-popup.component';
 import { Validators } from '@angular/forms';
 
+import { MatSort } from '@angular/material/sort';
+import { ApplicationService } from '../../../shared/services/application';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
     selector: 'app-application',
     standalone: true,
@@ -38,6 +42,7 @@ import { Validators } from '@angular/forms';
         MatPaginator,
         DynamicButtonComponent,
         DynamicFormPopupComponent,
+        CommonModule,
     ],
     templateUrl: './application.component.html',
     styleUrl: './application.component.scss',
@@ -69,24 +74,25 @@ export class ApplicationComponent {
             label: 'Description',
             type: 'textarea',
             // validators: [Validators.required],
-        }
+        },
     ];
+    initialData: any = {};
 
-    editData = {
-        name: 'Test App',
-        description: 'This is test',
-        email: 'test@app.com'
-      };
-
-      
+    // editData = {
+    //     name: 'Test App',
+    //     description: 'This is test',
+    //     email: 'test@app.com',
+    // };
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
+    @ViewChild(MatSort) sort!: MatSort;
 
     constructor(
         public themeService: CustomizerSettingsService,
-        private httpService: HttpService,
+        private httpService: ApplicationService,
         private storage: StorageService,
-        private router: Router
+        private router: Router,
+        private toast: ToastrService,
     ) {
         this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
@@ -125,16 +131,91 @@ export class ApplicationComponent {
         });
     }
 
+    GetApplicationDetails(ApplicationId: number): void {
+        const body = {
+            ApplicationId,
+            defaultcolumns: {
+                created_by: this.UserCode,
+            },
+        };
+
+
+        this.httpService.GetApplicationDetails(body).subscribe({
+            next: (response) => {
+                const res = response.Data as IApplication;
+                this.initialData = {
+                    ApplicationId: res.ApplicationId,
+                    name: res.ApplicationNameAr,
+                    description: res.ApplicationNameEn,
+                };
+            },
+            error: (error) => {
+                console.error('Error occurred:', error);
+            },
+        });
+    }
+
     ViewData(row: IApplication): void {
         //   this.selectedRow = row;
         //   this.toggleClassView();
     }
 
-    onAddEdit(event: any): void {
-        console.log('event', event);
+    onDelete(row: IApplication): void {}
+
+    applications: any[] = [];
+
+    //popupVisible = false;
+    currentEditingData: any = null; // store the data being edited
+
+    // Triggered when edit button is clicked
+    onEdit(element: any) {
+        this.currentEditingData = element; // store current row data
+        this.popupVisible = true;
+
+        this.initialData = {}
+
+        this.GetApplicationDetails(element.ApplicationId);
+
+        // this.initialData
     }
 
-    onEdit(row: IApplication): void {}
+    onAddEdit(formData: any) {
+        const pyaload = {
+            ApplicationId: this.initialData.ApplicationId,
+            ApplicationNameAr: formData?.name,
+            ApplicationNameEn: formData?.description,
+            defaultcolumns: {
+                created_ip: '',
+                created_pc: '',
+                created_url: '',
+                created_by: this.UserCode,
+            },
+        };
 
-    onDelete(row: IApplication): void {}
+        this.httpService.ApplicationInsertUpdate(pyaload).subscribe({
+            next: (res) => {
+                this.getApplicationList();
+                this.popupVisible = false;
+            },
+            error: (err) => console.error(err),
+        });
+    }
+
+
+    // deleteApplication(role: IRole): void {
+    //     this.httpService.RoleDelete(role).subscribe({
+    //         next: (response) => {
+    //             if (response.Status == 200) {
+    //                 this.toast.success('Application deleted successfully!');
+    //                 this.getApplicationList();
+    //             } else {
+    //                 this.toast.error(response.Message);
+    //             }
+    //         },
+    //         error: (error) => {
+    //             console.error('Error occurred:', error);
+    //             this.toast.error(JSON.parse(error));
+    //         },
+    //     });
+    // }
 }

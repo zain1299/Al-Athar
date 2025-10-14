@@ -337,14 +337,7 @@ export class HttpService {
         return this.http.post(`${this.contractHostUrl}attachments`, formData);
     }
 
-    // Application
-    GetApplicationList(body: any): Observable<IApplicationResponse> {
-        return this.http.post<IApplicationResponse>(
-            this.HostURL + 'Application/ApplicationSelectListV2',
-            body,
-            {}
-        );
-    }
+   
 
     
 

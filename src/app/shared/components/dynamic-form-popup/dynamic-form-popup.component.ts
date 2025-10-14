@@ -70,4 +70,20 @@ export class DynamicFormPopupComponent implements OnChanges {
       this.togglePopup();
     }
   }
+
+  popupVisible = false;
+  currentEditingData: any = null; // store the data being edited
+  
+  // Triggered when edit button is clicked
+  onEdit(element: any) {
+      this.currentEditingData = element;  // store current row data
+      this.popupVisible = true;
+  
+      // Patch values into fields
+      this.fields = this.fields.map(field => ({
+          ...field,
+          value: element[field.name] || '', // set existing values
+      }));
+  }
+  
 }
