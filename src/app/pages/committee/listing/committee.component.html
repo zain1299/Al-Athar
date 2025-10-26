@@ -1,15 +1,49 @@
-<mat-card>
+<!-- Breadcrumb -->
+<div
+    class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between"
+>
+    <h5 class="mb-0">اللجنــــة</h5>
+    <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
+        <li class="breadcrumb-item position-relative">
+            <a routerlink="/setup" class="d-inline-block position-relative">
+                <i class="ri-settings-line"></i>
+                اللجنــــة
+            </a>
+        </li>
+        <li class="breadcrumb-item position-relative"></li>
+    </ol>
+</div>
+
+<mat-card
+    class="daxa-card customers-card mb-25 border-radius bg-white border-none d-block"
+    [class.rtl-enabled]="themeService.isRTLEnabled()"
+>
     <mat-card-header>
-        <mat-card-title>Committee List</mat-card-title>
+        <mat-card-title>
+            <form class="search-box position-relative">
+                <i class="material-symbols-outlined"> search </i>
+                <input
+                    type="text"
+                    class="input-search d-block w-100 border-none outline-0"
+                    placeholder="Search..."
+                    (keyup)="applyFilter($event)"
+                    #input
+                />
+            </form>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <!-- <app-dynamic-button
+                label="اضافة نظام +"
+                [buttonClass]="'daxa custom-class'"
+                (onClick)="popupVisible = true"
+            ></app-dynamic-button> -->
+        </mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
         <div class="customers-table">
             <div class="table-responsive">
-                <table
-                    mat-table
-                    [dataSource]="dataSource"
-                >
+                <table mat-table [dataSource]="dataSource">
                     <!-- Loop through columns -->
                     <ng-container
                         *ngFor="let col of displayedColumns"
