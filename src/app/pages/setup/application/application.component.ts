@@ -12,7 +12,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
 import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
 import {
     IApplication,
@@ -23,10 +22,11 @@ import { StorageKeys } from '../../../shared/storage-keys';
 import { DynamicButtonComponent } from '../../../shared/components/dynamic-button/dynamic-button.component';
 import { DynamicFormPopupComponent } from '../../../shared/components/dynamic-form-popup/dynamic-form-popup.component';
 import { Validators } from '@angular/forms';
-
+import { ConfirmDialogComponent } from '../../../common/confirm-dialog/confirm-dialog.component';
 import { MatSort } from '@angular/material/sort';
 import { ApplicationService } from '../../../shared/services/application';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-application',
@@ -50,17 +50,24 @@ import { ToastrService } from 'ngx-toastr';
 export class ApplicationComponent {
     isToggled = false;
     UserCode: number;
-
+    ViewclassApplied = false;
     popupVisible: boolean = false;
-
+    selectedRow: IApplication;
     dataSource = new MatTableDataSource<IApplication>([]);
 
-    displayedColumns: string[] = [
-        'ApplicationId',
-        'ApplicationNameAr',
-        'ApplicationNameEn',
-        'action',
+    displayedColumns: { key: string; header: string; width?: string }[] = [
+        { key: 'ApplicationId', header: 'Application Id', width: '40px' },
+        {
+            key: 'ApplicationNameAr',
+            header: 'Application Name',
+            width: '200px',
+        },
+        { key: 'ApplicationNameEn', header: 'Description', width: '250px' },
+        { key: 'action', header: 'Action', width: '120px' },
     ];
+
+    // Create a separate array of keys for mat-table
+    displayedColumnKeys: string[] = this.displayedColumns.map((c) => c.key);
 
     fields = [
         {
@@ -78,12 +85,6 @@ export class ApplicationComponent {
     ];
     initialData: any = {};
 
-    // editData = {
-    //     name: 'Test App',
-    //     description: 'This is test',
-    //     email: 'test@app.com',
-    // };
-
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
 
@@ -93,6 +94,7 @@ export class ApplicationComponent {
         private storage: StorageService,
         private router: Router,
         private toast: ToastrService,
+        private dialog: MatDialog
     ) {
         this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
@@ -139,7 +141,6 @@ export class ApplicationComponent {
             },
         };
 
-
         this.httpService.GetApplicationDetails(body).subscribe({
             next: (response) => {
                 const res = response.Data as IApplication;
@@ -154,13 +155,13 @@ export class ApplicationComponent {
             },
         });
     }
-
-    ViewData(row: IApplication): void {
-        //   this.selectedRow = row;
-        //   this.toggleClassView();
+    toggleClassView() {
+        this.ViewclassApplied = !this.ViewclassApplied;
     }
-
-    onDelete(row: IApplication): void {}
+    ViewData(row: IApplication): void {
+        this.selectedRow = row;
+        this.toggleClassView();
+    }
 
     applications: any[] = [];
 
@@ -172,7 +173,7 @@ export class ApplicationComponent {
         this.currentEditingData = element; // store current row data
         this.popupVisible = true;
 
-        this.initialData = {}
+        this.initialData = {};
 
         this.GetApplicationDetails(element.ApplicationId);
 
@@ -200,7 +201,80 @@ export class ApplicationComponent {
             error: (err) => console.error(err),
         });
     }
+    onDelete(row: IApplication): void {
+        if (!row || !row.ApplicationId) return;
 
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            width: '300px',
+            data: {
+                title: 'Confirm Delete',
+                message: `Are you sure you want to delete "${row.ApplicationNameAr}"?`,
+            },
+        });
 
-    // clear
+        const payload = {
+            ApplicationId: row.ApplicationId,
+            defaultcolumns: {
+                deleted_by: this.UserCode,
+            },
+        };
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this.httpService.DeleteApplication(payload).subscribe({
+                    next: (response: any) => {
+                        if (response.Status === 200 && response?.Data) {
+                            this.toast.success(
+                                'Application deleted successfully!'
+                            );
+                            this.getApplicationList(); // refresh list
+                        } else {
+                            this.toast.error(
+                                response.Message ||
+                                    'Failed to delete application.'
+                            );
+                        }
+                    },
+                    error: (error) => {
+                        console.error('Error occurred:', error);
+                        const errorMessage =
+                            error?.error?.message ?? error?.error?.Message;
+
+                        if (Array.isArray(errorMessage)) {
+                            errorMessage.forEach((msg: string) =>
+                                this.toast.error(msg)
+                            );
+                        } else {
+                            this.toast.error(
+                                errorMessage ||
+                                    'An error occurred while deleting the application.'
+                            );
+                        }
+                    },
+                });
+            }
+        });
+    }
+
+    // ViewData(row: IScreenAction): void {
+    //     this.selectedRow = row;
+    //     this.toggleClassView();
+    // }
+
+    // deleteApplication(role: IRole): void {
+    //     this.httpService.RoleDelete(role).subscribe({
+    //         next: (response) => {
+    //             if (response.Status == 200) {
+    //                 this.toast.success('Application deleted successfully!');
+    //                 this.getApplicationList();
+    //             } else {
+    //                 this.toast.error(response.Message);
+    //             }
+    //         },
+    //         error: (error) => {
+    //             console.error('Error occurred:', error);
+    //             this.toast.error(JSON.parse(error));
+    //         },
+    //     });
+    // }
 }

@@ -87,6 +87,13 @@ export const routes: Routes = [
                 (m) => m.SetupRoutingModule
             ),
     },
+    {
+        path: 'committee',
+        loadChildren: () =>
+            import('./pages/committee/committee.module').then(
+                (m) => m.CommitteeRoutingModule
+            ),
+    },
 
     { path: '**', component: NotFoundComponent }, // This line will remain down from the whole pages component list
 ];
