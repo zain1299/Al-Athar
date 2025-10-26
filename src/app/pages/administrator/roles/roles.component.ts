@@ -37,28 +37,33 @@ import { ConfirmDialogComponent } from '../../../common/confirm-dialog/confirm-d
 import { MatDialog } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { IOGMenuItem } from '../../../interface/Screens/screen.interface';
+import { DynamicFormPopupComponent } from "../../../shared/components/dynamic-form-popup/dynamic-form-popup.component";
+import { IApplication } from '../../../interface/Application/application.interface';
+import { DynamicButtonComponent } from "../../../shared/components/dynamic-button/dynamic-button.component";
 
 @Component({
     selector: 'app-roles',
     standalone: true,
     imports: [
-        MatCardModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatTableModule,
-        MatPaginatorModule,
-        NgIf,
-        NgFor,
-        MatCheckboxModule,
-        MatTooltipModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        ReactiveFormsModule,
-        MatChipsModule,
-    ],
+    MatCardModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    NgIf,
+    NgFor,
+    MatCheckboxModule,
+    MatTooltipModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatChipsModule,
+    DynamicFormPopupComponent,
+    DynamicButtonComponent
+],
     templateUrl: './roles.component.html',
     styleUrls: ['./roles.component.scss'],
 })
@@ -350,4 +355,33 @@ export class RolesComponent {
             },
         });
     }
+
+    popupVisible: boolean = false;
+
+    
+
+    fields = [
+        {
+            name: 'name',
+            label: 'Name',
+            type: 'text',
+            validators: [Validators.required],
+        },
+        {
+            name: 'description',
+            label: 'Description',
+            type: 'textarea',
+            // validators: [Validators.required],
+        }
+    ];
+
+    editData = {
+        name: 'Test App',
+        description: 'This is test',
+        email: 'test@app.com'
+      };
+      submit(event: any): void {
+        console.log('event', event);
+    }
+ 
 }

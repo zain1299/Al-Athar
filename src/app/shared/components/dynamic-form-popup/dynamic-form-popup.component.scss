@@ -1,4 +1,3 @@
-// Create New Folder Popup
 ::ng-deep {
     .create-new-popup {
         top: 0;
@@ -112,70 +111,3 @@
         }
     }
 }
-
-.view-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 999;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-
-    &.active {
-        opacity: 1;
-        visibility: visible;
-    }
-}
-
-.readonly-display {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 8px 12px;
-    background-color: #f9f9f9;
-    color: #333;
-    margin-bottom: 20px;
-    min-width: 150px;
-
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        padding: 6px 10px;
-        min-width: 120px;
-    }
-}
-
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: 0; // Set left margin to 0
-    margin-right: 0; // Set right margin to 0
-}
-
-.app-name-column {
-  width: 10px !important;          
-  white-space: normal;    
-  word-wrap: break-word;  
-}
-
-
-.description-column {
-  max-width: 100px !important;          
-  //    display: -webkit-box;
-  //-webkit-line-clamp: 2 !important;    
-  //-webkit-box-orient: vertical;
-  overflow: hidden !important;
-  //text-overflow: ellipsis;
-  word-break: break-word;
-}
-
-
-

@@ -1,131 +1,254 @@
 <div class="statistics-container">
     <div class="row">
         <!-- Total Appointment Hours Card -->
-        <div class="col-md-3" style="margin-top: 30px;">
 
+        <!--my code -->
 
-            <mat-card class="daxa-card mb-3 border-radius bg-white border-none shadow-sm">
-                <mat-card-header>
-                    <mat-card-title>
-                        <h3>📅 اختر الشهر</h3>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <mat-form-field appearance="outline">
-                        <mat-label>اختر الشهر</mat-label>
-                        <input matInput [matDatepicker]="picker" [value]="selectedMonth | date:'MMMM yyyy'" readonly
-                            (click)="picker.open()">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker startView="year" (monthSelected)="onMonthSelected($event, picker)"
-                            panelClass="month-picker">
-                        </mat-datepicker>
-                    </mat-form-field>
-                </mat-card-content>
-            </mat-card>
+        <mat-card style="padding-bottom: 20px">
+            <div class="row">
+                <!-- Start Date -->
+                <div class="col-md-6" style="margin-top: 30px">
+                    <mat-card
+                        class="mat-mdc-card mdc-card bg-shadow-sm total-project-card"
+                    >
+                        <mat-card-header>
+                            <mat-card-title>
+                                <h3>📅 اختر تاريخ البداية</h3>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <mat-form-field class="custom" appearance="outline">
+                                <mat-label>Choose start date</mat-label>
+                                <input
+                                    matInput
+                                    [matDatepicker]="picker1"
+                                    [(ngModel)]="selectedStartMonth"
+                                    name="startDate"
+                                    readonly
+                                    (click)="picker1.open()"
+                                />
+                                <mat-datepicker-toggle
+                                    matIconSuffix
+                                    [for]="picker1"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker
+                                    #picker1
+                                    [startAt]="selectedStartMonth"
+                                ></mat-datepicker>
+                            </mat-form-field>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
 
+                <!-- End Date -->
+                <div class="col-md-6" style="margin-top: 30px">
+                    <mat-card
+                        class="mat-mdc-card mdc-card bg-shadow-sm total-project-card"
+                    >
+                        <mat-card-header>
+                            <mat-card-title>
+                                <h3>📅 اختر تاريخ النهاية</h3>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <mat-form-field class="custom" appearance="outline">
+                                <mat-label>Choose end date</mat-label>
+                                <input
+                                    matInput
+                                    [matDatepicker]="picker2"
+                                    [(ngModel)]="selectedEndMonth"
+                                    name="endDate"
+                                    readonly
+                                    (click)="picker2.open()"
+                                />
+                                <mat-datepicker-toggle
+                                    matIconSuffix
+                                    [for]="picker2"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker
+                                    #picker2
+                                    [startAt]="selectedEndMonth"
+                                ></mat-datepicker>
+                            </mat-form-field>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
 
+            <!-- Button -->
+            <div class="text-center" style="margin-top: 20px">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="
+                        getAppointmentStatistics(
+                            selectedStartMonth,
+                            selectedEndMonth
+                        )
+                    "
+                >
+                    🔍 عرض الإحصائيات
+                </button>
+            </div>
 
-            <mat-card class="daxa-card mb-3 border-radius bg-white border-none shadow-sm" style="margin-top: 30px;">
-                <mat-card-content>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="title">
-                            <h5 class="mb-1 text-secondary">إجمالي ساعات المواعيد</h5>
-                            <div class="number fw-bold fs-4 text-dark">
-                                {{ totalAppointmentHours }}
+            <!-- my new code start -->
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-card
+                        class="mat-md-c-card custom mdc-card shadow-sm"
+                        style="margin-top: 20px"
+                    >
+                        <mat-card-content>
+                            <div
+                                class="d-flex align-items-center justify-content-between"
+                            >
+                                <div class="title">
+                                    <h5 class="mb-1 text-secondary">
+                                        إجمالي ساعات المواعيد
+                                    </h5>
+                                    <div class="number fw-bold fs-4 text-dark">
+                                        {{ totalAppointmentHours }}
+                                    </div>
+                                </div>
+                                <div
+                                    class="icon bg-warning rounded-circle d-flex align-items-center justify-content-center text-white shadow-lg"
+                                    style="width: 50px; height: 50px"
+                                >
+                                    <i class="material-symbols-outlined fs-4"
+                                        >schedule</i
+                                    >
+                                </div>
                             </div>
-                        </div>
-                        <div class="icon bg-warning rounded-circle d-flex align-items-center justify-content-center text-white shadow-lg"
-                            style="width: 50px; height: 50px;">
-                            <i class="material-symbols-outlined fs-4">schedule</i>
-                        </div>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-
-            <mat-card class="daxa-card mb-3 border-radius bg-white border-none shadow-sm" style="margin-top: 20px;">
-                <mat-card-content>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="title">
-                            <h5 class="mb-1 text-secondary">مواعيد مع الموظفين</h5>
-                            <div class="number fw-bold fs-4 text-dark">
-                                {{ appointmentsWithEmployees }}
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card
+                        class="mat-md-c-card custom mdc-card shadow-sm"
+                        style="margin-top: 20px"
+                    >
+                        <mat-card-content>
+                            <div
+                                class="d-flex align-items-center justify-content-between"
+                            >
+                                <div class="title">
+                                    <h5 class="mb-1 text-secondary">
+                                        مواعيد مع الموظفين
+                                    </h5>
+                                    <div class="number fw-bold fs-4 text-dark">
+                                        {{ appointmentsWithEmployees }}
+                                    </div>
+                                </div>
+                                <div
+                                    class="icon bg-primary rounded-circle d-flex align-items-center justify-content-center text-white shadow-lg"
+                                    style="width: 50px; height: 50px"
+                                >
+                                    <i class="material-symbols-outlined fs-4"
+                                        >group</i
+                                    >
+                                </div>
                             </div>
-                        </div>
-                        <div class="icon bg-primary rounded-circle d-flex align-items-center justify-content-center text-white shadow-lg"
-                            style="width: 50px; height: 50px;">
-                            <i class="material-symbols-outlined fs-4">group</i>
-                        </div>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-
-            <mat-card class="daxa-card mb-3 border-radius bg-white border-none shadow-sm" style="margin-top: 20px;">
-                <mat-card-content>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="title">
-                            <h5 class="mb-1 text-secondary">مواعيد مع المواطنين</h5>
-                            <div class="number fw-bold fs-4 text-dark">
-                                {{ appointmentsWithCitizens }}
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card
+                        class="mat-md-c-card custom mdc-card shadow-sm"
+                        style="margin-top: 20px"
+                    >
+                        <mat-card-content>
+                            <div
+                                class="d-flex align-items-center justify-content-between"
+                            >
+                                <div class="title">
+                                    <h5 class="mb-1 text-secondary">
+                                        مواعيد مع المواطنين
+                                    </h5>
+                                    <div class="number fw-bold fs-4 text-dark">
+                                        {{ appointmentsWithCitizens }}
+                                    </div>
+                                </div>
+                                <div
+                                    class="icon bg-success rounded-circle d-flex align-items-center justify-content-center text-white shadow-lg"
+                                    style="width: 50px; height: 50px"
+                                >
+                                    <i class="material-symbols-outlined fs-4"
+                                        >home</i
+                                    >
+                                </div>
                             </div>
-                        </div>
-                        <div class="icon bg-success rounded-circle d-flex align-items-center justify-content-center text-white shadow-lg"
-                            style="width: 50px; height: 50px;">
-                            <i class="material-symbols-outlined fs-4">home</i>
-                        </div>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-        </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <!-- my end code-->
+            <div class="row">
+                <div class="col-md-6" style="margin-top: 30px">
+                    <mat-card class="mat-md-c-card custom mdc-card shadow-sm">
+                        <mat-card-header>
+                            <mat-card-title>
+                                <h3>📊 المواعيد الشهرية</h3>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <apx-chart
+                                *ngIf="monthlyChartOptions"
+                                [series]="monthlyChartOptions.series"
+                                [chart]="monthlyChartOptions.chart"
+                                [xaxis]="monthlyChartOptions.xaxis"
+                                [colors]="monthlyChartOptions.colors"
+                                [dataLabels]="monthlyChartOptions.dataLabels"
+                            >
+                            </apx-chart>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-6" style="margin-top: 30px">
+                    <mat-card class="mat-md-c-card custom mdc-card shadow-sm">
+                        <mat-card-header>
+                            <mat-card-title>
+                                <h3>📆 المواعيد الأسبوعية</h3>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <apx-chart
+                                *ngIf="weeklyChartOptions"
+                                [series]="weeklyChartOptions.series"
+                                [chart]="weeklyChartOptions.chart"
+                                [xaxis]="weeklyChartOptions.xaxis"
+                                [colors]="weeklyChartOptions.colors"
+                                [dataLabels]="weeklyChartOptions.dataLabels"
+                            >
+                            </apx-chart>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
 
-        <div class="col-md-3" style="margin-top: 30px;">
-            <mat-card class="working-schedule-card">
-                <mat-card-header>
-                    <mat-card-title>
-                        <h3>📊 المواعيد الشهرية</h3>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <apx-chart *ngIf="monthlyChartOptions" [series]="monthlyChartOptions.series"
-                        [chart]="monthlyChartOptions.chart" [xaxis]="monthlyChartOptions.xaxis"
-                        [colors]="monthlyChartOptions.colors" [dataLabels]="monthlyChartOptions.dataLabels">
-                    </apx-chart>
-
-                </mat-card-content>
-            </mat-card>
-        </div>
-
-        <div class="col-md-6" style="margin-top: 30px;">
-            <mat-card class="working-schedule-card">
-                <mat-card-header>
-                    <mat-card-title>
-                        <h3>📆 المواعيد الأسبوعية</h3>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <apx-chart *ngIf="weeklyChartOptions" [series]="weeklyChartOptions.series"
-                        [chart]="weeklyChartOptions.chart" [xaxis]="weeklyChartOptions.xaxis"
-                        [colors]="weeklyChartOptions.colors" [dataLabels]="weeklyChartOptions.dataLabels">
-                    </apx-chart>
-                </mat-card-content>
-            </mat-card>
-        </div>
-
-
-        <div class="col-md-6" style="margin-top: 30px;">
-            <mat-card class="working-schedule-card">
-                <mat-card-header>
-                    <mat-card-title>
-                        <h3>📅 المواعيد اليومية</h3>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <apx-chart *ngIf="dailyChartOptions" [series]="dailyChartOptions.series"
-                        [chart]="dailyChartOptions.chart" [xaxis]="dailyChartOptions.xaxis"
-                        [stroke]="dailyChartOptions.stroke" [markers]="dailyChartOptions.markers"
-                        [colors]="dailyChartOptions.colors" [dataLabels]="dailyChartOptions.dataLabels">
-                    </apx-chart>
-                </mat-card-content>
-            </mat-card>
-        </div>
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 30px">
+                    <mat-card class="working-schedule-card custom p-4">
+                        <mat-card-header>
+                            <mat-card-title>
+                                <h3>📅 المواعيد اليومية</h3>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <apx-chart
+                                *ngIf="dailyChartOptions"
+                                [series]="dailyChartOptions.series"
+                                [chart]="dailyChartOptions.chart"
+                                [xaxis]="dailyChartOptions.xaxis"
+                                [stroke]="dailyChartOptions.stroke"
+                                [markers]="dailyChartOptions.markers"
+                                [colors]="dailyChartOptions.colors"
+                                [dataLabels]="dailyChartOptions.dataLabels"
+                            >
+                            </apx-chart>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-card>
     </div>
 </div>
