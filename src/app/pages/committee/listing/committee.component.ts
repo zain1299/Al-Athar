@@ -61,9 +61,9 @@ export class CommitteeComponent {
     }
 
     displayedColumns: { key: string; header: string; width?: string }[] = [
-        { key: 'CommNameAra', header: 'Committee Name (AR)', width: '25%' },
-        { key: 'CommNameEng', header: 'Committee Name (EN)', width: '25%' },
-        { key: 'action', header: 'Action', width: '15%' },
+        { key: 'CommNameAra', header: 'اللجنة', width: '25%' },
+        { key: 'CommNameEng', header: 'التفاصيل', width: '25%' },
+        { key: 'action', header: '', width: '15%' },
     ];
 
     get displayedColumnKeys(): string[] {

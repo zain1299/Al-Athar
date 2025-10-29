@@ -1,0 +1,29 @@
+.add-committee-card {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    direction: rtl; // Arabic layout
+    text-align: right;
+
+    mat-card-header {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+    mat-card-title {
+        color: #1b4b91;
+    }
+
+    mat-checkbox {
+        font-weight: 500;
+        color: #333;
+    }
+
+    button {
+        border-radius: 8px;
+        font-weight: 600;
+    }
+}
