@@ -54,13 +54,18 @@
 
                 <!-- Date -->
                 <ng-container *ngSwitchCase="'date'">
-                    <mat-form-field class="w-100">
+                    <mat-form-field appearance="fill" class="w-100">
                         <input
                             matInput
-                            type="date"
+                            [matDatepicker]="picker"
                             [formControlName]="field.name"
-                            [placeholder]="field.placeholder"
+                            [placeholder]="field.label"
                         />
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                 </ng-container>
 
