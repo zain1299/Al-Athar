@@ -20,6 +20,14 @@ const routes: Routes = [
                 (m) => m.AddCommitteeComponent
             ),
     },
+    {
+        path: 'request-committee',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./request-committee/request-committee.component').then(
+                (m) => m.RequestCommitteeComponent
+            ),
+    },
 ];
 
 @NgModule({

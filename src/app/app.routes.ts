@@ -95,5 +95,5 @@ export const routes: Routes = [
             ),
     },
 
-    { path: '**', component: NotFoundComponent }, // This line will remain down from the whole pages component list
+    { path: '**', component: NotFoundComponent }, 
 ];

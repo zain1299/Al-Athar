@@ -36,7 +36,7 @@ import { FormsModule } from '@angular/forms';
         CommonModule,
         MatInputModule,
         MatFormFieldModule,
-        FormsModule
+        FormsModule,
         // NgModel
     ],
     templateUrl: './appointment-statistics.component.html',
@@ -57,7 +57,6 @@ export class AppointmentStatisticsComponent {
 
     // readonly startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
-
     constructor(
         public themeService: CustomizerSettingsService,
         private httpService: DashboardService,
@@ -76,19 +75,29 @@ export class AppointmentStatisticsComponent {
         //     new Date('2025-02-29')
         // );
 
-          // 🟢 Set start date = first day of current month
-    const startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+        // 🟢 Set start date = first day of current month
+        const startDate = new Date(
+            new Date().getFullYear(),
+            new Date().getMonth(),
+            1
+        );
 
-    // 🟢 Set end date = today's date
-    const endDate = new Date();
+        // 🟢 Set end date = today's date
+        const endDate = new Date();
 
+        this.selectedStartMonth = new Date(
+            new Date().getFullYear(),
+            new Date().getMonth(),
+            1
+        );
 
-    this.selectedStartMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+        // 🟢 Set end date = today's date
+        this.selectedEndMonth = new Date();
 
-    // 🟢 Set end date = today's date
-    this.selectedEndMonth = new Date();
-
-    this.getAppointmentStatistics(this.selectedStartMonth, this.selectedEndMonth);
+        this.getAppointmentStatistics(
+            this.selectedStartMonth,
+            this.selectedEndMonth
+        );
     }
 
     onMonthChange(event: MatDatepickerInputEvent<Date>) {
@@ -112,7 +121,7 @@ export class AppointmentStatisticsComponent {
     //     this.getAppointmentStatistics(startDate, endDate);
     //     datepicker.close(); // Close picker after selection
     // }
-    
+
     getAppointmentStatistics(startDate: Date, endDate: Date): void {
         const options: Intl.DateTimeFormatOptions = {
             year: 'numeric',
@@ -203,20 +212,33 @@ export class AppointmentStatisticsComponent {
             colors: ['#007bff'],
             dataLabels: { enabled: true },
             events: {
-                mounted: (chartContext:any, config:any) => {
-                  const chartEl = chartContext.el;
-                  if (chartEl) {
-                    chartEl.querySelectorAll('*').forEach((el: any) => {
-                      el.addEventListener = (type: string, listener: any, options: any) => {
-                        if (options && typeof options === 'object' && options.passive === true) {
-                          options.passive = false;
-                        }
-                        EventTarget.prototype.addEventListener.call(el, type, listener, options);
-                      };
-                    });
-                  }
-                }
-              }
+                mounted: (chartContext: any, config: any) => {
+                    const chartEl = chartContext.el;
+                    if (chartEl) {
+                        chartEl.querySelectorAll('*').forEach((el: any) => {
+                            el.addEventListener = (
+                                type: string,
+                                listener: any,
+                                options: any
+                            ) => {
+                                if (
+                                    options &&
+                                    typeof options === 'object' &&
+                                    options.passive === true
+                                ) {
+                                    options.passive = false;
+                                }
+                                EventTarget.prototype.addEventListener.call(
+                                    el,
+                                    type,
+                                    listener,
+                                    options
+                                );
+                            };
+                        });
+                    }
+                },
+            },
         };
     }
 
@@ -234,8 +256,7 @@ export class AppointmentStatisticsComponent {
             dataLabels: { enabled: true },
         };
     }
-   
+
     selectedStartMonth = new Date();
     selectedEndMonth = new Date();
-
 }

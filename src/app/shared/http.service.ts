@@ -47,13 +47,16 @@ import {
     IContractsInsertResponse,
     IContractsResponse,
 } from '../interface/Contract/contract.interface';
-import { IApplication, IApplicationResponse } from '../interface/Application/application.interface';
+import {
+    IApplication,
+    IApplicationResponse,
+} from '../interface/Application/application.interface';
 
 @Injectable({
     providedIn: 'root',
 })
 export class HttpService {
-    constructor(private http: HttpClient, private storage: StorageService) { }
+    constructor(private http: HttpClient, private storage: StorageService) {}
     HostURL = environment.domain;
     contractHostUrl = environment.contractHostURL;
 
@@ -336,9 +339,4 @@ export class HttpService {
 
         return this.http.post(`${this.contractHostUrl}attachments`, formData);
     }
-
-   
-
-    
-
 }

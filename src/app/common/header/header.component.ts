@@ -43,6 +43,7 @@ export class HeaderComponent {
         USER_NAME: '',
         USER_EMAIL: '',
         PROFILE_PIC: '',
+        ApplicationId : ''
     };
 
     constructor(
