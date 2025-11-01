@@ -1,68 +1,104 @@
 <div class="create-new-popup" [class.active]="isActive">
-  <div class="popup-dialog">
-    <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
-      <mat-card-header>
-        <mat-card-title><h5>{{ title }}</h5></mat-card-title>
-        <mat-card-subtitle>
-          <button mat-button (click)="togglePopup()">
-            <i class="ri-close-fill"></i>
-          </button>
-        </mat-card-subtitle>
-      </mat-card-header>
+    <div class="popup-dialog">
+        <mat-card
+            class="daxa-card mb-25 border-radius bg-white border-none d-block"
+        >
+            <mat-card-header>
+                <mat-card-title
+                    ><h5>{{ title }}</h5></mat-card-title
+                >
+                <mat-card-subtitle>
+                    <button mat-button (click)="togglePopup()">
+                        <i class="ri-close-fill"></i>
+                    </button>
+                </mat-card-subtitle>
+            </mat-card-header>
 
-      <mat-card-content>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div *ngFor="let field of fields" class="col-md-12 mt-2">
-            <label class="main-label d-block lh-1 text-black">{{ field.label }}</label>
-            <mat-form-field class="w-100">
-              <ng-container [ngSwitch]="field.type">
-                <input
-                  *ngSwitchCase="'text'"
-                  matInput
-                  [formControlName]="field.name"
-                  [placeholder]="field.placeholder"
-                />
-                <input
-                  *ngSwitchCase="'number'"
-                  matInput
-                  type="number"
-                  [formControlName]="field.name"
-                  [placeholder]="field.placeholder"
-                />
-                <input
-                  *ngSwitchCase="'email'"
-                  matInput
-                  type="email"
-                  [formControlName]="field.name"
-                  [placeholder]="field.placeholder"
-                />
-                <textarea
-                  *ngSwitchCase="'textarea'"
-                  matInput
-                  rows="4"
-                  [formControlName]="field.name"
-                  [placeholder]="field.placeholder"
-                ></textarea>
-                <input
-                  *ngSwitchCase="'date'"
-                  matInput
-                  type="date"
-                  [formControlName]="field.name"
-                  [placeholder]="field.placeholder"
-                />
-              </ng-container>
-            </mat-form-field>
-            <div class="error text-danger" *ngIf="form.get(field.name)?.invalid && form.get(field.name)?.touched">
-              {{ field.label }} is required
-            </div>
-          </div>
+            <mat-card-content>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div *ngFor="let field of fields" class="col-md-12 mt-2">
+                        <label class="main-label d-block lh-1 text-black">{{
+                            field.label
+                        }}</label>
+                        <mat-form-field class="w-100">
+                            <ng-container [ngSwitch]="field.type">
+                                <input
+                                    *ngSwitchCase="'text'"
+                                    matInput
+                                    [formControlName]="field.name"
+                                    [placeholder]="field.placeholder"
+                                />
+                                <input
+                                    *ngSwitchCase="'number'"
+                                    matInput
+                                    type="number"
+                                    [formControlName]="field.name"
+                                    [placeholder]="field.placeholder"
+                                />
+                                <input
+                                    *ngSwitchCase="'email'"
+                                    matInput
+                                    type="email"
+                                    [formControlName]="field.name"
+                                    [placeholder]="field.placeholder"
+                                />
+                                <textarea
+                                    *ngSwitchCase="'textarea'"
+                                    matInput
+                                    rows="4"
+                                    [formControlName]="field.name"
+                                    [placeholder]="field.placeholder"
+                                ></textarea>
+                                <input
+                                    *ngSwitchCase="'date'"
+                                    matInput
+                                    type="date"
+                                    [formControlName]="field.name"
+                                    [placeholder]="field.placeholder"
+                                />
 
-          <div class="btn-box mt-3">
-            <button mat-button type="button"  (click)="togglePopup()" style="margin-left: 10px;">Cancel</button>
-            <button mat-button color="primary" type="submit" >Save</button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
-  </div>
+                                <mat-select
+                                    *ngSwitchCase="'select'"
+                                    [formControlName]="field.name"
+                                    [placeholder]="
+                                        field.placeholder || field.label
+                                    "
+                                >
+                                    <mat-option
+                                        *ngFor="let option of field.options"
+                                        [value]="option.value"
+                                    >
+                                        {{ option.label }}
+                                    </mat-option>
+                                </mat-select>
+                            </ng-container>
+                        </mat-form-field>
+                        <div
+                            class="error text-danger"
+                            *ngIf="
+                                form.get(field.name)?.invalid &&
+                                form.get(field.name)?.touched
+                            "
+                        >
+                            {{ field.label }} is required
+                        </div>
+                    </div>
+
+                    <div class="btn-box mt-3">
+                        <button
+                            mat-button
+                            type="button"
+                            (click)="togglePopup()"
+                            style="margin-left: 10px"
+                        >
+                            Cancel
+                        </button>
+                        <button mat-button color="primary" type="submit">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>
