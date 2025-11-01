@@ -1,0 +1,106 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Label template -->
+    <ng-template #fieldLabel let-field>
+        <label
+            *ngIf="field.type !== 'checkbox'"
+            class="main-label d-block lh-1 text-black"
+            style="margin: 10px 0"
+        >
+            {{ field.label }}
+            <span
+                *ngIf="field.validators?.includes(Validators.required)"
+                class="text-danger"
+                >*</span
+            >
+        </label>
+    </ng-template>
+
+    <div class="row" style="align-items: center">
+        <div
+            *ngFor="let field of fields"
+            class="mt-2"
+            [ngClass]="'col-md-' + (field.col || 12)"
+        >
+            <!-- Render label once per field -->
+            <ng-container
+                [ngTemplateOutlet]="fieldLabel"
+                [ngTemplateOutletContext]="{ $implicit: field }"
+            ></ng-container>
+
+            <!-- Input switch -->
+            <ng-container [ngSwitch]="field.type">
+                <!-- Text -->
+                <ng-container *ngSwitchCase="'text'">
+                    <mat-form-field class="w-100">
+                        <input
+                            matInput
+                            [formControlName]="field.name"
+                            [placeholder]="field.placeholder"
+                        />
+                    </mat-form-field>
+                </ng-container>
+
+                <!-- Textarea -->
+                <ng-container *ngSwitchCase="'textarea'">
+                    <mat-form-field class="w-100">
+                        <textarea
+                            matInput
+                            rows="4"
+                            [formControlName]="field.name"
+                            [placeholder]="field.placeholder"
+                        ></textarea>
+                    </mat-form-field>
+                </ng-container>
+
+                <!-- Date -->
+                <ng-container *ngSwitchCase="'date'">
+                    <mat-form-field class="w-100">
+                        <input
+                            matInput
+                            type="date"
+                            [formControlName]="field.name"
+                            [placeholder]="field.placeholder"
+                        />
+                    </mat-form-field>
+                </ng-container>
+
+                <!-- Checkbox -->
+                <ng-container *ngSwitchCase="'checkbox'">
+                    <mat-checkbox
+                        [formControlName]="field.name"
+                        style="margin: 10px 0"
+                    >
+                        {{ field.label }}
+                    </mat-checkbox>
+                </ng-container>
+            </ng-container>
+
+            <!-- Error messages  -->
+            <div
+                *ngIf="
+                    form.get(field.name)?.invalid &&
+                    form.get(field.name)?.touched
+                "
+                class="error text-danger small"
+            >
+                <ng-container
+                    *ngIf="form.get(field.name)?.hasError('required')"
+                >
+                    {{ field.label }} مطلوب.
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit button -->
+    <div *ngIf="showSubmit" class="text-end mt-3">
+        <button
+            style="margin: 10px 0"
+            mat-raised-button
+            color="primary"
+            type="submit"
+        >
+            حفظ
+        </button>
+    </div>
+</form>

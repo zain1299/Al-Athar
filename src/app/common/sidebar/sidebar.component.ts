@@ -45,6 +45,7 @@ export class SidebarComponent implements OnInit {
         USER_NAME: '',
         USER_EMAIL: '',
         PROFILE_PIC: '',
+ApplicationId : ''
     };
 
     constructor(

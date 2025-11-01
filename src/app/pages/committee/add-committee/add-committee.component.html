@@ -1,0 +1,16 @@
+<mat-card class="add-committee-card shadow-sm border-radius-md">
+    <mat-card-header>
+        <mat-card-title class="text-center fw-bold fs-5 text-primary">
+            إضافة لجنة جديدة
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="p-4">
+        <app-dynamic-form-fields
+            [fields]="committeeFields"
+            [form]="form"
+            [showSubmit]="true"
+            (submitForm)="handleCommitteeSubmit($event)"
+        ></app-dynamic-form-fields>
+    </mat-card-content>
+</mat-card>

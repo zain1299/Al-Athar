@@ -8,7 +8,25 @@ const routes: Routes = [
         path: 'listing',
         canActivate: [AuthGuard],
         loadComponent: () =>
-            import('./committee.component').then((m) => m.CommitteeComponent),
+            import('./listing/committee.component').then(
+                (m) => m.CommitteeComponent
+            ),
+    },
+    {
+        path: 'add-committee',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./add-committee/add-committee.component').then(
+                (m) => m.AddCommitteeComponent
+            ),
+    },
+    {
+        path: 'request-committee',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./request-committee/request-committee.component').then(
+                (m) => m.RequestCommitteeComponent
+            ),
     },
 ];
 

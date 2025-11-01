@@ -14,6 +14,7 @@ export interface IUser {
     USER_NAME: string;
     USER_EMAIL: string;
     PROFILE_PIC: string;
+    ApplicationId : string
 }
 
 export interface IUserList {
