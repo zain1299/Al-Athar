@@ -56,6 +56,30 @@ const routes: Routes = [
                 (m) => m.EditUserComponent
             ),
     },
+    {
+        path: 'contact-us',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./contact-us/contact-us.component').then(
+                (m) => m.ContactUsComponent
+            ),
+    },
+    {
+        path: 'rating-list',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./rating-list/rating-list.component').then(
+                (m) => m.RatingListComponent
+            )
+    },
+    {
+        path: 'public-department',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+            import('./public-department/public-department.component').then(
+                (m) => m.PublicDepartmentComponent
+            )
+    }
 ];
 
 @NgModule({

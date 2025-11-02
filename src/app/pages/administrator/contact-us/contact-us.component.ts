@@ -20,12 +20,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { ContactUsService } from '../../../shared/services/contact-us.service';
 import { IContact } from '../../../interface/contatcus/contact.interface';
-import { RatingUsService } from '../../../shared/services/rating.service';
 
 @Component({
-  selector: 'app-rating-list',
-  standalone: true,
-  imports: [
+    selector: 'app-contact-us',
+    standalone: true,
+    imports: [
         NgIf,
         MatCardModule,
         MatTableModule,
@@ -38,10 +37,10 @@ import { RatingUsService } from '../../../shared/services/rating.service';
         MatPaginatorModule,
         NgFor,
     ],
-  templateUrl: './rating-list.component.html',
-  styleUrl: './rating-list.component.scss'
+    templateUrl: './contact-us.component.html',
+    styleUrl: './contact-us.component.scss',
 })
-export class RatingListComponent {
+export class ContactUsComponent {
     UserCode!: number;
     selectedRow!: IContact;
     dataSource = new MatTableDataSource<IContact>([]);
@@ -50,7 +49,7 @@ export class RatingListComponent {
 
     constructor(
         public themeService: CustomizerSettingsService,
-        private httpService: RatingUsService,
+        private httpService: ContactUsService,
         private storage: StorageService,
         private router: Router,
         private toast: ToastrService,
@@ -64,10 +63,12 @@ export class RatingListComponent {
     }
 
     displayedColumns: { key: string; header: string; width?: string }[] = [
-        { key: 'CreatedDate', header: 'تاريخ', width: '25%' },
-        { key: 'RatingValue', header: '	التقييم', width: '25%' },
-         { key: 'Comment', header: 'التعليقات	', width: '25%' },
-          { key: 'FullNameAr', header: 'الاسم الكامل	', width: '25%' }
+        { key: 'Name', header: 'الاسم', width: '25%' },
+        { key: 'Email', header: '	البريد الالكتروني', width: '25%' },
+         { key: 'Phone', header: 'رقم الهاتف	', width: '25%' },
+          { key: 'Message', header: 'المقترحات', width: '25%' },
+           { key: 'CreatedDate', header: 'تاريخ', width: '25%' },
+          
     ];
 
     get displayedColumnKeys(): string[] {
@@ -87,7 +88,7 @@ export class RatingListComponent {
             },
         };
 
-        this.httpService.GetRatingList(body).subscribe({
+        this.httpService.GetContactList(body).subscribe({
             next: (response) => {
                 const responseData = response.Data as any[];
                 this.dataSource.data = responseData;
