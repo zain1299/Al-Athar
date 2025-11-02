@@ -12,54 +12,101 @@
 
       <mat-card-content>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+          <!-- Loop through dynamic fields -->
           <div *ngFor="let field of fields" class="col-md-12 mt-2">
             <label class="main-label d-block lh-1 text-black">{{ field.label }}</label>
-            <mat-form-field class="w-100">
-              <ng-container [ngSwitch]="field.type">
+
+            <!-- ✅ Special handling for User autocomplete -->
+            <ng-container *ngIf="field.name === 'UserId'; else defaultFields">
+              <mat-form-field class="w-100">
+                <mat-label>Search User</mat-label>
                 <input
-                  *ngSwitchCase="'text'"
+                  type="text"
                   matInput
-                  [formControlName]="field.name"
-                  [placeholder]="field.placeholder"
+                  [formControl]="userControl"
+                  [matAutocomplete]="auto"
+                  placeholder="Search users"
+                  (input)="onUserSearch($event)"
                 />
-                <input
-                  *ngSwitchCase="'number'"
-                  matInput
-                  type="number"
-                  [formControlName]="field.name"
-                  [placeholder]="field.placeholder"
-                />
-                <input
-                  *ngSwitchCase="'email'"
-                  matInput
-                  type="email"
-                  [formControlName]="field.name"
-                  [placeholder]="field.placeholder"
-                />
-                <textarea
-                  *ngSwitchCase="'textarea'"
-                  matInput
-                  rows="4"
-                  [formControlName]="field.name"
-                  [placeholder]="field.placeholder"
-                ></textarea>
-                <input
-                  *ngSwitchCase="'date'"
-                  matInput
-                  type="date"
-                  [formControlName]="field.name"
-                  [placeholder]="field.placeholder"
-                />
-              </ng-container>
-            </mat-form-field>
-            <div class="error text-danger" *ngIf="form.get(field.name)?.invalid && form.get(field.name)?.touched">
-              {{ field.label }} is required
-            </div>
+                <mat-autocomplete
+                  #auto="matAutocomplete"
+                  (optionSelected)="onUserSelect($event.option.value)"
+                >
+                  <mat-option
+                    *ngFor="let user of filteredUsers"
+                    [value]="user.UserCode"
+                  >
+                    {{ user.FullNameAr }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+              <div
+                class="error text-danger"
+                *ngIf="form.get('UserId')?.hasError('required') && form.get('UserId')?.touched"
+              >
+                User is required
+              </div>
+            </ng-container>
+
+            <!-- Default field types -->
+            <ng-template #defaultFields>
+              <mat-form-field class="w-100">
+                <ng-container [ngSwitch]="field.type">
+                  <input
+                    *ngSwitchCase="'text'"
+                    matInput
+                    [formControlName]="field.name"
+                    [placeholder]="field.placeholder"
+                  />
+                  <input
+                    *ngSwitchCase="'number'"
+                    matInput
+                    type="number"
+                    [formControlName]="field.name"
+                    [placeholder]="field.placeholder"
+                  />
+                  <input
+                    *ngSwitchCase="'email'"
+                    matInput
+                    type="email"
+                    [formControlName]="field.name"
+                    [placeholder]="field.placeholder"
+                  />
+                  <textarea
+                    *ngSwitchCase="'textarea'"
+                    matInput
+                    rows="4"
+                    [formControlName]="field.name"
+                    [placeholder]="field.placeholder"
+                  ></textarea>
+                  <input
+                    *ngSwitchCase="'date'"
+                    matInput
+                    type="date"
+                    [formControlName]="field.name"
+                    [placeholder]="field.placeholder"
+                  />
+                </ng-container>
+              </mat-form-field>
+
+              <div
+                class="error text-danger"
+                *ngIf="form.get(field.name)?.invalid && form.get(field.name)?.touched"
+              >
+                {{ field.label }} is required
+              </div>
+            </ng-template>
           </div>
 
           <div class="btn-box mt-3">
-            <button mat-button type="button"  (click)="togglePopup()" style="margin-left: 10px;">Cancel</button>
-            <button mat-button color="primary" type="submit" >Save</button>
+            <button mat-button type="button" (click)="togglePopup()" style="margin-left: 10px;">
+              Cancel
+            </button>
+            <button mat-button color="primary" type="submit">
+              Save
+            </button>
           </div>
         </form>
       </mat-card-content>

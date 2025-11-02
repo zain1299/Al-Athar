@@ -85,12 +85,10 @@ export class PublicDepartmentComponent {
             validators: [Validators.required],
         },
         {
-            name: 'employeeName',
+            name: 'UserId',
             label: 'إسم الموظف لأستقبال الطلبات الخارجية',
-            type: 'text',
+            type: 'autocomplete',
             validators: [Validators.required],
-            onFocus: () => this.onFocusInput(),
-            onChange: (value: string) => this.onInputChange(value),
         },
     ];
     initialData: any = {};
@@ -116,7 +114,6 @@ export class PublicDepartmentComponent {
         this.UserCode = user?.USER_CODE ? +user?.USER_CODE : (0 as number);
 
         this.getDepartmentList();
-        this.getUserList();
     }
 
     // Search Filter
@@ -143,25 +140,25 @@ export class PublicDepartmentComponent {
             },
         });
     }
-    getUserList(): void {
-        const body = {
-            CreatedBy: this.UserCode,
-            ApplicationId: this.ApplicationId,
-        };
+    // getUserList(): void {
+    //     const body = {
+    //         CreatedBy: this.UserCode,
+    //         ApplicationId: this.ApplicationId,
+    //     };
 
-        this.httpService.GetUserList(body).subscribe({
-            next: (response) => {
-                const responseData = response.Data as IUserDetails[];
-                this.userList = responseData.map((u) => u.FullNameAr);
-                this.filteredList = [...this.userList];
-                console.log('User List:', this.userList);
-            },
-            error: (error) => {
-                console.error('Error occurred:', error);
-                this.toast.error('Failed to load user list', 'Error');
-            },
-        });
-    }
+    //     this.httpService.GetUserList(body).subscribe({
+    //         next: (response) => {
+    //             const responseData = response.Data as IUserDetails[];
+    //             this.userList = responseData.map((u) => u.FullNameAr);
+    //             this.filteredList = [...this.userList];
+    //             console.log('User List:', this.userList);
+    //         },
+    //         error: (error) => {
+    //             console.error('Error occurred:', error);
+    //             this.toast.error('Failed to load user list', 'Error');
+    //         },
+    //     });
+    // }
 
     // handle focus on input
     onFocusInput(): void {
