@@ -32,17 +32,17 @@ export class PublicDepartmentService {
             {}
         );
     }
-   GetDepartmentDetails(body: any): Observable<any> {
-  return this.http.post<any>(
-    this.HostURL + 'Public/SelectOGPublicDepartments',
-    body,
-    {}
-  );
-}
+    GetDepartmentDetails(body: any): Observable<any> {
+        return this.http.post<any>(
+            this.HostURL + 'Public/SelectOGPublicDepartments',
+            body,
+            {}
+        );
+    }
 
     DeleteDepartment(body: any): Observable<ApiResponse<ILocation>> {
         return this.http.post<ApiResponse<ILocation>>(
-            this.HostURL + '/Location/LocationDelete/',
+            this.HostURL + 'Public/BuildingDelete',
             body,
             {}
         );

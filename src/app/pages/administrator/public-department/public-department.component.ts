@@ -266,7 +266,7 @@ export class PublicDepartmentComponent {
 
         console.log('Payload to send:', payload);
 
-        this.httpService.GetDepartmentDetails(payload).subscribe({
+        this.httpService.DepartmentInsertUpdate(payload).subscribe({
             next: (response: any) => {
                 if (response.Status === 200) {
                     const msg = this.initialData?.Id
