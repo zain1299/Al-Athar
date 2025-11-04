@@ -18,14 +18,14 @@ export class UserService {
     constructor(private http: HttpClient, private storage: StorageService) {}
     HostURL = environment.domain;
 
-    // Application
     GetUserList(body: any): Observable<any> {
-        return this.http.post<any>(
-            this.HostURL + 'User/UserSelectList',
-            body,
-            {}
-        );
-    }
+  return this.http.post<any>(
+    this.HostURL + 'User/GetUserList',
+    body,
+    {}
+  );
+}
+
 
     UserInsertUpdate(body: any): Observable<IApplicationResponse> {
         return this.http.post<IApplicationResponse>(

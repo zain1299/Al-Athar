@@ -5,6 +5,7 @@ import {
     Output,
     OnChanges,
     HostListener,
+    OnInit,
 } from '@angular/core';
 import {
     FormBuilder,
@@ -22,11 +23,18 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatOptionModule } from '@angular/material/core';
 import { HttpClient } from '@angular/common/http';
 import { IUserDetails } from '../../../interface/user/user.interface';
-import { PublicDepartmentService } from '../../services/public-department.service';
 import { StorageService } from '../../../shared/storage.service';
 import { IUser } from '../../../interface/Login/loginResponse.interface';
 import { StorageKeys } from '../../../shared/storage-keys';
 import { UserService } from '../../services/user.service';
+import {
+    debounceTime,
+    distinctUntilChanged,
+    map,
+    switchMap,
+} from 'rxjs/operators';
+import { of } from 'rxjs'; // 👈 important for returning an empty observable
+
 @Component({
     selector: 'app-dynamic-form-popup',
     standalone: true,
@@ -43,25 +51,22 @@ import { UserService } from '../../services/user.service';
     templateUrl: './dynamic-form-popup.component.html',
     styleUrls: ['./dynamic-form-popup.component.scss'],
 })
-export class DynamicFormPopupComponent implements OnChanges {
+export class DynamicFormPopupComponent implements OnInit, OnChanges {
     @Input() title: string = 'Form';
     @Input() isActive: boolean = false;
     @Input() fields: any[] = [];
     @Input() initialData: any = {}; // For edit mode
-    @Input() mode: 'add' | 'update' = 'add'; // Dynamic mode
+    @Input() mode: 'add' | 'update' = 'add';
 
     @Output() close = new EventEmitter<void>();
     @Output() submitForm = new EventEmitter<any>();
 
     form: FormGroup;
     userControl = new FormControl('');
-    filteredUsers: any[] = [];
-    allUsers: any[] = [];
+    filteredUsers: IUserDetails[] = [];
+    allUsers: IUserDetails[] = [];
     ApplicationId!: number;
     UserCode: number;
-
-    userList: any[] = [];
-    filteredList: string[] = [];
 
     constructor(
         private fb: FormBuilder,
@@ -71,9 +76,38 @@ export class DynamicFormPopupComponent implements OnChanges {
     ) {
         this.form = this.fb.group({});
     }
+
     ngOnInit() {
         const user: IUser = this.storage.get(StorageKeys.User);
-        this.UserCode = user?.USER_CODE ? +user?.USER_CODE : (0 as number);
+        this.UserCode = user?.USER_CODE ? +user?.USER_CODE : 0;
+
+        this.userControl.valueChanges
+            .pipe(
+                debounceTime(400),
+                distinctUntilChanged(),
+                switchMap((searchTerm) => {
+                    const term = (searchTerm || '').trim();
+
+                    if (!term) {
+                        this.filteredUsers = [];
+                        return of([]);
+                    }
+
+                    return this.getUserList(term);
+                })
+            )
+            .subscribe({
+                next: (users) => {
+                    this.filteredUsers = users;
+                    this.allUsers = users;
+                    console.log('Filtered users from API:', users);
+                },
+                error: (err) => console.error('Error fetching users:', err),
+            });
+
+        if (this.initialData && this.initialData['DepartmentHeadName']) {
+            this.userControl.setValue(this.initialData['DepartmentHeadName']);
+        }
     }
 
     ngOnChanges(): void {
@@ -87,17 +121,11 @@ export class DynamicFormPopupComponent implements OnChanges {
             });
             this.form = this.fb.group(group);
 
-            // patch for edit mode
             if (this.initialData && this.initialData['DepartmentHeadName']) {
                 this.userControl.setValue(
                     this.initialData['DepartmentHeadName']
                 );
             }
-        }
-
-        // Load user list if relevant
-        if (this.fields.some((f) => f.name === 'UserId')) {
-            this.getUserList();
         }
     }
 
@@ -120,43 +148,32 @@ export class DynamicFormPopupComponent implements OnChanges {
         if (this.isActive) this.togglePopup();
     }
 
-    getUserList(): void {
+    getUserList(searchTerm: string = '') {
         const body = {
             defaultcolumns: {
                 created_by: this.UserCode,
             },
-            searchTerm: 'zain',
+            searchTerm: searchTerm,
         };
 
-
-        this.userService.GetUserList(body).subscribe({
-            next: (response) => {
-                const responseData = response.Data as IUserDetails[];
-                this.userList = responseData.map((u) => u.FullNameAr);
-                console.log('Raw API Response:', response);
-                this.filteredList = [...this.userList];
-                console.log('User List:', this.userList);
-            },
-            error: (error) => {
-                console.error('Error occurred:', error);
-            },
-        });
-    }
-
-    onUserSearch(event: any): void {
-        const searchTerm = event.target.value.toLowerCase();
-        this.filteredUsers = this.allUsers.filter((u) =>
-            u.FullNameAr.toLowerCase().includes(searchTerm)
+        return this.userService.GetUserList(body).pipe(
+            map((response: any) => {
+                if (response?.Data) {
+                    return response.Data as IUserDetails[];
+                }
+                return [];
+            })
         );
     }
 
-    onUserSelect(selectedUserCode: string): void {
-        const selectedUser = this.allUsers.find(
-            (u) => u.UserCode === selectedUserCode
-        );
-        if (selectedUser) {
+    onUserSelect(selectedUser: any): void {
+        if (selectedUser && selectedUser.UserCode) {
             this.form.get('UserId')?.setValue(selectedUser.UserCode);
+
             this.userControl.setValue(selectedUser.FullNameAr);
+
+            console.log('✅ Selected user:', selectedUser);
+            console.log('✅ Form UserId set to:', selectedUser.UserCode);
         }
     }
 

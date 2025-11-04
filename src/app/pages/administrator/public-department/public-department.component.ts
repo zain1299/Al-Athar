@@ -14,7 +14,12 @@ import { CustomizerSettingsComponent } from '../../../theme/customizer-settings/
 import { StorageKeys } from '../../../shared/storage-keys';
 import { DynamicButtonComponent } from '../../../shared/components/dynamic-button/dynamic-button.component';
 import { DynamicFormPopupComponent } from '../../../shared/components/dynamic-form-popup/dynamic-form-popup.component';
-import { FormGroup, Validators } from '@angular/forms';
+import {
+    ReactiveFormsModule,
+    FormBuilder,
+    FormGroup,
+    Validators,
+} from '@angular/forms';
 
 import { MatSort } from '@angular/material/sort';
 
@@ -40,6 +45,7 @@ import { IUserDetails } from '../../../interface/UserRoleMapping/UserRoleMapping
         MatCheckboxModule,
         MatTooltipModule,
         MatPaginator,
+        ReactiveFormsModule,
         DynamicButtonComponent,
         DynamicFormPopupComponent,
         CommonModule,
@@ -102,7 +108,8 @@ export class PublicDepartmentComponent {
         private storage: StorageService,
         private router: Router,
         private toast: ToastrService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private fb: FormBuilder
     ) {
         this.themeService.isToggled$.subscribe((isToggled) => {
             this.isToggled = isToggled;
@@ -112,7 +119,10 @@ export class PublicDepartmentComponent {
     ngOnInit(): void {
         const user: IUser = this.storage.get(StorageKeys.User);
         this.UserCode = user?.USER_CODE ? +user?.USER_CODE : (0 as number);
-
+        this.form = this.fb.group({
+            Name: ['', Validators.required],
+            UserId: ['', Validators.required],
+        });
         this.getDepartmentList();
     }
 
@@ -176,15 +186,14 @@ export class PublicDepartmentComponent {
         console.log('Filtered user list:', this.filteredList);
     }
 
-    // handle when user selects one
     onSelectUser(name: string): void {
         this.form.get('employeeName')?.setValue(name);
         console.log('Selected user:', name);
     }
 
-    GetDepartmentDetails(ApplicationId: number): void {
+    GetDepartmentDetails(Id: number): void {
         const body = {
-            ApplicationId,
+            Id,
             defaultcolumns: {
                 created_by: this.UserCode,
             },
@@ -192,21 +201,34 @@ export class PublicDepartmentComponent {
 
         this.httpService.GetDepartmentDetails(body).subscribe({
             next: (response) => {
-                const res = response.Data as any;
-                this.form.get('Name')?.setValue(res.DepartmentHeadName);
+                const res = response.Data[0] as any;
+                console.log('Department details:', res);
+
+                // patch values into form fields
+                this.form.patchValue({
+                    Name: res?.Name || '',
+                    UserId: res?.DepartmentHeadId || null,
+                });
+
+                // store initial data for update reference
                 this.initialData = {
-                    LocationId: res.LocationId,
-                    WilayatId: res.WilayatId,
-                    LocationName: res.LocationName,
+                    Id: res?.Id || null,
+                    Name: res?.Name || '',
+                    UserId: res?.DepartmentHeadId || null,
+                    UserCode: res?.DepartmentHeadId,
+                    DepartmentHeadName: res?.DepartmentHeadName,
                 };
+                this.onSelectUser(res?.DepartmentHeadName);
+
                 this.popupVisible = true;
             },
-
             error: (error) => {
-                console.error('Error occurred:', error);
+                console.error('Error getting department details:', error);
+                this.toast.error('Failed to load department details');
             },
         });
     }
+
     toggleClassView() {
         this.ViewclassApplied = !this.ViewclassApplied;
     }
@@ -219,35 +241,50 @@ export class PublicDepartmentComponent {
 
     currentEditingData: any = null;
 
-    onEdit(element: any) {
+    onEdit(element: any): void {
         this.currentEditingData = element;
-        this.popupVisible = true;
-
-        this.initialData = {};
-        this.GetDepartmentDetails(element.ApplicationId);
+        this.GetDepartmentDetails(element.Id);
     }
 
     onAddEdit(formData: any) {
-        const payload = {
-            //LocationId: this.initialData?.LocationId || 0,
-            LocationName: formData?.LocationName,
-            WilayatId: formData?.WilayatId,
+        if (!formData?.Name || !formData?.UserId) {
+            this.toast.error('Please fill all required fields');
+            return;
+        }
 
+        const payload = {
+            Id: this.initialData?.Id || 0,
+            Name: formData?.Name,
+            DepartmentHeadId: formData?.UserId,
             defaultcolumns: {
-                created_ip: '',
+                created_ip: '37.41.99.126',
                 created_pc: '',
                 created_url: '',
                 created_by: this.UserCode,
             },
         };
 
-        this.httpService.DepartmentInsertUpdate(payload).subscribe({
-            next: (res) => {
-                this.toast.success('Department added successfully!');
-                this.getDepartmentList();
-                this.popupVisible = false;
+        console.log('Payload to send:', payload);
+
+        this.httpService.GetDepartmentDetails(payload).subscribe({
+            next: (response: any) => {
+                if (response.Status === 200) {
+                    const msg = this.initialData?.Id
+                        ? 'Department updated successfully!'
+                        : 'Department added successfully!';
+                    this.toast.success(msg);
+                    this.getDepartmentList();
+                    this.popupVisible = false;
+                } else {
+                    this.toast.error(
+                        response?.Message || 'Failed to save department'
+                    );
+                }
             },
-            error: (err) => console.error(err),
+            error: (error) => {
+                console.error('Error occurred:', error);
+                this.toast.error('Error saving department');
+            },
         });
     }
 
