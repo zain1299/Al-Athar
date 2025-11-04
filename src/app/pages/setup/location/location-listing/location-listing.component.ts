@@ -1,14 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgIf, CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { StorageService } from '../../../../shared/storage.service';
-import { HttpService } from '../../../../shared/http.service';
 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CustomizerSettingsService } from '../../../../theme/customizer-settings/customizer-settings.service';
@@ -20,13 +19,11 @@ import { Validators } from '@angular/forms';
 
 import { ConfirmDialogComponent } from '../../../../common/confirm-dialog/confirm-dialog.component';
 import { MatSort } from '@angular/material/sort';
-import { ApplicationService } from '../../../../shared/services/application';
 
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { ILocation } from '../../../../interface/location/location.interface';
 import { LocationService } from '../../../../shared/services/location.service';
-import { IApplication } from '../../../../interface/Application/application.interface';
 import { IUser } from '../../../../interface';
 
 @Component({
@@ -62,10 +59,6 @@ export class LocationListingComponent {
             header: 'اسم مكان الانعقاد',
             width: '200px',
         },
-        { key: 'BuildingName', header: 'Building Name', width: '250px' },
-        { key: 'FloorNo', header: 'Floor No', width: '250px' },
-        { key: 'RoomNo', header: 'RoomNo', width: '250px' },
-        { key: 'Description', header: 'Description', width: '250px' },
         { key: 'action', header: 'Action', width: '120px' },
     ];
 
@@ -80,12 +73,16 @@ export class LocationListingComponent {
         },
         {
             name: 'WilayatId',
-            label: ' الولاية',
-            type: 'number',
+            label: 'الولاية',
+            type: 'select',
             validators: [Validators.required],
+            options: [{ value: 100, label: 'الوزارة' }],
         },
     ];
     initialData: any = {};
+    applications: any[] = [];
+
+    currentEditingData: any = null;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -137,7 +134,7 @@ export class LocationListingComponent {
 
     GetLocationDetails(ApplicationId: number): void {
         const body = {
-            ApplicationId,
+            ApplicationId: ApplicationId,
             defaultcolumns: {
                 created_by: this.UserCode,
             },
@@ -151,7 +148,7 @@ export class LocationListingComponent {
                     WilayatId: res.WilayatId,
                     LocationName: res.LocationName,
                 };
-                  this.popupVisible = true;
+                this.popupVisible = true;
             },
 
             error: (error) => {
@@ -167,22 +164,16 @@ export class LocationListingComponent {
         this.toggleClassView();
     }
 
-    applications: any[] = [];
-
-    currentEditingData: any = null;
-
-    onEdit(element: any) {
+    onEdit(element: ILocation) {
         this.currentEditingData = element;
         this.popupVisible = true;
 
         this.initialData = {};
-  this.GetLocationDetails(element.ApplicationId);
-
+        this.GetLocationDetails(element.LocationId);
     }
 
     onAddEdit(formData: any) {
         const payload = {
-            //LocationId: this.initialData?.LocationId || 0,
             LocationName: formData?.LocationName,
             WilayatId: formData?.WilayatId,
 
@@ -211,7 +202,7 @@ export class LocationListingComponent {
             width: '300px',
             data: {
                 title: 'Confirm Delete',
-                message: `Are you sure you want to delete `,
+                message: `Are you sure you want to delete ${row.LocationName}`,
             },
         });
 

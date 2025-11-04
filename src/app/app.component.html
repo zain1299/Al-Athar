@@ -26,7 +26,10 @@
     <div
         class="main-content transition d-flex flex-column"
         [ngClass]="{
-            active:user && user.USER_CODE && user.USER_CODE ? isSidebarToggled : false,
+            active:
+                user && user.USER_CODE && user.USER_CODE
+                    ? isSidebarToggled
+                    : false,
             'right-sidebar': themeService.isRightSidebar(),
             'hide-sidebar': themeService.isHideSidebar()
         }"
@@ -36,7 +39,4 @@
         <div class="flex-grow-1"></div>
         <app-footer></app-footer>
     </div>
-
-    <!-- Customizer Settings -->
-    <app-customizer-settings></app-customizer-settings>
 </div>

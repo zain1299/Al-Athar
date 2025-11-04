@@ -1,25 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../../shared/services/dashboard';
 import { StorageService } from '../../../shared/storage.service';
 import { CustomizerSettingsService } from '../../../theme/customizer-settings/customizer-settings.service';
 import { StorageKeys } from '../../../shared/storage-keys';
 import { IUser } from '../../../interface';
-import { Router } from '@angular/router';
-import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
+import {
+    FormBuilder,
+    FormGroup,
+    Validators,
+    ReactiveFormsModule,
+} from '@angular/forms';
+import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgIf, CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import {
-    MatDatepicker,
-    MatDatepickerInputEvent,
-    MatDatepickerModule,
-} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
-// import { NgModel } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { DynamicFormFieldsComponent } from '../../../shared/components/dynamic-form-fields/dynamic-form-fields.component';
 
 @Component({
     selector: 'app-appointment-statistics',
@@ -29,149 +25,127 @@ import { FormsModule } from '@angular/forms';
         NgIf,
         MatCardModule,
         MatIconModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatLabel,
-        MatFormField,
+        MatButtonModule,
         CommonModule,
-        MatInputModule,
-        MatFormFieldModule,
-        FormsModule
-        // NgModel
+        ReactiveFormsModule,
+        DynamicFormFieldsComponent,
     ],
     templateUrl: './appointment-statistics.component.html',
-    styleUrl: './appointment-statistics.component.scss',
+    styleUrls: ['./appointment-statistics.component.scss'],
 })
-export class AppointmentStatisticsComponent {
+export class AppointmentStatisticsComponent implements OnInit {
     isToggled = false;
-    user: IUser;
+    user!: IUser;
+
     dailyChartOptions: any;
     weeklyChartOptions: any;
     monthlyChartOptions: any;
 
-    totalAppointmentHours: number = 0;
-    appointmentsWithEmployees: number = 0;
-    appointmentsWithCitizens: number = 0;
+    totalAppointmentHours = 0;
+    appointmentsWithEmployees = 0;
+    appointmentsWithCitizens = 0;
 
-    selectedMonth: Date = new Date();
-
-    // readonly startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-
+    form!: FormGroup;
+    fields: any[] = [];
 
     constructor(
         public themeService: CustomizerSettingsService,
         private httpService: DashboardService,
-        private router: Router,
-        private storage: StorageService
+        private storage: StorageService,
+        private fb: FormBuilder
     ) {
-        this.themeService.isToggled$.subscribe((isToggled) => {
-            this.isToggled = isToggled;
-        });
+        this.themeService.isToggled$.subscribe(
+            (isToggled) => (this.isToggled = isToggled)
+        );
     }
 
     ngOnInit(): void {
         this.user = this.storage.get(StorageKeys.User);
-        // this.getAppointmentStatistics(
-        //     new Date('2025-02-01'),
-        //     new Date('2025-02-29')
-        // );
 
-          // 🟢 Set start date = first day of current month
-    const startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+        // Setup form
+        this.form = this.fb.group({});
+        this.fields = [
+            {
+                name: 'StartDate',
+                label: '📅 اختر تاريخ البداية',
+                type: 'date',
+                validators: [Validators.required],
+                col: 6,
+            },
+            {
+                name: 'EndDate',
+                label: '📅 اختر تاريخ النهاية',
+                type: 'date',
+                validators: [Validators.required],
+                col: 6,
+            },
+        ];
 
-    // 🟢 Set end date = today's date
-    const endDate = new Date();
-
-
-    this.selectedStartMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-
-    // 🟢 Set end date = today's date
-    this.selectedEndMonth = new Date();
-
-    this.getAppointmentStatistics(this.selectedStartMonth, this.selectedEndMonth);
-    }
-
-    onMonthChange(event: MatDatepickerInputEvent<Date>) {
-        const selectedDate: any = event.value;
-        const startDate = new Date(
-            selectedDate.getFullYear(),
-            selectedDate.getMonth(),
+        const start = new Date(
+            new Date().getFullYear(),
+            new Date().getMonth(),
             1
         );
-        const endDate = new Date(
-            selectedDate.getFullYear(),
-            selectedDate.getMonth() + 1,
-            0
-        );
+        const end = new Date();
+
+        this.form.patchValue({
+            StartDate: start.toISOString().split('T')[0],
+            EndDate: end.toISOString().split('T')[0],
+        });
+
+        this.getAppointmentStatistics(start, end);
+    }
+
+    onSubmit(formData: any) {
+        const startDate = new Date(formData.StartDate);
+        const endDate = new Date(formData.EndDate);
         this.getAppointmentStatistics(startDate, endDate);
     }
 
-    // onMonthSelected(event: Date, datepicker: MatDatepicker<Date>) {
-    //     const startDate = new Date(event.getFullYear(), event.getMonth(), 1);
-    //     const endDate = new Date(event.getFullYear(), event.getMonth() + 1, 0);
-    //     this.getAppointmentStatistics(startDate, endDate);
-    //     datepicker.close(); // Close picker after selection
-    // }
-    
-    getAppointmentStatistics(startDate: Date, endDate: Date): void {
-        const options: Intl.DateTimeFormatOptions = {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-        };
-        const formattedStartDate = new Intl.DateTimeFormat(
-            'en-CA',
-            options
-        ).format(startDate);
-        const formattedEndDate = new Intl.DateTimeFormat(
-            'en-CA',
-            options
-        ).format(endDate);
-
+    private getAppointmentStatistics(startDate: Date, endDate: Date): void {
+        const format = (d: Date) => d.toISOString().split('T')[0];
         const requestBody = {
-            StartDate: formattedStartDate,
-            EndDate: formattedEndDate,
+            StartDate: format(startDate),
+            EndDate: format(endDate),
             defaultcolumns: { created_by: 1414 },
         };
 
         this.httpService.GetAppointmentStatistics(requestBody).subscribe({
             next: (response) => {
-                if (response?.Data) {
-                    if (response?.Data) {
-                        this.totalAppointmentHours =
-                            response.Data.TotalAppointmentHours;
-                        this.appointmentsWithEmployees =
-                            response.Data.AppointmentsWithEmployees;
-                        this.appointmentsWithCitizens =
-                            response.Data.AppointmentsWithCitizens;
-                    }
+                if (!response?.Data) return;
 
-                    if (response.Data.DailyStatistics) {
-                        this.loadDailyAppointmentsChart(
-                            response.Data.DailyStatistics
-                        );
-                    }
-                    if (response.Data.WeeklyStatistics) {
-                        this.loadWeeklyAppointmentsChart(
-                            response.Data.WeeklyStatistics
-                        );
-                    }
-                    if (response.Data.MonthlyStatistics) {
-                        this.loadMonthlyAppointmentsChart(
-                            response.Data.MonthlyStatistics
-                        );
-                    }
-                }
+                this.totalAppointmentHours =
+                    response.Data.TotalAppointmentHours || 0;
+                this.appointmentsWithEmployees =
+                    response.Data.AppointmentsWithEmployees || 0;
+                this.appointmentsWithCitizens =
+                    response.Data.AppointmentsWithCitizens || 0;
+
+                if (response.Data.DailyStatistics)
+                    this.loadDailyAppointmentsChart(
+                        response.Data.DailyStatistics
+                    );
+                if (response.Data.WeeklyStatistics)
+                    this.loadWeeklyAppointmentsChart(
+                        response.Data.WeeklyStatistics
+                    );
+                if (response.Data.MonthlyStatistics)
+                    this.loadMonthlyAppointmentsChart(
+                        response.Data.MonthlyStatistics
+                    );
             },
-            error: (error) => {
-                console.error('Error occurred:', error);
-            },
+            error: (err) => console.error(err),
         });
     }
 
-    loadDailyAppointmentsChart(dailyData: any[]) {
+    private loadDailyAppointmentsChart(dailyData: any[]) {
         this.dailyChartOptions = {
-            chart: { type: 'line', height: 350 },
+            chart: {
+                type: 'line',
+                height: 350,
+                zoom: { enabled: false },
+                toolbar: { show: false },
+            },
             series: [
                 {
                     name: 'المواعيد اليومية',
@@ -190,9 +164,14 @@ export class AppointmentStatisticsComponent {
         };
     }
 
-    loadWeeklyAppointmentsChart(weeklyData: any[]) {
+    private loadWeeklyAppointmentsChart(weeklyData: any[]) {
         this.weeklyChartOptions = {
-            chart: { type: 'bar', height: 350 },
+            chart: {
+                type: 'bar',
+                height: 350,
+                zoom: { enabled: false },
+                toolbar: { show: false },
+            },
             series: [
                 {
                     name: 'المواعيد الأسبوعية',
@@ -202,27 +181,17 @@ export class AppointmentStatisticsComponent {
             xaxis: { categories: weeklyData.map((w) => `أسبوع ${w.Week}`) },
             colors: ['#007bff'],
             dataLabels: { enabled: true },
-            events: {
-                mounted: (chartContext:any, config:any) => {
-                  const chartEl = chartContext.el;
-                  if (chartEl) {
-                    chartEl.querySelectorAll('*').forEach((el: any) => {
-                      el.addEventListener = (type: string, listener: any, options: any) => {
-                        if (options && typeof options === 'object' && options.passive === true) {
-                          options.passive = false;
-                        }
-                        EventTarget.prototype.addEventListener.call(el, type, listener, options);
-                      };
-                    });
-                  }
-                }
-              }
         };
     }
 
-    loadMonthlyAppointmentsChart(monthlyData: any[]) {
+    private loadMonthlyAppointmentsChart(monthlyData: any[]) {
         this.monthlyChartOptions = {
-            chart: { type: 'bar', height: 350 },
+            chart: {
+                type: 'bar',
+                height: 350,
+                zoom: { enabled: false },
+                toolbar: { show: false },
+            },
             series: [
                 {
                     name: 'المواعيد الشهرية',
@@ -234,8 +203,4 @@ export class AppointmentStatisticsComponent {
             dataLabels: { enabled: true },
         };
     }
-   
-    selectedStartMonth = new Date();
-    selectedEndMonth = new Date();
-
 }

@@ -29,21 +29,13 @@ const routes: Routes = [
                 (m) => m.AddEditUserComponent
             ),
     },
-     {
+    {
         path: 'location-list',
         canActivate: [AuthGuard],
         loadComponent: () =>
-            import('./location/location-listing/location-listing.component').then(
-                (m) => m.LocationListingComponent
-            ),
-    },
-     {
-        path: 'manage-sec',
-        canActivate: [AuthGuard],
-        loadComponent: () =>
-            import('./manage-sec/manage-sec.component').then(
-                (m) => m.ManageSecComponent
-            ),
+            import(
+                './location/location-listing/location-listing.component'
+            ).then((m) => m.LocationListingComponent),
     },
 ];
 

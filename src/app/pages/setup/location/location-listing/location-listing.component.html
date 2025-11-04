@@ -32,7 +32,6 @@
             </form>
         </mat-card-title>
         <mat-card-subtitle>
-            <!-- <a mat-button class="add-new-btn"> اضافة نظام + </a> -->
             <app-dynamic-button
                 label="اضافة مكان الانعقاد +"
                 [buttonClass]="'daxa custom-class'"
@@ -53,8 +52,7 @@
                             *matHeaderCellDef
                             [style.width]="col.width"
                             [ngClass]="{
-                                'app-name-column':
-                                    col.key === 'LocationName'
+                                'app-name-column': col.key === 'LocationName'
                             }"
                         >
                             {{ col.header }}
@@ -180,16 +178,16 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <!-- <div class="col-md-12">
                         <label class="main-label d-block lh-1 text-black">
-                            Building Name
+                            Description
                         </label>
                         <div class="readonly-display">
-                            <span *ngIf="selectedRow?.BuildingName">
-                                {{ selectedRow.BuildingName }}
+                            <span *ngIf="selectedRow?.Description">
+                                {{ selectedRow.Description }}
                             </span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Close Button -->

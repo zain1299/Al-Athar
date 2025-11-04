@@ -25,28 +25,29 @@
                         <ng-container
                             *ngIf="field.name === 'UserId'; else defaultFields"
                         >
-                         <mat-form-field class="w-100">
-  <mat-label>Search User</mat-label>
-  <input
-    type="text"
-    matInput
-    [formControl]="userControl"
-    [matAutocomplete]="auto"
-    placeholder="Search users"
-  />
-  <mat-autocomplete
-    #auto="matAutocomplete"
-    (optionSelected)="onUserSelect($event.option.value)"
-  >
-    <mat-option
-      *ngFor="let user of filteredUsers"
-      [value]="user"
-    >
-      {{ user.FullNameAr }}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
-
+                            <mat-form-field class="w-100">
+                                <mat-label>Search User</mat-label>
+                                <input
+                                    type="text"
+                                    matInput
+                                    [formControl]="userControl"
+                                    [matAutocomplete]="auto"
+                                    placeholder="Search users"
+                                />
+                                <mat-autocomplete
+                                    #auto="matAutocomplete"
+                                    (optionSelected)="
+                                        onUserSelect($event.option.value)
+                                    "
+                                >
+                                    <mat-option
+                                        *ngFor="let user of filteredUsers"
+                                        [value]="user"
+                                    >
+                                        {{ user.FullNameAr }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
 
                             <div
                                 class="error text-danger"

@@ -28,7 +28,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialogComponent } from '../../../common/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DynamicButtonComponent } from "../../../shared/components/dynamic-button/dynamic-button.component";
+import { DynamicButtonComponent } from '../../../shared/components/dynamic-button/dynamic-button.component';
 
 interface ISecretaryManage {
     UserAccountManagerId: number;
@@ -48,20 +48,20 @@ interface ISecretaryManage {
     selector: 'app-secretary-manage',
     standalone: true,
     imports: [
-    MatCardModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatTooltipModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    NgIf,
-    CommonModule,
-    DynamicButtonComponent
-],
+        MatCardModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatTooltipModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatAutocompleteModule,
+        ReactiveFormsModule,
+        NgIf,
+        CommonModule,
+        DynamicButtonComponent,
+    ],
     templateUrl: './secretary-manage.component.html',
     styleUrl: './secretary-manage.component.scss',
 })
